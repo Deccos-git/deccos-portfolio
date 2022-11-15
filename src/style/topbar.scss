@@ -1,0 +1,28 @@
+.dropdown-container{
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    padding: 10px 20px 10px 10px;
+
+    .line-div{
+        height: 1px;
+        width: 100%;
+        background-color: lightgrey;
+    }
+
+    .dropdown-icon-container{
+        display: flex;
+        align-items: flex-start;
+        cursor: pointer;
+        align-items: center;
+
+        img{
+            margin-right: 10px;
+            height: 20px;
+            width: 20px;
+        }
+    }
+}

@@ -1,0 +1,23 @@
+.login-register-container{
+    width: 100%;
+    padding: 90px 30px 30px 30px;
+    min-height: 100vh;
+    background-color: #f5fcff;
+}
+
+#register-avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.login-register-detail-container{
+
+    h2{
+        font-size: 20px;
+        color: rgb(48, 45, 45);
+        font-family: 'Poppins', sans-serif;
+    }
+}
