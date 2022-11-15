@@ -5,13 +5,12 @@ import { useContext, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { Auth } from '../../state/Auth';
 import { auth } from '../../firebase/configDeccos';
+import Logo from '../../assets/deccos-finpact-logo.png'
 
 const Login = () => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
   const [user] = useContext(Auth)
-
-  console.log(user)
 
   const navigate = useNavigate()
 
@@ -21,9 +20,16 @@ const Login = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        const auth = userCredential.user;
 
-        navigate(`/dashboard/wall`)
+        if(user){
+          navigate(`/dashboard/wall/${user.Finpact[0]}`)
+        }
+
+        
+      })
+      .then((user) =>{
+        console.log(user)
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -46,7 +52,7 @@ const Login = () => {
 
   const isAuth = () => {
     if(user){
-      navigate(`/dashboard/wall`)
+      navigate(`/dashboard/wall/${user.Finpact[0]}`)
     }
   }
 
@@ -55,7 +61,7 @@ const Login = () => {
   return (
     <div className="layout-container">
       <div id='topbar-landing-container'>
-        <img id='topbar-logo' src='' alt="Logo" onClick={() => navigate(`/`)} />
+        <img id='topbar-logo' src={Logo} alt="Logo" onClick={() => navigate(`/`)} />
       </div>
       <div className='login-register-container'>
           <h1>Login</h1>

@@ -1,4 +1,5 @@
 import { db } from "../firebase/config"
+import { db as deccosdb } from "./configDeccos";
 import { useState, useEffect} from 'react';
 import { collection, query, where, getDocs, orderBy, onSnapshot } from "firebase/firestore"; 
 
@@ -7,8 +8,6 @@ const useFirestoreId = (coll, id) => {
 
     const col = collection(db, coll);
     const q = query(col, where("id", '==', id))
-
-
 
     useEffect(() => {
 
@@ -19,8 +18,6 @@ const useFirestoreId = (coll, id) => {
             querySnapshot.forEach((doc) => {
                 docArray.push({...doc.data(), docid: doc.id});
             });  
-
-            console.log(docArray)
 
             setDocs(docArray)
     
@@ -33,6 +30,34 @@ const useFirestoreId = (coll, id) => {
 
 }
 
+const useFirestoreOrganisations = (id) => {
+    const [docs, setDocs] = useState([])
+
+    const col = collection(deccosdb, 'CompagnyMeta');
+    const q = query(col, where("Investors", 'array-contains', id))
+
+    useEffect(() => {
+
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+
+            const docArray = [];
+
+            querySnapshot.forEach((doc) => {
+                docArray.push({...doc.data(), docid: doc.id});
+            });  
+
+            setDocs(docArray)
+    
+        })
+        return () => unsubscribe()
+
+    },[id])
+
+    return docs
+
+}
+
 export { 
-    useFirestoreId
+    useFirestoreId,
+    useFirestoreOrganisations
 }

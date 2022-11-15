@@ -129,6 +129,22 @@ body {
         text-align: center;
     }
 
+    .card-sdg-banner {
+        width: 100%!important;
+        height: 100px!important;
+        border-radius: 0!important;
+        box-shadow: none!important;
+        object-fit: cover;
+    }
+
+    .organisations-logo {
+        max-width: 80%!important;
+        margin: 20px;
+        border-radius: 0!important;
+        box-shadow: none!important;
+        max-height: 50px;
+    }
+
     .card-button-container{
         margin: auto 30px 30px 30px;
     }

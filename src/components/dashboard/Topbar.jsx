@@ -7,8 +7,9 @@ import Location from "../../helpers/Location"
 import UserIcon from '../../assets/icons/user-icon.png'
 import SettingsIcon from '../../assets/icons/settings-icon.png'
 import SignOutIcon from '../../assets/icons/sign-out-icon.png'
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { useFirestoreId } from "../../firebase/useFirestore";
+import { auth } from "../../firebase/configDeccos";
 
 const TopBar = () => {
   const [user] = useContext(Auth)
@@ -45,7 +46,6 @@ const TopBar = () => {
   }
 
   const logout = () => {
-    const auth = getAuth();
     signOut(auth).then(() => {
       navigate(`/login`) 
     }).catch((error) => {
@@ -58,7 +58,7 @@ const TopBar = () => {
 
   return (
       <div id='topbar-landing-container'>
-        <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/`)} />
+        <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/dashboard/wall/${id}`)} />
         <div className='icon-container'>
           <NavLink to={`/dashboard/search`} activeClassName="selected">
             <img src={SearchIcon} alt="search icon" />
@@ -80,7 +80,7 @@ const TopBar = () => {
             </div>
             <div className='line-div'></div>
             <div className='dropdown-icon-container'>
-                <img src={SignOutIcon} alt="settings-icon" onClick={settingsLink}/>
+                <img src={SignOutIcon} alt="settings-icon" onClick={logout}/>
                 <p onClick={logout}>Uitloggen</p>
             </div>
           </div>
