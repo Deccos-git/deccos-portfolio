@@ -33,14 +33,14 @@ const TopBar = () => {
 
   const profileLink = () => {
 
-    navigate(`profile/${user.ID}`) 
+    navigate(`profile/${id}/${user.ID}`) 
     
     setShowProfileDropdown('none')
   }
 
   const settingsLink = () => {
 
-    navigate(`settings/${user.ID}`) 
+    navigate(`settings/${id}/${user.ID}`) 
     
     setShowProfileDropdown('none')
   }
@@ -60,7 +60,7 @@ const TopBar = () => {
       <div id='topbar-landing-container'>
         <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/dashboard/wall/${id}`)} />
         <div className='icon-container'>
-          <NavLink to={`/dashboard/search`} activeClassName="selected">
+          <NavLink to={`/dashboard/search/${id}`} activeClassName="selected">
             <img src={SearchIcon} alt="search icon" />
           </NavLink>
         </div>

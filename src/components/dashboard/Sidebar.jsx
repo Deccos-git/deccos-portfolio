@@ -9,6 +9,8 @@ import sdgIcon from '../../assets/icons/sdg-icon.png'
 import milestoneIcon from '../../assets/icons/milestone-icon.png'
 import worldIcon from '../../assets/icons/world-icon2.png'
 import sectorIcon from '../../assets/icons/sector-icon.png'
+import balansIcon from '../../assets/icons/balans-icon.png'
+import outputIcon from '../../assets/icons/output-icon.png'
 import Location from "../../helpers/Location"
 
 const Sidebar = () => {
@@ -36,23 +38,32 @@ const Sidebar = () => {
         <h2>Impact</h2>
         <div className='sidebar-link-container'>
           <img src={mkbaIcon} alt="activity icon" />
-          <NavLink to="/dashboard/mkba" activeClassName="selected">MKBA</NavLink>
+          <NavLink to={`/dashboard/mkbas/${id}`} activeClassName="selected">MKBA</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
+          <img src={outputIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <img src={sdgIcon} alt="activity icon" />
-          <NavLink to="/dashboard/sdgs" activeClassName="selected">SDG's</NavLink>
+          <NavLink to={`/dashboard/sdgs/${id}`} activeClassName="selected">SDG's</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <img src={milestoneIcon} alt="activity icon" />
-          <NavLink to="/dashboard/goals" activeClassName="selected">Maatschappelijke doelen</NavLink>
+          <NavLink to={`/dashboard/goals/${id}`} activeClassName="selected">Maatschappelijke doelen</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <img src={sectorIcon} alt="activity icon" />
-          <NavLink to="/dashboard/sectors" activeClassName="selected">Sectors</NavLink>
+          <NavLink to={`/dashboard/sectors/${id}`} activeClassName="selected">Sectoren</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <img src={worldIcon} alt="activity icon" />
-          <NavLink to="/dashboard/local" activeClassName="selected">Lokaal</NavLink>
+          <NavLink to={`/dashboard/local/${id}`} activeClassName="selected">Lokaal</NavLink>
+        </div>
+        <h2>Benchmark</h2>
+        <div className='sidebar-link-container'>
+          <img src={balansIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/benchmark/${id}`} activeClassName="selected">Benchmark</NavLink>
         </div>
       </div>
 

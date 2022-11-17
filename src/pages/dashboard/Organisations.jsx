@@ -1,4 +1,4 @@
-import { useFirestoreOrganisations } from "../../firebase/useFirestore"
+import { useFirestoreOrganisations } from "../../firebase/useFirestoreDeccos"
 import Location from "../../helpers/Location"
 import { useNavigate } from "react-router-dom";
 
@@ -8,8 +8,6 @@ const Organisations = () => {
     const navigate = useNavigate()
 
     const organisations = useFirestoreOrganisations(id) 
-
-    console.log(organisations)
 
   return (
     <div className='page-container'>
@@ -24,7 +22,7 @@ const Organisations = () => {
                 <img className='organisations-logo' src={item.Logo} alt=""/>
                 <h3>{item.CommunityName}</h3>
                 <div className='card-button-container'>
-                    <button onClick={() => navigate(`/dashboard/organisation/${item.CompagnyID}`) }>Bekijk impact</button>
+                    <button onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`) }>Bekijk impact</button>
                 </div>
             </div>
         </div>
