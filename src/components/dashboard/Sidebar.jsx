@@ -11,6 +11,7 @@ import worldIcon from '../../assets/icons/world-icon2.png'
 import sectorIcon from '../../assets/icons/sector-icon.png'
 import balansIcon from '../../assets/icons/balans-icon.png'
 import outputIcon from '../../assets/icons/output-icon.png'
+import pillarIcon from '../../assets/icons/pillar-icon.png'
 import Location from "../../helpers/Location"
 
 const Sidebar = () => {
@@ -25,6 +26,10 @@ const Sidebar = () => {
         <div className='sidebar-link-container'>
           <img src={wallIcon} alt="activity icon" />
           <NavLink to={`/dashboard/wall/${id}`} activeClassName="selected">Mijlpalen</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
+          <img src={pillarIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/pillars/${id}`} activeClassName="selected">Impact pijlers</NavLink>
         </div>
         <h2>Portfolio</h2>
         <div className='sidebar-link-container'>

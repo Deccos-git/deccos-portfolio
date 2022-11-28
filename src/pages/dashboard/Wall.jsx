@@ -8,8 +8,6 @@ const Wall = () => {
 
   const organisations = useFirestoreOrganisations(id) 
 
-  console.log(organisations)
-
   return (
     <div className='page-container'>
         <div className='page-top-container'>
