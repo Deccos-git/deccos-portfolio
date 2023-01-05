@@ -1,4 +1,4 @@
-import { useFirestoreMilstones } from "../../firebase/useFirestoreDeccos"
+import { useFirestoreCompagnyID } from "../../firebase/useFirestoreDeccos"
 import CompagnyInfo from '../../components/Wall/CompagnyInfo'
 import Congrats from "./Congrats";
 import MilestoneTitle from "./MilestoneTitle";
@@ -7,7 +7,7 @@ const Milestones = ({item}) => {
 
     const options = { day: 'numeric', month: 'numeric', year: 'numeric'};
 
-    const milestones = useFirestoreMilstones(item.ID) 
+    const milestones = useFirestoreCompagnyID('Milestones', item.ID) 
 
     const congratsButton = () => {
 

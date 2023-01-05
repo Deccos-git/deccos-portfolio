@@ -1,8 +1,8 @@
-import { useFirestoreCompagny} from "../../firebase/useFirestoreDeccos"
+import { useFirestoreCompagnyID} from "../../firebase/useFirestoreDeccos"
 
 const CompagnyInfo = ({milestone}) => {
 
-    const compagny = useFirestoreCompagny(milestone.CompagnyID)
+    const compagny = useFirestoreCompagnyID('CompagnyMeta', milestone.CompagnyID)
 
     return(
         <>

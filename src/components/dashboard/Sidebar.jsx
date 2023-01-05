@@ -70,6 +70,11 @@ const Sidebar = () => {
           <img src={balansIcon} alt="activity icon" />
           <NavLink to={`/dashboard/benchmark/${id}`} activeClassName="selected">Benchmark</NavLink>
         </div>
+        <h2>Communiceren</h2>
+        <div className='sidebar-link-container'>
+          <img src={balansIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/benchmark/${id}`} activeClassName="selected">Chat</NavLink>
+        </div>
       </div>
 
     </div>

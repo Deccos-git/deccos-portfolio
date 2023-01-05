@@ -268,3 +268,50 @@ body {
     width: 100%;
     background-color: lightgrey;
 }
+
+.inner-page-container{
+    background-color: white;
+    width: 100%;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.table-container{
+    width: 100%;
+    overflow-x: auto;
+    margin: 20px 0px;
+}
+
+table {
+    width: 100%;
+    background-color: #fff;
+
+    th {
+        padding: 10px;
+        text-align: left;
+        background-color: #63cadc;
+        color: #fff;
+        min-width: 150px;
+    }
+
+    td {
+        margin-right: 10px;
+        padding: 5px;
+    }
+
+    input, select, textarea {
+        border: none;
+        background: transparent;
+    }
+}
+
+.table-delete-icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    margin-left: 10px;
+}

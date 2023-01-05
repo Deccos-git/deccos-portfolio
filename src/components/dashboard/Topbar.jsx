@@ -8,7 +8,7 @@ import UserIcon from '../../assets/icons/user-icon.png'
 import SettingsIcon from '../../assets/icons/settings-icon.png'
 import SignOutIcon from '../../assets/icons/sign-out-icon.png'
 import { signOut } from "firebase/auth";
-import { useFirestoreId } from "../../firebase/useFirestore";
+import { useFirestoreCompagny } from "../../firebase/useFirestore";
 import { auth } from "../../firebase/configDeccos";
 
 const TopBar = () => {
@@ -22,7 +22,7 @@ const TopBar = () => {
 
   const id = Location()[3]
 
-  const compagnies = useFirestoreId('compagnies', id) 
+  const compagnies = useFirestoreCompagny('compagnies') 
 
   //Set compagny logo
   useEffect(() => {

@@ -16,7 +16,7 @@ const Organisations = () => {
         </div>
       <div className='card-container'>
         {organisations && organisations.map(item => (
-            <div className='card' key={item.ID}>
+          <div className='card' key={item.ID}>
             <img className='card-sdg-banner' src={item.ImpactBanner} alt="" />
             <div className='sdg-card-meta-container'>
                 <img className='organisations-logo' src={item.Logo} alt=""/>
@@ -25,7 +25,7 @@ const Organisations = () => {
                     <button onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`) }>Bekijk impact</button>
                 </div>
             </div>
-        </div>
+          </div>
         ))}
       </div>
     </div>
