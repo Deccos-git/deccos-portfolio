@@ -4,7 +4,7 @@ import MkbaItemsTotal from "./MkbaItemsTotal"
 const MkbaTotals = ({organisation, total, setTotal}) => {
     const MkbaSets = useFirestoreCompagnyID('SROISets', organisation.ID)
 
-    // console.log(total)
+    console.log(total)
 
     return (
      <div>

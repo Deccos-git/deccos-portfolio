@@ -1,18 +1,19 @@
-import { useFirestoreOrganisations } from "../../firebase/useFirestoreDeccos"
-import Location from "../../helpers/Location"
+import { client } from "../../helpers/Client";
 import { useNavigate } from "react-router-dom";
 import Mkbas from "../../components/mkba/Mkbas";
 import { useEffect, useState } from "react";
 import MkbaTitle from "../../components/mkba/MkbaTitle";
 import MkbaTotals from "../../components/mkba/MkbaTotals";
+import { Orgs } from "../../state/Organisations";
+import { useContext } from "react";
 
 const Mkba = () => {
+  const organisations = useContext(Orgs)
 
-  const [total, setTotal] = useState(0)
-  const id = Location()[3]
+  const [total, setTotal] = useState([])
+
+  const id = client
   const navigate = useNavigate()
-
-  const organisations = useFirestoreOrganisations(id) 
 
   console.log(total)
 
@@ -30,7 +31,7 @@ const Mkba = () => {
                 <th>ORGANISATIE</th>
                 <th>DETAILS</th>
             </tr>
-          {organisations && organisations.map(item => (
+          {organisations && organisations[0].map(item => (
             <tr key={item.ID}>
               <td>
                 <MkbaTitle organisation={item}/>

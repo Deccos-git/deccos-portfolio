@@ -3,12 +3,12 @@ import deleteIcon from '../../assets/icons/delete-icon.png'
 import { db } from "../../firebase/config"
 import { collection, addDoc, serverTimestamp, deleteDoc, doc } from "firebase/firestore"; 
 import uuid from 'react-uuid';
-import Location from "../../helpers/Location"
+import { client } from '../../helpers/Client';
 import { useFirestoreCompagny } from '../../firebase/useFirestore';
 
 const Pillars = () => {
 
-  const id = Location()[3]
+  const id = client
 
   const sdgs = useFirestoreCompagny('sdgs')
 

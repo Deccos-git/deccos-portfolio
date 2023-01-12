@@ -12,12 +12,12 @@ import sectorIcon from '../../assets/icons/sector-icon.png'
 import balansIcon from '../../assets/icons/balans-icon.png'
 import outputIcon from '../../assets/icons/output-icon.png'
 import pillarIcon from '../../assets/icons/pillar-icon.png'
-import Location from "../../helpers/Location"
+import { client } from "../../helpers/Client";
 
 const Sidebar = () => {
   const [auth] = useContext(Auth)
 
-  const id = Location()[3]
+  const id = client
 
   return (
     <div id='sidebar-container'>

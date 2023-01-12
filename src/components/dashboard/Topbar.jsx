@@ -3,7 +3,7 @@ import { Auth } from '../../state/Auth';
 import { useContext, useEffect, useState } from 'react';
 import SearchIcon from '../../assets/icons/search-icon.png'
 import { NavLink } from "react-router-dom"
-import Location from "../../helpers/Location"
+import { client } from "../../helpers/Client";
 import UserIcon from '../../assets/icons/user-icon.png'
 import SettingsIcon from '../../assets/icons/settings-icon.png'
 import SignOutIcon from '../../assets/icons/sign-out-icon.png'
@@ -20,7 +20,7 @@ const TopBar = () => {
 
   const navigate = useNavigate()
 
-  const id = Location()[3]
+  const id = client
 
   const compagnies = useFirestoreCompagny('compagnies') 
 

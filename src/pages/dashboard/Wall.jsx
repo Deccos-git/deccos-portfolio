@@ -1,12 +1,12 @@
-import Location from "../../helpers/Location"
-import { useFirestoreOrganisations} from "../../firebase/useFirestoreDeccos"
+import { client } from "../../helpers/Client"
 import Milestones from "../../components/Wall/Milestones"
+import { Orgs } from "../../state/Organisations";
+import { useContext } from "react";
 
 const Wall = () => {
+  const organisations = useContext(Orgs)
 
-  const id = Location()[3]
-
-  const organisations = useFirestoreOrganisations(id) 
+  const id = client
 
   return (
     <div className='page-container'>
@@ -14,7 +14,7 @@ const Wall = () => {
           <h1>Mijlpalen</h1>
         </div>
       <div className='banner-container'>
-        {organisations && organisations.map(item => (
+        {organisations && organisations[0].map(item => (
           <Milestones item={item}/>
         ))}
       </div>

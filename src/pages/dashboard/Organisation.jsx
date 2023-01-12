@@ -1,8 +1,8 @@
-import Location from "../../helpers/Location"
+import { client } from "../../helpers/Client"
 
 const Organisation = () => {
 
-    const id = Location()[3]
+    const id = client
 
   return (
     <div className='page-container'>

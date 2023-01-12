@@ -7,7 +7,9 @@ const Milestones = ({item}) => {
 
     const options = { day: 'numeric', month: 'numeric', year: 'numeric'};
 
-    const milestones = useFirestoreCompagnyID('Milestones', item.ID) 
+    const milestones = useFirestoreCompagnyID('Wall', item.ID) 
+
+    console.log(milestones)
 
     const congratsButton = () => {
 

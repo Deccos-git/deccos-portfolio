@@ -1,5 +1,5 @@
 import { Routes, Route} from "react-router-dom";
-import Location from "../helpers/Location"
+import { client } from "../helpers/Client";
 import Layout from '../components/dashboard/Layout'
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
@@ -21,8 +21,6 @@ import Benchmark from "../pages/dashboard/Benchmark";
 import Pillars from "../pages/dashboard/Pillars";
 
 const Navigation = () => {
-
-  const client = Location()[1]
 
     return (
       <Routes>

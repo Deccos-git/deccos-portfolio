@@ -56,33 +56,6 @@ const useFirestoreCollection = (coll) => {
 }
 
 
-const useFirestoreOrganisations = (id) => {
-    const [docs, setDocs] = useState([])
-
-    const col = collection(db, 'CompagnyMeta');
-    const q = query(col, where("Investors", 'array-contains', id))
-
-    useEffect(() => {
-
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-
-            const docArray = [];
-
-            querySnapshot.forEach((doc) => {
-                docArray.push({...doc.data(), docid: doc.id});
-            });  
-
-            setDocs(docArray)
-    
-        })
-        return () => unsubscribe()
-
-    },[id])
-
-    return docs
-
-}
-
 const useFirestoreCompagnyID = (collect, id) => {
     const [docs, setDocs] = useState([])
 
@@ -167,7 +140,6 @@ const useFirestoreMkbaTotal = ( id) => {
 export { 
     useFirestoreGeneral,
     useFirestoreCollection,
-    useFirestoreOrganisations,
     useFirestoreCompagnyID,
     useFirestoreParentID,
     useFirestoreMkbaTotal
