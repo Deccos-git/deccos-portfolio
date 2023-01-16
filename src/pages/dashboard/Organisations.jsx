@@ -1,11 +1,11 @@
 import { useFirestoreOrganisations } from "../../firebase/useFirestoreDeccos"
 import { useNavigate } from "react-router-dom";
-import { Orgs } from "../../state/Organisations";
+import { Data } from "../../state/Data";
 import { useContext } from "react";
 import { client } from "../../helpers/Client";
 
 const Organisations = () => {
-  const organisations = useContext(Orgs)
+  const data = useContext(Data)
 
     const navigate = useNavigate()
 
@@ -15,7 +15,7 @@ const Organisations = () => {
           <h1>Organisaties</h1>
         </div>
       <div className='card-container'>
-        {organisations[0] && organisations[0].map(item => (
+        {data[0] && data[0].map(item => (
           <div className='card' key={item.ID}>
             <img className='card-sdg-banner' src={item.ImpactBanner} alt="" />
             <div className='sdg-card-meta-container'>

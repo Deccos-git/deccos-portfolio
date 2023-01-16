@@ -1,7 +1,7 @@
 import { useFirestoreMkbaTotal } from "../../firebase/useFirestoreDeccos"
 
 const MkbaItemsTitle = ({mkbaSet}) => {
-    const mkbaItems = useFirestoreMkbaTotal(mkbaSet.ID)
+    const mkbaItems = useFirestoreMkbaTotal(mkbaSet.ID, 'benefit')
 
   return (
     <div>

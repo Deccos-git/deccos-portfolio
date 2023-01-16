@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { useFirestoreMkbaTotal } from "../../firebase/useFirestoreDeccos"
 
-const MkbaItemsTotal = ({mkbaSet, setTotal, total}) => {
+const MkbaTotalCosts = ({mkbaSet, setTotalCosts, totalCosts}) => {
     const [itemTotal, setItemTotal] = useState(0)
 
-    const mkbaItems = useFirestoreMkbaTotal(mkbaSet.ID)
+    const mkbaItems = useFirestoreMkbaTotal(mkbaSet.ID, 'cost')
 
     const calculateTotalBenefits = () => {
 
@@ -17,6 +17,8 @@ const MkbaItemsTotal = ({mkbaSet, setTotal, total}) => {
       calculateTotalBenefits()
     },[mkbaItems])
 
+    console.log(totalCosts)
+
     console.log(itemTotal)
 
   return (
@@ -28,4 +30,4 @@ const MkbaItemsTotal = ({mkbaSet, setTotal, total}) => {
   )
 }
 
-export default MkbaItemsTotal
+export default MkbaTotalCosts

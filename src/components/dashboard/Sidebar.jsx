@@ -40,22 +40,39 @@ const Sidebar = () => {
           <img src={SearchIcon} alt="activity icon" />
           <NavLink to={`/dashboard/discover/${id}`} activeClassName="selected">Ontdek</NavLink>
         </div>
+        <h2>Voortgang</h2>
+        <div className='sidebar-link-container'>
+          <img src={milestoneIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/goals/${id}`} activeClassName="selected">Voortgang</NavLink>
+        </div>
         <h2>Impact</h2>
         <div className='sidebar-link-container'>
-          <img src={mkbaIcon} alt="activity icon" />
-          <NavLink to={`/dashboard/mkbas/${id}`} activeClassName="selected">MKBA</NavLink>
+          <img src={milestoneIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/goals/${id}`} activeClassName="selected">Maatschappelijke doelen</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
+          <img src={milestoneIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/targetgroups/${id}`} activeClassName="selected">Doelgroepen</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
+          <img src={milestoneIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/activities/${id}`} activeClassName="selected">Activiteiten</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <img src={outputIcon} alt="activity icon" />
           <NavLink to={`/dashboard/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
         </div>
         <div className='sidebar-link-container'>
-          <img src={sdgIcon} alt="activity icon" />
-          <NavLink to={`/dashboard/sdgs/${id}`} activeClassName="selected">SDG's</NavLink>
+          <img src={outputIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
         </div>
         <div className='sidebar-link-container'>
-          <img src={milestoneIcon} alt="activity icon" />
-          <NavLink to={`/dashboard/goals/${id}`} activeClassName="selected">Maatschappelijke doelen</NavLink>
+          <img src={mkbaIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/mkbas/${id}`} activeClassName="selected">MKBA</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
+          <img src={sdgIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/sdgs/${id}`} activeClassName="selected">SDG's</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <img src={sectorIcon} alt="activity icon" />

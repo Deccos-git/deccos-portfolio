@@ -1,21 +1,20 @@
 import { client } from "../../helpers/Client";
 import { useNavigate } from "react-router-dom";
-import Mkbas from "../../components/mkba/Mkbas";
 import { useEffect, useState } from "react";
-import MkbaTitle from "../../components/mkba/MkbaTitle";
-import MkbaTotals from "../../components/mkba/MkbaTotals";
-import { Orgs } from "../../state/Organisations";
+import MkbaTotalBenefits from "../../components/mkba/MkbaTotalBenefits";
+import MkbaTotalCosts from "../../components/mkba/MkbaTotalCosts";
+import MkbaOrganisations from "../../components/mkba/MkbaOrganisations";
+import { Data } from "../../state/Data";
 import { useContext } from "react";
 
 const Mkba = () => {
-  const organisations = useContext(Orgs)
+  const data = useContext(Data)
 
-  const [total, setTotal] = useState([])
+  const [totalBenefits, setTotalBenefits] = useState(0)
+  const [totalCosts, setTotalCosts] = useState(0)
 
   const id = client
   const navigate = useNavigate()
-
-  console.log(total)
 
   return (
     <div className='page-container'>
@@ -23,40 +22,67 @@ const Mkba = () => {
           <h1>MKBAs</h1>
         </div>
       <div className='banner-container'>
-      <div className='table-container'>
-        <table>
-            <tr>
-                <th>TITEL</th>
-                <th>TOTALE BATEN</th>
-                <th>ORGANISATIE</th>
-                <th>DETAILS</th>
+        <div className='table-container'>
+          <table>
+              <tr>
+                  <th>TITEL</th>
+                  <th>TOTALE BATEN</th>
+                  <th>TOTALE KOSTEN</th>
+                  <th>W/V</th>
+                  <th>SROI</th>
+                  <th>ORGANISATIE</th>
+                  <th>DETAILS</th>
+              </tr>
+            {data && data[3].map(item => (
+              <tr key={item.ID}>
+                <td>
+                  <p>{item.Title}</p>
+                </td>
+                <td>
+                  <MkbaTotalBenefits key={item.ID} mkbaSet={item} setTotal={setTotalBenefits} total={totalBenefits}/>
+                </td>
+                <td>
+                  <MkbaTotalCosts key={item.ID} mkbaSet={item} setTotal={setTotalCosts} total={totalCosts}/>
+                </td>
+                <td>
+                  {/* <MkbaItemsTotal key={item.ID} mkbaSet={item} setTotal={setTotal} total={total}/> */}
+                </td>
+                <td>
+                  {/* <MkbaItemsTotal key={item.ID} mkbaSet={item} setTotal={setTotal} total={total}/> */}
+                </td>
+                <td>
+                  <MkbaOrganisations mkbaSet={item}/>
+                  <p className='cursor' onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`) }>{item.CommunityName}</p>
+                </td>
+                <td>
+                  <p className='cursor'>Bekijk</p>
+                </td>
+              </tr>
+            ))}
+            <tr className='total-row'>
+              <td>
+                  <p>Totaal</p>
+              </td>
+              <td>{totalBenefits}</td>
+              <td>{totalCosts}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
-          {organisations && organisations[0].map(item => (
-            <tr key={item.ID}>
+            <tr className='total-row'>
               <td>
-                <MkbaTitle organisation={item}/>
+                  <p>Claimbare kosten/baten</p>
               </td>
-              <td>
-                <MkbaTotals organisation={item} setTotal={setTotal} total={total}/>
-              </td>
-              <td>
-                <p className='cursor' onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`) }>{item.CommunityName}</p>
-              </td>
-              <td>
-                <p className='cursor'>Bekijk</p>
-              </td>
+              <td>{totalBenefits}</td>
+              <td>{totalCosts}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
-          ))}
-          <tr className='total-row'>
-            <td>
-                <p>Totaal</p>
-            </td>
-            <td>{total}</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-    </div>
+          </table>
+        </div>
       </div>
     </div>
   )

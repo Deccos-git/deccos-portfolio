@@ -19,6 +19,7 @@ import Settings from "../pages/auth/Settings";
 import Outputs from "../pages/dashboard/Outputs";
 import Benchmark from "../pages/dashboard/Benchmark";
 import Pillars from "../pages/dashboard/Pillars";
+import Targetgroups from "../pages/dashboard/Targetgroups";
 
 const Navigation = () => {
 
@@ -38,6 +39,7 @@ const Navigation = () => {
             <Route exact path={`/dashboard/profile/:id/:id`} element={<Profile/>}/>
             <Route exact path={`/dashboard/settings/:id/:id`} element={<Settings/>}/>
             <Route exact path={`/dashboard/outputs/:id`} element={<Outputs/>}/>
+            <Route exact path={`/dashboard/targetgroups/:id`} element={<Targetgroups/>}/>
             <Route exact path={`/dashboard/benchmark/:id`} element={<Benchmark/>}/>
             <Route exact path={`/dashboard/pillars/:id`} element={<Pillars/>}/>
           </Route>

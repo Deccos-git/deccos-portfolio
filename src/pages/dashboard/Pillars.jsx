@@ -67,6 +67,13 @@ const Pillars = () => {
           </div>
           <div className='pillar-container'>
             <div className='pillar-title-container'>
+              <h2>Doelgroepen</h2>
+              <img className='add-pillar-button' src={plusIcon} alt="" />
+            </div>
+            <div></div>
+          </div>
+          <div className='pillar-container'>
+            <div className='pillar-title-container'>
               <h2>Sectoren</h2>
               <img className='add-pillar-button' src={plusIcon} alt="" />
             </div>

@@ -1,16 +1,16 @@
 import { BrowserRouter } from 'react-router-dom';
 import Navigation from './nav/Navigation';
 import { AuthProvider } from './state/Auth';
-import { OrganisationsProvider } from './state/Organisations';
+import { DataProvider } from './state/Data';
 
 function App() {
   return (
     <AuthProvider>
-      <OrganisationsProvider>
+      <DataProvider>
         <BrowserRouter key='router'>
           <Navigation/>
         </BrowserRouter>
-      </OrganisationsProvider>
+      </DataProvider>
     </AuthProvider>
   );
 }

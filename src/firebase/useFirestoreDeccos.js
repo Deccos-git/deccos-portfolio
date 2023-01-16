@@ -110,11 +110,65 @@ const useFirestoreParentID = (collect, parentid) => {
 
 }
 
-const useFirestoreMkbaTotal = ( id) => {
+const useFirestoreMkbaTotal = ( id, type) => {
     const [docs, setDocs] = useState([])
 
     const col = collection(db, 'SROIs');
-    const q = query(col, where('SROISet', '==', id), where('Type', '==', 'benefit'))
+    const q = query(col, where('SROISet', '==', id), where('Type', '==', type))
+
+    useEffect(() => {
+
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+
+            const docArray = [];
+
+            querySnapshot.forEach((doc) => {
+                docArray.push({...doc.data(), docid: doc.id});
+            });  
+
+            setDocs(docArray)
+    
+        })
+        return () => unsubscribe()
+
+    },[id, type])
+
+    return docs
+
+}
+
+const useFirestoreResults = (id) => {
+    const [docs, setDocs] = useState([])
+
+    const col = collection(db, 'Results');
+    const q = query(col, where('OutputID', '==', id), orderBy("Timestamp", "asc"))
+
+    useEffect(() => {
+
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+
+            const docArray = [];
+
+            querySnapshot.forEach((doc) => {
+                docArray.push({...doc.data(), docid: doc.id});
+            });  
+
+            setDocs(docArray)
+    
+        })
+        return () => unsubscribe()
+
+    },[id])
+
+    return docs
+
+}
+
+const useFirestoreEffects = (id) => {
+    const [docs, setDocs] = useState([])
+
+    const col = collection(db, 'OutputEffects');
+    const q = query(col, where('CompagnyID', '==', id), where('Parent', '==', ''))
 
     useEffect(() => {
 
@@ -142,5 +196,7 @@ export {
     useFirestoreCollection,
     useFirestoreCompagnyID,
     useFirestoreParentID,
-    useFirestoreMkbaTotal
+    useFirestoreMkbaTotal,
+    useFirestoreResults,
+    useFirestoreEffects
 }

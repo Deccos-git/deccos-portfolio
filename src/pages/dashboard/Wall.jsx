@@ -1,10 +1,10 @@
 import { client } from "../../helpers/Client"
 import Milestones from "../../components/Wall/Milestones"
-import { Orgs } from "../../state/Organisations";
+import { Data } from "../../state/Data";
 import { useContext } from "react";
 
 const Wall = () => {
-  const organisations = useContext(Orgs)
+  const data = useContext(Data)
 
   const id = client
 
@@ -14,7 +14,7 @@ const Wall = () => {
           <h1>Mijlpalen</h1>
         </div>
       <div className='banner-container'>
-        {organisations && organisations[0].map(item => (
+        {data[0] && data[0].map(item => (
           <Milestones item={item}/>
         ))}
       </div>

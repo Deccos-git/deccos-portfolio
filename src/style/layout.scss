@@ -300,7 +300,9 @@ table {
 
     td {
         margin-right: 10px;
-        padding: 5px;
+        padding: 10px;
+        border: 1px solid lightgray;
+        min-width: 300px;
     }
 
     input, select, textarea {
@@ -314,4 +316,29 @@ table {
     height: 25px;
     cursor: pointer;
     margin-left: 10px;
+}
+
+.recharts-text {
+    font-size: 15px;
+}
+
+.milestone-progress-container {
+    margin: 20px 0 0 30px;
+}
+
+.percentage-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.progressbar-outer-bar {
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.progressbar-progress {
+    padding: 5px;
 }
