@@ -8,43 +8,18 @@ export const Data = createContext()
 export const DataProvider = (props) => {
 
     const [organisations, setOrganisations] = useState([])
-    const [financiers, setFinanciers] = useState([])
     const [outputs, setOutputs] = useState([])
     const [targetgroups, setTargetgroups] = useState([])
     const [mkbaSets, setMkbaSets] = useState([])
 
-    // Organisations that have client as financier
-    useEffect(() => {
-
-        const userQuery = async () => {
-
-            const col = collection(db, 'Financiers');
-            const q = query(col, where('FinancierID', '==', client));
-            const snapshot = await getDocs(q);
-
-            const array = []
-
-            snapshot.docs.forEach(doc => 
-                array.push({...doc.data(), docid: doc.id})
-            );
-
-            setFinanciers(array)
-
-        }
-
-        userQuery()
-        
-    },[client])
-
-    // Organisations meta
     useEffect(() => {
 
         const array = []
 
-        const userQuery = async (id) => {
+        const userQuery = async () => {
 
             const col = collection(db, 'CompagnyMeta');
-            const q = query(col, where('CompagnyID', '==', id));
+            const q = query(col, where('Parent', 'array-contains', client));
             const snapshot = await getDocs(q);
 
             snapshot.docs.forEach(doc => 
@@ -55,11 +30,9 @@ export const DataProvider = (props) => {
 
         }
 
-        financiers && financiers.forEach(item => {
-            userQuery(item.CompagnyID)
-        })
+        userQuery()
 
-    },[financiers])
+    },[client])
 
     // Outputs
     useEffect(() => {
@@ -115,7 +88,7 @@ export const DataProvider = (props) => {
     // MKBA-sets
     useEffect(() => {
 
-        const mkbasetsArray = []
+        const array = []
 
         const userQuery = async (id) => {
 
@@ -124,10 +97,10 @@ export const DataProvider = (props) => {
             const snapshot = await getDocs(q);
 
             snapshot.docs.forEach(doc => 
-                mkbasetsArray.push({...doc.data(), docid: doc.id})
+                array.push({...doc.data(), docid: doc.id})
             );
 
-            setMkbaSets(mkbasetsArray)
+            setMkbaSets(array)
 
         }
 
@@ -136,7 +109,6 @@ export const DataProvider = (props) => {
         })
 
     },[organisations])
-    
 
     return(
         <Data.Provider value={[organisations, outputs, targetgroups, mkbaSets]}>

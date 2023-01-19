@@ -23,6 +23,7 @@ const NewClient = () => {
         saveFile(e.target.files, setBanner)
     }
 
+
     // Don't forget to change the firestore rules if you change anything in createClient
     const createClient = async (e) => {
 
@@ -32,7 +33,7 @@ const NewClient = () => {
             compagny: name,
             logo: banner,
             id: id,
-            Timestamp: serverTimestamp()
+            timestamp: serverTimestamp(),
         })
         
         await setDoc(doc(db, "admins", uuid()), {
@@ -54,7 +55,7 @@ const NewClient = () => {
 
     return (
         <div>
-            <div className="new-client-container">
+            <div className='page-container'>
                 <div className="card-header">
                     <h1 id='title-new-client'>Creëer een Deccos bedrijfsaccount</h1>
                 </div>

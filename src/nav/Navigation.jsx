@@ -1,6 +1,7 @@
 import { Routes, Route} from "react-router-dom";
 import { client } from "../helpers/Client";
 import Layout from '../components/dashboard/Layout'
+import LayoutProfile from "../components/profile/LayoutProfile";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import Wall from "../pages/dashboard/Wall";
@@ -15,11 +16,12 @@ import Sectors from "../pages/dashboard/Sectors";
 import Goals from "../pages/dashboard/Goals";
 import Search from "../pages/dashboard/Search";
 import Profile from "../pages/auth/Profile";
-import Settings from "../pages/auth/Settings";
 import Outputs from "../pages/dashboard/Outputs";
 import Benchmark from "../pages/dashboard/Benchmark";
 import Pillars from "../pages/dashboard/Pillars";
 import Targetgroups from "../pages/dashboard/Targetgroups";
+import Newproject from "../pages/admin/Newproject";
+import Settings from "../pages/admin/Settings";
 
 const Navigation = () => {
 
@@ -36,7 +38,6 @@ const Navigation = () => {
             <Route exact path={`/dashboard/sectors/:id`} element={<Sectors/>}/>
             <Route exact path={`/dashboard/goals/:id`} element={<Goals/>}/>
             <Route exact path={`/dashboard/search/:id`} element={<Search/>}/>
-            <Route exact path={`/dashboard/profile/:id/:id`} element={<Profile/>}/>
             <Route exact path={`/dashboard/settings/:id/:id`} element={<Settings/>}/>
             <Route exact path={`/dashboard/outputs/:id`} element={<Outputs/>}/>
             <Route exact path={`/dashboard/targetgroups/:id`} element={<Targetgroups/>}/>
@@ -48,6 +49,11 @@ const Navigation = () => {
               <Route exact path={`/login`} element={<Login/>}/>
               <Route exact path={`/register`} element={<Register/>}/>
               <Route exact path={`/newclient`} element={<NewClient/>}/>
+          </Route>
+          <Route path={`/profile`} element={<LayoutProfile/>}>
+            <Route exact path={`/profile/profile/:id/:id`} element={<Profile/>}/>
+            <Route exact path={`/profile/newproject/:id`} element={<Newproject/>}/>
+            <Route exact path={`/profile/settings/:id`} element={<Settings/>}/>
           </Route>
       </Routes>
     )

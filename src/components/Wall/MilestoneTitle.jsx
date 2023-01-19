@@ -2,8 +2,6 @@ import MilestoneMeta from "./MilestoneMeta"
 
 const MilestoneTitle = ({milestone}) => {
 
-    console.log(milestone)
-
     if(milestone.Type === 'goal-set'){
         return (
             <>

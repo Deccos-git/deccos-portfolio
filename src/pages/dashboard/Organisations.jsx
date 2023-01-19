@@ -1,8 +1,8 @@
-import { useFirestoreOrganisations } from "../../firebase/useFirestoreDeccos"
 import { useNavigate } from "react-router-dom";
 import { Data } from "../../state/Data";
 import { useContext } from "react";
-import { client } from "../../helpers/Client";
+import ImpactSoftwareLink from "../../components/organisations/ImpactSoftwareLink";
+import Goals from "../../components/organisations/Goals";
 
 const Organisations = () => {
   const data = useContext(Data)
@@ -14,20 +14,36 @@ const Organisations = () => {
         <div className='page-top-container'>
           <h1>Organisaties</h1>
         </div>
-      <div className='card-container'>
-        {data[0] && data[0].map(item => (
-          <div className='card' key={item.ID}>
-            <img className='card-sdg-banner' src={item.ImpactBanner} alt="" />
-            <div className='sdg-card-meta-container'>
-                <img className='organisations-logo' src={item.Logo} alt=""/>
-                <h3>{item.CommunityName}</h3>
-                <div className='card-button-container'>
-                    <button onClick={() => navigate(`/dashboard/organisation/${client}/${item.CompagnyID}`) }>Bekijk impact</button>
-                </div>
-            </div>
-          </div>
-        ))}
-      </div>
+        <div className='table-container'>
+          <table>
+            <tr>
+                <th>LOGO</th>
+                <th>ORGANISATIE</th>
+                <th>DOELEN</th>
+                <th>IMPACT DASHBOARD</th>
+                <th>BEKIJK</th>
+            </tr>
+            {data[0] && data[0].map(item => (
+                <tr key={item.ID} >
+                  <td>
+                      <img className='organisations-overview-logo' src={item.Logo} alt="" />
+                  </td>
+                  <td>
+                      <p>{item.CommunityName}</p>  
+                  </td>
+                  <td>
+                    <Goals organisation={item}/>
+                  </td>
+                  <td>
+                    <p>Bekijk</p>
+                  </td>
+                  <td>
+                    <ImpactSoftwareLink compagny={item}/>
+                  </td>
+              </tr>
+            ))} 
+          </table>
+        </div>
     </div>
   )
 }

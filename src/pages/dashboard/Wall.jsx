@@ -15,7 +15,7 @@ const Wall = () => {
         </div>
       <div className='banner-container'>
         {data[0] && data[0].map(item => (
-          <Milestones item={item}/>
+          <Milestones key={item.ID} item={item}/>
         ))}
       </div>
     </div>
