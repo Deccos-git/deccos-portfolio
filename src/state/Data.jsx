@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { db } from '../firebase/configDeccos'
 import { collection, query, where, getDocs} from "firebase/firestore"; 
-import { client } from "../helpers/Client";
+import Location from "../helpers/Location";
 
 export const Data = createContext()
 
@@ -11,6 +11,8 @@ export const DataProvider = (props) => {
     const [outputs, setOutputs] = useState([])
     const [targetgroups, setTargetgroups] = useState([])
     const [mkbaSets, setMkbaSets] = useState([])
+
+    const client = Location()[3]
 
     useEffect(() => {
 

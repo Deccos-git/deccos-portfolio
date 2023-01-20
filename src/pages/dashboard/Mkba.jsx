@@ -1,4 +1,4 @@
-import { client } from "../../helpers/Client";
+import Location from "../../helpers/Location";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MkbaTotalBenefits from "../../components/mkba/MkbaTotalBenefits";
@@ -13,7 +13,7 @@ const Mkba = () => {
   const [totalBenefits, setTotalBenefits] = useState(0)
   const [totalCosts, setTotalCosts] = useState(0)
 
-  const id = client
+  const id = Location()[3]
   const navigate = useNavigate()
 
   return (

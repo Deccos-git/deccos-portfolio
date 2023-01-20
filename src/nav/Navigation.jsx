@@ -1,11 +1,11 @@
 import { Routes, Route} from "react-router-dom";
-import { client } from "../helpers/Client";
+
+// Layout
 import Layout from '../components/dashboard/Layout'
 import LayoutProfile from "../components/profile/LayoutProfile";
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
+
+// Dashboard
 import Wall from "../pages/dashboard/Wall";
-import NewClient from "../pages/admin/Newclient";
 import Organisations from "../pages/dashboard/Organisations";
 import Organisation from "../pages/dashboard/Organisation";
 import Discover from "../pages/dashboard/Discover";
@@ -15,13 +15,27 @@ import Sdgs from "../pages/dashboard/Sdgs";
 import Sectors from "../pages/dashboard/Sectors";
 import Goals from "../pages/dashboard/Goals";
 import Search from "../pages/dashboard/Search";
-import Profile from "../pages/auth/Profile";
 import Outputs from "../pages/dashboard/Outputs";
 import Benchmark from "../pages/dashboard/Benchmark";
 import Pillars from "../pages/dashboard/Pillars";
 import Targetgroups from "../pages/dashboard/Targetgroups";
+import Progress from "../pages/dashboard/Progress";
+import Activities from "../pages/dashboard/Activities";
+import Effects from "../pages/dashboard/Effects";
+import Chat from "../pages/dashboard/Chat";
+import TheoryOfChange from "../pages/dashboard/TheoryOfChange";
+
+// Auth
+import Profile from "../pages/auth/Profile";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+
+// Admin
 import Newproject from "../pages/admin/Newproject";
 import Settings from "../pages/admin/Settings";
+import Team from "../pages/admin/Team";
+import Userroles from "../pages/admin/Userroles";
+import NewClient from "../pages/admin/Newclient";
 
 const Navigation = () => {
 
@@ -43,6 +57,11 @@ const Navigation = () => {
             <Route exact path={`/dashboard/targetgroups/:id`} element={<Targetgroups/>}/>
             <Route exact path={`/dashboard/benchmark/:id`} element={<Benchmark/>}/>
             <Route exact path={`/dashboard/pillars/:id`} element={<Pillars/>}/>
+            <Route exact path={`/dashboard/progress/:id`} element={<Progress/>}/>
+            <Route exact path={`/dashboard/activities/:id`} element={<Activities/>}/>
+            <Route exact path={`/dashboard/effects/:id`} element={<Effects/>}/>
+            <Route exact path={`/dashboard/chat/:id`} element={<Chat/>}/>
+            <Route exact path={`/dashboard/theoryofchange/:id`} element={<TheoryOfChange/>}/>
           </Route>
           <Route path={`/`} >
               <Route exact path={`/`} element={<Login/>}/>
@@ -54,6 +73,8 @@ const Navigation = () => {
             <Route exact path={`/profile/profile/:id/:id`} element={<Profile/>}/>
             <Route exact path={`/profile/newproject/:id`} element={<Newproject/>}/>
             <Route exact path={`/profile/settings/:id`} element={<Settings/>}/>
+             <Route exact path={`/profile/team/:id`} element={<Team/>}/>
+              <Route exact path={`/profile/userroles/:id`} element={<Userroles/>}/>
           </Route>
       </Routes>
     )

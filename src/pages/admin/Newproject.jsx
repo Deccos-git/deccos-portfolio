@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { doc, setDoc, serverTimestamp, arrayUnion, updateDoc } from "firebase/firestore"; 
 import { db } from '../../firebase/configDeccos'
 import saveFile from '../../components/core/savefile';
-import { client } from "../../helpers/Client"
+import Location from "../../helpers/Location";
 
 const Newproject = () => {
     const [user] = useContext(Auth)
@@ -16,6 +16,7 @@ const Newproject = () => {
     const [impactManager, setImpactManager] = useState('')
 
     const navigate = useNavigate()
+    const client = Location()[3]
 
     const logoHandler = (e) => {
         saveFile(e.target.files, setLogo)

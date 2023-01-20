@@ -1,13 +1,15 @@
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
-import { client } from "../../helpers/Client";
+import Location from "../../helpers/Location";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const CompagnyCard = ({compagny}) => {
     const [isCurrent, setIsCurrent] = useState(false)
 
+    const id = Location()[3]
+
     useEffect(() => {
-        if(client === compagny){
+        if(id === compagny){
             setIsCurrent(true)
         }
     },[compagny])

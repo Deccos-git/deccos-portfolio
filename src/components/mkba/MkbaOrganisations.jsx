@@ -1,8 +1,10 @@
 import { useFirestoreGeneral } from "../../firebase/useFirestoreDeccos"
-import { client } from "../../helpers/Client";
+import Location from "../../helpers/Location";
 import { useNavigate } from "react-router-dom";
 
 const MkbaOrganisations = ({mkbaSet}) => {
+
+    const id = Location()[3]
 
     const navigate = useNavigate()
 
@@ -10,7 +12,7 @@ const MkbaOrganisations = ({mkbaSet}) => {
   return (
     <>
         {organisations && organisations.map(item => (
-            <p className='cursor' onClick={() => navigate(`/dashboard/organisation/${client}/${item.CompagnyID}`) } key={item.ID}>{item.CommunityName}</p>
+            <p className='cursor' onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`) } key={item.ID}>{item.CommunityName}</p>
         ))}
     </>
   )

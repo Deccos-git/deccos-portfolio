@@ -6,7 +6,7 @@ import HomeIcon from '@mui/icons-material/HomeOutlined';
 import PlusIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
-import { client } from "../../helpers/Client";
+import Location from "../../helpers/Location";
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
 
 const SidebarProfile = () => {
@@ -14,17 +14,18 @@ const SidebarProfile = () => {
 
   const [admin, setAdmin] = useState(false) 
 
-  const id = client
+  const id = Location()[3]
 
-  const admins = useFirestoreGeneral('admins', 'compagnyID', client)
+  const admins = useFirestoreGeneral('admins', 'compagnyID', id)
 
   useEffect(() => {
     admins && admins.forEach(item => {
+      console.log(item.userId, auth.ID)
       if(item.userId === auth.ID){
         setAdmin(true)
       }
     })
-  },admins)
+  },[admins])
 
   return (
     <div id='sidebar-container'>
@@ -35,6 +36,13 @@ const SidebarProfile = () => {
           <NavLink to={`/dashboard/wall/${id}`} activeClassName="selected">Home</NavLink>
         </div>
       </div>
+      <div className='sidebar-inner-container'>
+        <h2>Profiel</h2>
+        <div className='sidebar-link-container'>
+          <HomeIcon className='menu-icon'/>
+          <NavLink to={`/profile/profile/${id}/${auth.ID}`} activeClassName="selected">Profiel</NavLink>
+        </div>
+      </div>
       <div className='sidebar-inner-container' style={{display: admin ? 'block' : 'none'}}>
         <h2>Admin</h2>
         <div className='sidebar-link-container'>
@@ -43,11 +51,11 @@ const SidebarProfile = () => {
         </div>
         <div className='sidebar-link-container'>
           <Groups2OutlinedIcon className='menu-icon'/>
-          <NavLink to={`/profile/newproject/${id}`} activeClassName="selected">Gebruikersrollen</NavLink>
+          <NavLink to={`/profile/userroles/${id}`} activeClassName="selected">Gebruikersrollen</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <GroupAddOutlinedIcon className='menu-icon'/>
-          <NavLink to={`/profile/newproject/${id}`} activeClassName="selected">Team</NavLink>
+          <NavLink to={`/profile/team/${id}`} activeClassName="selected">Team</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <GroupAddOutlinedIcon className='menu-icon'/>

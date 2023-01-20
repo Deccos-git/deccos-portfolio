@@ -12,17 +12,18 @@ import sectorIcon from '../../assets/icons/sector-icon.png'
 import balansIcon from '../../assets/icons/balans-icon.png'
 import outputIcon from '../../assets/icons/output-icon.png'
 import pillarIcon from '../../assets/icons/pillar-icon.png'
-import { client } from "../../helpers/Client";
+import Location from "../../helpers/Location";
 import RotateRightOutlinedIcon from '@mui/icons-material/RotateRightOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
+import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
 
 const Sidebar = () => {
   const [auth] = useContext(Auth)
 
-  const id = client
+  const id = Location()[3]
 
   return (
     <div id='sidebar-container'>
@@ -33,13 +34,18 @@ const Sidebar = () => {
           <NavLink to={`/dashboard/wall/${id}`} activeClassName="selected">Mijlpalen</NavLink>
         </div>
         <div className='sidebar-link-container'>
-          <img src={pillarIcon} alt="activity icon" />
-          <NavLink to={`/dashboard/pillars/${id}`} activeClassName="selected">Impact pijlers</NavLink>
+          <TrendingUpOutlinedIcon className='menu-icon'/>
+          <NavLink to={`/dashboard/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
+          <p className='comming-soon'>Comming soon</p>
         </div>
         <h2>Portfolio</h2>
         <div className='sidebar-link-container'>
           <img src={organisationIcon} alt="activity icon" />
           <NavLink to={`/dashboard/organisations/${id}`} activeClassName="selected">Organisaties</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
+          <img src={pillarIcon} alt="activity icon" />
+          <NavLink to={`/dashboard/pillars/${id}`} activeClassName="selected">Impact pijlers</NavLink>
         </div>
         {/* <div className='sidebar-link-container'>
           <img src={SearchIcon} alt="activity icon" />
@@ -48,7 +54,7 @@ const Sidebar = () => {
         <h2>Voortgang</h2>
         <div className='sidebar-link-container'>
           <RotateRightOutlinedIcon className='menu-icon'/>
-          <NavLink to={`/dashboard/goals/${id}`} activeClassName="selected">Voortgang</NavLink>
+          <NavLink to={`/dashboard/progress/${id}`} activeClassName="selected">Voortgang</NavLink>
           <p className='comming-soon'>Comming soon</p>
         </div>
         <h2>Impact</h2>
@@ -103,7 +109,7 @@ const Sidebar = () => {
         <h2>Communiceren</h2>
         <div className='sidebar-link-container'>
           <TextsmsOutlinedIcon className='menu-icon'/>
-          <NavLink to={`/dashboard/benchmark/${id}`} activeClassName="selected">Chat</NavLink>
+          <NavLink to={`/dashboard/chat/${id}`} activeClassName="selected">Chat</NavLink>
           <p className='comming-soon'>Comming soon</p>
         </div>
       </div>

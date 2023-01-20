@@ -1,11 +1,11 @@
 import { useFirestoreCollection } from "../../firebase/useFirestoreDeccos"
 import { useNavigate } from "react-router-dom";
-import { client } from "../../helpers/Client";
+import Location from "../../helpers/Location";
 
 const Discover = () => {
 
   const navigate = useNavigate()
-  const id = client
+  const id = Location()[3]
 
   const organisations = useFirestoreCollection('CompagnyMeta')
 

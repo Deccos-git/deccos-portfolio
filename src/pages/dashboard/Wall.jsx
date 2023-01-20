@@ -1,12 +1,9 @@
-import { client } from "../../helpers/Client"
 import Milestones from "../../components/Wall/Milestones"
 import { Data } from "../../state/Data";
 import { useContext } from "react";
 
 const Wall = () => {
   const data = useContext(Data)
-
-  const id = client
 
   return (
     <div className='page-container'>

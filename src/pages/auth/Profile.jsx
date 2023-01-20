@@ -1,8 +1,10 @@
-import { user } from '../../helpers/Client'
+import Location from "../../helpers/Location";
 import { useFirestoreGeneral } from '../../firebase/useFirestoreDeccos'
 import UserCompagnies from '../../components/profile/UserCompagnies'
 
 const Profile = () => {
+
+  const user = Location()[4]
 
   const users = useFirestoreGeneral('Users', 'ID', user)
 

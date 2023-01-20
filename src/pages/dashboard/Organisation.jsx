@@ -1,11 +1,10 @@
 import { useFirestoreGeneral } from "../../firebase/useFirestoreDeccos"
-import { client, user } from "../../helpers/Client"
+import Location from "../../helpers/Location";
 import ImpactSoftwareLink from "../../components/organisations/ImpactSoftwareLink"
 
 const Organisation = () => {
 
-    const id = client
-    const compagnyId = user
+    const compagnyId = Location()[3]
 
     const compagnies = useFirestoreGeneral('CompagnyMeta', 'CompagnyID', compagnyId ? compagnyId : '')
 

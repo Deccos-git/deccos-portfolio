@@ -2,7 +2,7 @@ import { db } from "../firebase/config"
 import { db as deccosdb } from "./configDeccos";
 import { useState, useEffect} from 'react';
 import { collection, query, where, getDocs, orderBy, onSnapshot } from "firebase/firestore"; 
-import { client } from "../helpers/Client";
+import Location from "../helpers/Location";
 
 const useFirestoreGeneral = (coll, field, id) => {
     const [docs, setDocs] = useState([])
@@ -34,6 +34,8 @@ const useFirestoreGeneral = (coll, field, id) => {
 const useFirestoreId = (coll, id) => {
     const [docs, setDocs] = useState([])
 
+    const client = Location()[3]
+
     const col = collection(db, coll);
     const q = query(col, where('compagny', '==', client), where("id", '==', id))
 
@@ -60,6 +62,8 @@ const useFirestoreId = (coll, id) => {
 
 const useFirestoreCompagny = (coll) => {
     const [docs, setDocs] = useState([])
+
+    const client = Location()[3]
 
     const col = collection(db, coll);
     const q = query(col, where('id', '==', client))

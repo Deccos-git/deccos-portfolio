@@ -5,13 +5,13 @@ import { DataProvider } from './state/Data';
 
 function App() {
   return (
-    <AuthProvider>
+    <BrowserRouter key='router'>
       <DataProvider>
-        <BrowserRouter key='router'>
+        <AuthProvider>
           <Navigation/>
-        </BrowserRouter>
+        </AuthProvider>
       </DataProvider>
-    </AuthProvider>
+    </BrowserRouter>
   );
 }
 
