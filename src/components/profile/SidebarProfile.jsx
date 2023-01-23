@@ -6,6 +6,8 @@ import HomeIcon from '@mui/icons-material/HomeOutlined';
 import PlusIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Location from "../../helpers/Location";
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
 
@@ -20,7 +22,6 @@ const SidebarProfile = () => {
 
   useEffect(() => {
     admins && admins.forEach(item => {
-      console.log(item.userId, auth.ID)
       if(item.userId === auth.ID){
         setAdmin(true)
       }
@@ -39,7 +40,7 @@ const SidebarProfile = () => {
       <div className='sidebar-inner-container'>
         <h2>Profiel</h2>
         <div className='sidebar-link-container'>
-          <HomeIcon className='menu-icon'/>
+          <AccountCircleOutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/profile/${id}/${auth.ID}`} activeClassName="selected">Profiel</NavLink>
         </div>
       </div>
@@ -50,15 +51,15 @@ const SidebarProfile = () => {
           <NavLink to={`/profile/newproject/${id}`} activeClassName="selected">Nieuw project</NavLink>
         </div>
         <div className='sidebar-link-container'>
-          <Groups2OutlinedIcon className='menu-icon'/>
+          <GroupAddOutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/userroles/${id}`} activeClassName="selected">Gebruikersrollen</NavLink>
         </div>
         <div className='sidebar-link-container'>
-          <GroupAddOutlinedIcon className='menu-icon'/>
+          <Groups2OutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/team/${id}`} activeClassName="selected">Team</NavLink>
         </div>
         <div className='sidebar-link-container'>
-          <GroupAddOutlinedIcon className='menu-icon'/>
+          <SettingsOutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/settings/${id}`} activeClassName="selected">Instellingen</NavLink>
         </div>
       </div>

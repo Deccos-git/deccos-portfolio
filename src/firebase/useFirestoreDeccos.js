@@ -29,6 +29,33 @@ const useFirestoreGeneral = (coll, key, id) => {
 
 }
 
+const useFirestoreArrayContains = (coll, key, id) => {
+    const [docs, setDocs] = useState([])
+
+    const col = collection(db, coll);
+    const q = query(col, where(key, 'array-contains', id))
+
+    useEffect(() => {
+
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+
+            const docArray = [];
+
+            querySnapshot.forEach((doc) => {
+                docArray.push({...doc.data(), docid: doc.id});
+            });  
+
+            setDocs(docArray)
+    
+        })
+        return () => unsubscribe()
+
+    },[coll, key, id])
+
+    return docs
+
+}
+
 const useFirestoreCollection = (coll) => {
     const [docs, setDocs] = useState([])
 
@@ -193,6 +220,7 @@ const useFirestoreEffects = (id) => {
 
 export { 
     useFirestoreGeneral,
+    useFirestoreArrayContains,
     useFirestoreCollection,
     useFirestoreCompagnyID,
     useFirestoreParentID,
