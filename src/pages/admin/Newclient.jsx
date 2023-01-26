@@ -44,6 +44,12 @@ const NewClient = () => {
             userId: '6a8bf-08c3-a1ad-d04d-231ebe51dc60',
         })
 
+        await setDoc(doc(db, "settings", uuid()), {
+            compagnyID: id,
+            id: uuid(),
+            compagnyProject: 'project'
+        })
+
         await updateDoc(doc(deccosdb, "Users", 'RdnXtfMWx2TwvjggSb34JWVgpkG3'),{     
             Finpact: arrayUnion(id)
         })

@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom"
 import { Auth } from '../../state/Auth';
-import { useContext } from 'react';
+import { Settings } from "../../state/Settings";
+import { useContext, useEffect, useState } from 'react';
 import mkbaIcon from '../../assets/icons/sroi-icon.png'
 import wallIcon from '../../assets/icons/activity-icon.png'
 import SearchIcon from '../../assets/icons/search-icon.png'
@@ -19,11 +20,24 @@ import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
+import { useFirestoreGeneral } from '../../firebase/useFirestore'
 
 const Sidebar = () => {
   const [auth] = useContext(Auth)
+  const [settings] = useContext(Settings)
+  const [organisationProject, setOrganisationProject] = useState('')
 
   const id = Location()[3]
+  console.log(settings)
+
+  const compagnyProject = () => {
+    if(settings[0]?.compagnyProject === 'project'){
+      return 'Projecten'
+    } else {
+      return 'Organisaties'
+    }
+  }
+
 
   return (
     <div id='sidebar-container'>
@@ -41,7 +55,7 @@ const Sidebar = () => {
         <h2>Portfolio</h2>
         <div className='sidebar-link-container'>
           <img src={organisationIcon} alt="activity icon" />
-          <NavLink to={`/dashboard/organisations/${id}`} activeClassName="selected">Organisaties</NavLink>
+          <NavLink to={`/dashboard/organisations/${id}`} activeClassName="selected">{compagnyProject()}</NavLink>
         </div>
         <div className='sidebar-link-container'>
           <img src={pillarIcon} alt="activity icon" />
