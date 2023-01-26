@@ -3,11 +3,19 @@ import { useState, useEffect } from "react";
 import { doc, setDoc, updateDoc, serverTimestamp, arrayUnion } from "firebase/firestore"; 
 import saveFile from "../../components/core/savefile";
 import Modal from 'react-modal';
-import Hostname from '../../hooks/Hostname'
+import Hostname from "../../helpers/Hostname";
 import uuid from "react-uuid";
 import { useFirestoreGeneral } from "../../firebase/useFirestore";
+import dummyPhoto from '../../assets/dummy-photo.jpeg'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "../../firebase/configDeccos";
+import LogoDeccos from '../../assets/deccos-finpact-logo.png'
+import LogoAI from '../../assets/alexander-impact.svg'
+import { useNavigate } from "react-router-dom"
 
 const Register = () => {
+  const host = Hostname()
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordRepeat, setPasswordRepeat] = useState("")
@@ -17,13 +25,13 @@ const Register = () => {
   const [loader, setLoader] = useState("")
   const [communityNameDB, setCommunityNameDB] = useState("")
   const [modalOpen, setModalOpen] = useState(false);
+  const [logo, setLogo] = useState(host.logo)
 
-  const client = Location()[3]
-
+  const client = Location()[2]
+  const navigate = useNavigate()
   const id = uuid()
 
-    Modal.setAppElement('#root');
-    const host = Hostname()
+    Modal.setAppElement('#root'); 
 
     const modalStyles = {
         content: {
@@ -96,22 +104,24 @@ const Register = () => {
     }
 
     const registerHandler = () => {
+
+      const auth = getAuth();
     
         auth
         .createUserWithEmailAndPassword(email, password)
         .then( async (cred) => {
-          await setDoc(doc(deccosdb, "Users", cred.user.uid), {
+          await setDoc(doc(db, "Users", cred.user.uid), {
                 UserName: `${forname} ${surname}`,
                 ForName: forname,
                 SurName: surname,
-                Compagny: arrayUnion(client),
-                Timestamp: timestamp,
+                Timestamp: serverTimestamp(),
                 Email: email.toLocaleLowerCase(),
                 Photo: photo,
                 ID: id,
                 Approved: false,
                 Deleted: false,
                 Docid: cred.user.uid,
+                Finpact: arrayUnion(client)
             })
             .then(() => {
                 verificationEmailEmail(email, forname, surname, communityNameDB)
@@ -127,7 +137,7 @@ const Register = () => {
 
 
     const verificationEmailEmail = async (email, forname, surname, communityName ) => {
-      await setDoc(doc(deccosdb, "Email", uuid()), {
+      await setDoc(doc(db, "Email", uuid()), {
             to: email,
             from: 'info@deccos.nl',
             replyTo: `${host.Name}`,
@@ -150,7 +160,11 @@ const Register = () => {
     }
 
   return (
-     <div className="login-container">
+    <div className="layout-container">
+      <div id='topbar-landing-container'>
+        <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/`)} />
+      </div>
+      <div className='login-register-container'>
         <h1>Account maken</h1>
         <form>
             <p>Voornaam*</p>
@@ -186,6 +200,7 @@ const Register = () => {
         </div>
         </Modal>
     </div>
+  </div>
   )
 }
 

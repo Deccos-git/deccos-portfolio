@@ -24,7 +24,7 @@ export const DataProvider = (props) => {
         const userQuery = async () => {
 
             const col = collection(db, 'CompagnyMeta');
-            const q = query(col, where('Parent', 'array-contains', client));
+            const q = query(col, where('Parent', 'array-contains', client ? client : ''));
             const snapshot = await getDocs(q);
 
             snapshot.docs.forEach(doc => 

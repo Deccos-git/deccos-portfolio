@@ -1,6 +1,6 @@
 import Location from "../../helpers/Location";
 import { useFirestoreArrayContains as useFirestoreArrayContainsDeccos, useFirestoreGeneral as useFirestoreGeneralDeccos } from "../../firebase/useFirestoreDeccos";
-import {useFirestoreImpactManager, useFirestoreArrayContains, useFirestoreGeneral } from "../../firebase/useFirestore";
+import { useFirestoreGeneral } from "../../firebase/useFirestore";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useEffect, useState } from "react";
 import ButtonClicked from '../../components/common/ButtonClicked';
