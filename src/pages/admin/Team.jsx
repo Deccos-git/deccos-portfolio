@@ -78,7 +78,7 @@ const Team = () => {
       html: `
           ${organisationName} nodigt je uit om lid te worden van de ${host.name} ${host.text} omgeving. <br><br>
 
-          <a href='https://${host.url}/${client}'>Klik hier</a> om naar de omgeving van ${organisationName} te gaan.<br><br>
+          <a href='https://${host.url}/login'>Klik hier</a> om naar de omgeving van ${organisationName} te gaan.<br><br>
 
           Met vriendelijke groet, <br><br>
 
@@ -104,7 +104,7 @@ const Team = () => {
           html: `
               ${organisationName} nodigt je uit om lid te worden van de ${host.name} ${host.text} omgeving. <br><br>
 
-              <a href='https://${host.url}/${client}/Register'>Klik hier</a> om een account aan te maken.<br><br>
+              <a href='https://${host.url}/register/${client}'>Klik hier</a> om een account aan te maken.<br><br>
 
               Met vriendelijke groet, <br><br>
 
