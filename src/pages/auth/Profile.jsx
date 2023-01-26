@@ -8,8 +8,6 @@ const Profile = () => {
 
   const users = useFirestoreGeneral('Users', 'ID', user)
 
-  console.log(users)
-
   return (
     <div className='page-container'>
         <div className='page-top-container'>

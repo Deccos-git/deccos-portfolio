@@ -14,6 +14,7 @@ const VerifyAccount = () => {
   const client = Location()[2]
   const user = Location()[3]
   const host = Hostname()
+  const navigate = useNavigate()
 
   const users = useFirestoreGeneral('Users', 'ID', user)
 

@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { db } from '../firebase/configDeccos'
 import { collection, query, where, getDocs} from "firebase/firestore"; 
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/configDeccos";
+import { authDeccos } from "../firebase/configDeccos";
 
 export const Auth = createContext()
 
@@ -11,7 +11,7 @@ export const AuthProvider = (props) => {
     const [user, setUser] = useState("")
     const [email, setEmail] = useState('')
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(authDeccos, (user) => {
         if (user) {
             const email = user.email;
 

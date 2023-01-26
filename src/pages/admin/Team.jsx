@@ -21,9 +21,6 @@ const Team = () => {
   const users = useFirestoreGeneralDeccos('Users', 'Email', email)
   const organisatons = useFirestoreGeneral('compagnies', 'id', client)
 
-  console.log(host)
-  
-
   useEffect(() => {
     users && users.forEach(item => {
       setDocid(item.docid)
@@ -78,7 +75,7 @@ const Team = () => {
       html: `
           ${organisationName} nodigt je uit om lid te worden van de ${host.name} ${host.text} omgeving. <br><br>
 
-          <a href='https://${host.url}/login'>Klik hier</a> om naar de omgeving van ${organisationName} te gaan.<br><br>
+          <a href='https://${host.url}/login/${client}'>Klik hier</a> om naar de omgeving van ${organisationName} te gaan.<br><br>
 
           Met vriendelijke groet, <br><br>
 
@@ -118,6 +115,10 @@ const Team = () => {
       })
   }
 
+  const deleteMember = (e) => {
+    
+  }
+
   return (
     <div className='page-container'>
         <div className='page-top-container'>
@@ -134,7 +135,7 @@ const Team = () => {
               <div key={item.ID} className='members-container'>
                 <img src={item.Photo} alt="" />
                 <p>{item.UserName}</p>
-                <DeleteOutlineOutlinedIcon className='members-container-delete-button'/>
+                <DeleteOutlineOutlinedIcon className='members-container-delete-button' onClick={deleteMember}/>
               </div>
             ))}
         </div>

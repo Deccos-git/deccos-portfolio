@@ -9,7 +9,7 @@ import SettingsIcon from '../../assets/icons/settings-icon.png'
 import SignOutIcon from '../../assets/icons/sign-out-icon.png'
 import { signOut } from "firebase/auth";
 import { useFirestoreCompagny } from "../../firebase/useFirestore";
-import { auth } from "../../firebase/configDeccos";
+import { authDeccos } from "../../firebase/configDeccos";
 
 const TopBar = () => {
   const [user] = useContext(Auth)
@@ -39,7 +39,7 @@ const TopBar = () => {
   }
 
   const logout = () => {
-    signOut(auth).then(() => {
+    signOut(authDeccos).then(() => {
       navigate(`/login`) 
     }).catch((error) => {
       alert(error)

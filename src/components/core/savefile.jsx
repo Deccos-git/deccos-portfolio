@@ -2,6 +2,8 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 
 const saveFile = (e, setState) => {
 
+    console.log(e.target.files)
+
     const file = e.target.files
 
     const storage = getStorage();

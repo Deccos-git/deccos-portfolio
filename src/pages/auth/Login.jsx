@@ -1,29 +1,46 @@
-import { Link } from 'react-router-dom'
 import { signInWithEmailAndPassword } from "firebase/auth";
 import ButtonClicked from "../../components/common/ButtonClicked";
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
 import { Auth } from '../../state/Auth';
-import { auth } from '../../firebase/configDeccos';
+import { authDeccos } from '../../firebase/configDeccos';
 import Logo from '../../assets/deccos-finpact-logo.png'
+import Location from "../../helpers/Location";
+import Hostname from "../../helpers/Hostname";
 
 const Login = () => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
   const [user] = useContext(Auth)
+  const [logo, setLogo] = useState()
 
   const navigate = useNavigate()
+  const client = Location()[2]
+  const host = Hostname()
+
+  useEffect(() => {
+    setLogo(host.logo)
+  },[host])
+
+  const navigateToHQ = () => {
+
+    if(client){
+      navigate(`/dashboard/wall/${client}`)
+    } else{
+      navigate(`/dashboard/wall/${user.Finpact[0]}`)
+    }
+  }
 
   const login = (e) => {
 
     ButtonClicked(e, 'Inloggen')
 
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(authDeccos, email, password)
       .then((userCredential) => {
         const auth = userCredential.user;
 
         if(user){
-          navigate(`/dashboard/wall/${user.Finpact[0]}`)
+          navigateToHQ()
         }
 
         
@@ -52,7 +69,7 @@ const Login = () => {
 
   const isAuth = () => {
     if(user){
-      navigate(`/dashboard/wall/${user.Finpact[0]}`)
+      navigateToHQ()
     }
   }
 
@@ -61,7 +78,7 @@ const Login = () => {
   return (
     <div className="layout-container">
       <div id='topbar-landing-container'>
-        <img id='topbar-logo' src={Logo} alt="Logo" onClick={() => navigate(`/`)} />
+        <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/`)} />
       </div>
       <div className='login-register-container'>
           <h1>Login</h1>

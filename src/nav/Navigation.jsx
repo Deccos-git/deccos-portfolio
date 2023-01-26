@@ -66,7 +66,7 @@ const Navigation = () => {
           </Route>
           <Route path={`/`} >
               <Route exact path={`/`} element={<Login/>}/>
-              <Route exact path={`/login`} element={<Login/>}/>
+              <Route exact path={`/login/:id`} element={<Login/>}/>
               <Route exact path={`/register/:id`} element={<Register/>}/>
               <Route exact path={`/verifyAccount/:id/:id`} element={<VerifyAccount/>}/>
               <Route exact path={`/newclient`} element={<NewClient/>}/>

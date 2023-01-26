@@ -14,6 +14,6 @@ const deccosFirebaseConfig = {
 
 const deccosApp = initializeApp(deccosFirebaseConfig, 'deccos');
 const db = getFirestore(deccosApp);
-const auth = getAuth(deccosApp);
+const authDeccos = getAuth(deccosApp);
 
-export { db, auth }
+export { db, authDeccos }

@@ -8,8 +8,7 @@ import uuid from "react-uuid";
 import { useFirestoreGeneral } from "../../firebase/useFirestore";
 import dummyPhoto from '../../assets/dummy-photo.jpeg'
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/configDeccos";
-import { db } from "../../firebase/configDeccos";
+import { db, authDeccos } from "../../firebase/configDeccos";
 import { useNavigate } from "react-router-dom"
 
 const Register = () => {
@@ -106,7 +105,7 @@ const Register = () => {
 
     const registerHandler = () => {
     
-        createUserWithEmailAndPassword(auth, email, password)
+      createUserWithEmailAndPassword(authDeccos, email, password)
         .then(async (userCredential) => {
           await setDoc(doc(db, "Users", userCredential.user.uid), {
                 UserName: `${forname} ${surname}`,
@@ -122,7 +121,7 @@ const Register = () => {
                 Finpact: arrayUnion(client)
             })
             .then(() => {
-                verificationEmailEmail(email, forname, surname, communityNameDB)
+                verificationEmail(email, forname, surname, communityNameDB)
             })
             .then(() => {
                 setModalOpen(true)
@@ -134,7 +133,7 @@ const Register = () => {
     }
 
 
-    const verificationEmailEmail = async (email, forname, surname, communityName ) => {
+    const verificationEmail = async (email, forname, surname, communityName ) => {
       await setDoc(doc(db, "Email", uuid()), {
             to: email,
             from: 'info@deccos.nl',
