@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { Data } from "../../state/Data";
 import { useContext } from "react";
 import ImpactSoftwareLink from "../../components/organisations/ImpactSoftwareLink";
-import Goals from "../../components/organisations/Goals";
 
 const Organisations = () => {
   const data = useContext(Data)
@@ -19,9 +18,8 @@ const Organisations = () => {
             <tr>
                 <th>LOGO</th>
                 <th>ORGANISATIE</th>
-                <th>DOELEN</th>
                 <th>IMPACT DASHBOARD</th>
-                <th>BEKIJK</th>
+                <th>IMPACT SOFTWARE</th>
             </tr>
             {data[0] && data[0].map(item => (
                 <tr key={item.ID} >
@@ -30,9 +28,6 @@ const Organisations = () => {
                   </td>
                   <td>
                       <p>{item.CommunityName}</p>  
-                  </td>
-                  <td>
-                    <Goals organisation={item}/>
                   </td>
                   <td>
                     <p>Bekijk</p>

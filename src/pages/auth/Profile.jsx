@@ -22,7 +22,7 @@ const Profile = () => {
             <div key={item.ID} className='profile-container'>
               <img className='profile-avatar' src={item.Photo} alt="" />
               <div className='profile-container'>
-                <h2>Mijn organisaties</h2>
+                <h2>Mijn impactHQ's</h2>
                 <UserCompagnies user={item}/>
               </div>
             </div>

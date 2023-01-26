@@ -61,7 +61,6 @@ const Sidebar = () => {
         <div className='sidebar-link-container'>
           <FlagOutlinedIcon className='menu-icon'/>
           <NavLink to={`/dashboard/goals/${id}`} activeClassName="selected">Maatschappelijke doelen</NavLink>
-          <p className='comming-soon'>Comming soon</p>
         </div>
         <div className='sidebar-link-container'>
           <GroupOutlinedIcon className='menu-icon'/>
@@ -70,7 +69,6 @@ const Sidebar = () => {
         <div className='sidebar-link-container'>
           <img src={milestoneIcon} alt="activity icon" />
           <NavLink to={`/dashboard/activities/${id}`} activeClassName="selected">Activiteiten</NavLink>
-          <p className='comming-soon'>Comming soon</p>
         </div>
         <div className='sidebar-link-container'>
           <img src={outputIcon} alt="activity icon" />
@@ -79,7 +77,6 @@ const Sidebar = () => {
         <div className='sidebar-link-container'>
           <CompareArrowsOutlinedIcon className='menu-icon'/>
           <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
-          <p className='comming-soon'>Comming soon</p>
         </div>
         <div className='sidebar-link-container'>
           <img src={mkbaIcon} alt="activity icon" />

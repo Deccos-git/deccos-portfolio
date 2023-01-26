@@ -1,10 +1,10 @@
 import { Data } from "../../state/Data";
 import { useContext } from "react";
+import OrganisationMeta from "../../components/common/OrganisationMeta";
 
 const Targetgroups = () => {
     const data = useContext(Data)
-
-
+    
   return (
     <div className='page-container'>
         <div className='page-top-container'>
@@ -14,8 +14,6 @@ const Targetgroups = () => {
           <table>
             <tr>
                 <th>DOELGROEP</th>
-                <th>ACTIVITEITEN</th>
-                <th>MAATSCHAPPELIJK DOEL</th>
                 <th>ORGANISATIE</th>
             </tr>
             {data[2] && data[2].map(item => (
@@ -24,13 +22,7 @@ const Targetgroups = () => {
                       <p key={item.ID}>{item.Name}</p>  
                   </td>
                   <td>
-                    {/* <Activities item={item}/>   */}
-                  </td>
-                  <td>
-                    {/* <OutputMilestones output={item}/>   */}
-                  </td>
-                  <td>
-                    {/* <Organisations item={item}/> */}
+                    <OrganisationMeta item={item}/>
                   </td>
               </tr>
             ))} 

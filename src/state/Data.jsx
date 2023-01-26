@@ -11,6 +11,9 @@ export const DataProvider = (props) => {
     const [outputs, setOutputs] = useState([])
     const [targetgroups, setTargetgroups] = useState([])
     const [mkbaSets, setMkbaSets] = useState([])
+    const [goals, setGoals] = useState([])
+    const [activities, setActivities] = useState([])
+    const [effects, setEffects] = useState([])
 
     const client = Location()[3]
 
@@ -112,8 +115,83 @@ export const DataProvider = (props) => {
 
     },[organisations])
 
+    // Goals
+    useEffect(() => {
+
+        const array = []
+
+        const userQuery = async (id) => {
+
+            const col = collection(db, 'Goals');
+            const q = query(col, where('CompagnyID', '==', id));
+            const snapshot = await getDocs(q);
+
+            snapshot.docs.forEach(doc => 
+                array.push({...doc.data(), docid: doc.id})
+            );
+
+            setGoals(array)
+
+        }
+
+        organisations && organisations.forEach(item => {
+            userQuery(item.CompagnyID)
+        })
+
+    },[organisations])
+
+    // Activities
+    useEffect(() => {
+
+        const array = []
+
+        const userQuery = async (id) => {
+
+            const col = collection(db, 'Activities');
+            const q = query(col, where('CompagnyID', '==', id));
+            const snapshot = await getDocs(q);
+
+            snapshot.docs.forEach(doc => 
+                array.push({...doc.data(), docid: doc.id})
+            );
+
+            setActivities(array)
+
+        }
+
+        organisations && organisations.forEach(item => {
+            userQuery(item.CompagnyID)
+        })
+
+    },[organisations])
+
+    // Effects
+    useEffect(() => {
+
+        const array = []
+
+        const userQuery = async (id) => {
+
+            const col = collection(db, 'OutputEffects');
+            const q = query(col, where('CompagnyID', '==', id));
+            const snapshot = await getDocs(q);
+
+            snapshot.docs.forEach(doc => 
+                array.push({...doc.data(), docid: doc.id})
+            );
+
+            setEffects(array)
+
+        }
+
+        organisations && organisations.forEach(item => {
+            userQuery(item.CompagnyID)
+        })
+
+    },[organisations])
+
     return(
-        <Data.Provider value={[organisations, outputs, targetgroups, mkbaSets]}>
+        <Data.Provider value={[organisations, outputs, targetgroups, mkbaSets, goals, activities, effects]}>
             {props.children}
         </Data.Provider>
     )

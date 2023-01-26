@@ -20,7 +20,6 @@ const Team = () => {
   const members = useFirestoreArrayContainsDeccos('Users', 'Finpact', client)
   const users = useFirestoreGeneralDeccos('Users', 'Email', email)
   const organisatons = useFirestoreGeneral('compagnies', 'id', client)
-  const impactManagers = useFirestoreImpactManager(host)
 
   console.log(host)
   
@@ -33,7 +32,7 @@ const Team = () => {
 
   useEffect(() => {
     organisatons && organisatons.forEach(item => {
-      setOrganisationName(item.Compagny)
+      setOrganisationName(item.compagny)
     })
 
   },[organisatons])
@@ -48,11 +47,11 @@ const Team = () => {
 
     if(users.length > 0){
         console.log('Member exists')
-        // updateExistingMember()
-        // sendMailToExistingMember()
+        updateExistingMember()
+        sendMailToExistingMember()
     } else if(users.length === 0){
       console.log('Member does not exist')
-        // sendMailToNewMember()
+        sendMailToNewMember()
     } 
 
     ButtonClicked(e, 'Uitnodiging verstuurd')
@@ -60,8 +59,6 @@ const Team = () => {
   }
 
   const updateExistingMember = async () => {
-
-      console.log(docid, client)
 
       await updateDoc(doc(deccosdb, "Users", docid),{     
         Finpact: arrayUnion(client)
@@ -75,17 +72,17 @@ const Team = () => {
       to: email,
       cc: "info@deccos.nl",
       from: "info@deccos.nl",
-      replyTo: `${host.Name}`,
+      replyTo: `${host.name}`,
       message: {
-      subject: `${organisationName} nodigt je uit om lid te worden van de ${host.Name} ${host.Text} omgeving`,
+      subject: `${organisationName} nodigt je uit om lid te worden van de ${host.name} ${host.text} omgeving`,
       html: `
-          ${organisationName} nodigt je uit om lid te worden van de ${host.Name} ${host.Text} omgeving. <br><br>
+          ${organisationName} nodigt je uit om lid te worden van de ${host.name} ${host.text} omgeving. <br><br>
 
-          <a href='https://${host.Hostname}/${client}'>Klik hier</a> om naar de omgeving van ${organisationName} te gaan.<br><br>
+          <a href='https://${host.url}/${client}'>Klik hier</a> om naar de omgeving van ${organisationName} te gaan.<br><br>
 
           Met vriendelijke groet, <br><br>
 
-          Team ${host.Name} <br><br>
+          Team ${host.name} <br><br>
           
           `,
       Gebruikersnaam: `${client}`,
@@ -101,17 +98,17 @@ const Team = () => {
           to: email,
           cc: "info@deccos.nl",
           from: "info@deccos.nl",
-          replyTo: `${host.Name}`,
+          replyTo: `${host.name}`,
           message: {
-          subject: `${organisationName} nodigt je uit om lid te worden van de ${host.Name} ${host.Text} omgeving`,
+          subject: `${organisationName} nodigt je uit om lid te worden van de ${host.name} ${host.text} omgeving`,
           html: `
-              ${organisationName} nodigt je uit om lid te worden van de ${host.Name} ${host.Text} omgeving. <br><br>
+              ${organisationName} nodigt je uit om lid te worden van de ${host.name} ${host.text} omgeving. <br><br>
 
-              <a href='https://${host.Hostname}/${client}/Register'>Klik hier</a> om een account aan te maken.<br><br>
+              <a href='https://${host.url}/${client}/Register'>Klik hier</a> om een account aan te maken.<br><br>
 
               Met vriendelijke groet, <br><br>
 
-              Team ${host.Name} <br><br>
+              Team ${host.name} <br><br>
               
               `,
           Gebruikersnaam: `${client}`,

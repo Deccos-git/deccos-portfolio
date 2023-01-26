@@ -72,9 +72,6 @@ const Login = () => {
           <div className='button-container'>
               <button onClick={login}>Login</button>
           </div>
-          <p>Nog geen account? 
-          <Link to="/register"> Registreer</Link>
-          </p>
       </div>
     </div>
   )
