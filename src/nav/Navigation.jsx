@@ -29,6 +29,7 @@ import TheoryOfChange from "../pages/dashboard/TheoryOfChange";
 import Profile from "../pages/auth/Profile";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
+import VerifyAccount from "../pages/auth/VerifyAccount";
 
 // Admin
 import Newproject from "../pages/admin/Newproject";
@@ -67,6 +68,7 @@ const Navigation = () => {
               <Route exact path={`/`} element={<Login/>}/>
               <Route exact path={`/login`} element={<Login/>}/>
               <Route exact path={`/register/:id`} element={<Register/>}/>
+              <Route exact path={`/verifyAccount/:id/:id`} element={<VerifyAccount/>}/>
               <Route exact path={`/newclient`} element={<NewClient/>}/>
           </Route>
           <Route path={`/profile`} element={<LayoutProfile/>}>

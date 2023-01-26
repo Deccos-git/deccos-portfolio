@@ -7,15 +7,12 @@ import Hostname from "../../helpers/Hostname";
 import uuid from "react-uuid";
 import { useFirestoreGeneral } from "../../firebase/useFirestore";
 import dummyPhoto from '../../assets/dummy-photo.jpeg'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/configDeccos";
 import { db } from "../../firebase/configDeccos";
-import LogoDeccos from '../../assets/deccos-finpact-logo.png'
-import LogoAI from '../../assets/alexander-impact.svg'
 import { useNavigate } from "react-router-dom"
 
 const Register = () => {
-  const host = Hostname()
-
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordRepeat, setPasswordRepeat] = useState("")
@@ -25,11 +22,12 @@ const Register = () => {
   const [loader, setLoader] = useState("")
   const [communityNameDB, setCommunityNameDB] = useState("")
   const [modalOpen, setModalOpen] = useState(false);
-  const [logo, setLogo] = useState(host.logo)
+  const [logo, setLogo] = useState()
 
   const client = Location()[2]
   const navigate = useNavigate()
   const id = uuid()
+  const host = Hostname()
 
     Modal.setAppElement('#root'); 
 
@@ -52,6 +50,9 @@ const Register = () => {
         })
     }, [organisatons])
 
+    useEffect(() => {
+      setLogo(host.logo)
+    },[host])
 
     const closeModal = () => {
         setModalOpen(false);
@@ -89,7 +90,7 @@ const Register = () => {
     }
 
     const photoHandler = (e) => {
-      saveFile(e.target.file, setPhoto)
+      saveFile(e, setPhoto)
     }
 
     const checkHandler = (e) => {
@@ -104,23 +105,20 @@ const Register = () => {
     }
 
     const registerHandler = () => {
-
-      const auth = getAuth();
     
-        auth
-        .createUserWithEmailAndPassword(email, password)
-        .then( async (cred) => {
-          await setDoc(doc(db, "Users", cred.user.uid), {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
+          await setDoc(doc(db, "Users", userCredential.user.uid), {
                 UserName: `${forname} ${surname}`,
                 ForName: forname,
                 SurName: surname,
                 Timestamp: serverTimestamp(),
                 Email: email.toLocaleLowerCase(),
-                Photo: photo,
+                Photo: logo,
                 ID: id,
                 Approved: false,
                 Deleted: false,
-                Docid: cred.user.uid,
+                Docid: userCredential.user.uid,
                 Finpact: arrayUnion(client)
             })
             .then(() => {
@@ -145,12 +143,12 @@ const Register = () => {
             message: {
             subject: `Verificeer je account `,
             html: `Hallo ${forname} ${surname}, </br></br>
-                Je hebt je aangemeld voor de ${host.Name} omgeving van ${communityName}. <br><br>
+                Je hebt je aangemeld voor de ${host.name} ${host.text} van ${communityName}. <br><br>
 
-                Klik <a href="https://${host.Hostname}/${client}/NotApproved/${id}">hier</a> om je account te verifiëren.<br><br>
+                Klik <a href="https://${host.url}/verifyAccount/${client}/${id}">hier</a> om je account te verifiëren.<br><br>
                 
                 Vriendelijke groet, </br></br>
-                Team ${host.Name} </br></br>
+                Team ${host.name} </br></br>
                 `,
             Gebruikersnaam: `${forname} ${surname}`,
             Emailadres: email,
@@ -178,12 +176,12 @@ const Register = () => {
             <p>Herhaal je wachtwoord*</p>
             <input onChange={passwordRepeatHandler} type="password" placeholder="Herhaal hier je wachtwoord" />
             <p>Profielfoto</p>
-            <input onChange={photoHandler} type="file" />
-            <div className="spinner-container">
-                <img src={loader} alt="" />
+            <div className="register-logo-container">
+                <img src={logo} alt="" />
             </div>
+            <input onChange={photoHandler} type="file" />
         </form>
-        <div className="button-container-register">
+        <div className="button-container">
             <button onClick={checkHandler}>Aanmelden</button>
         </div>
         <Modal
