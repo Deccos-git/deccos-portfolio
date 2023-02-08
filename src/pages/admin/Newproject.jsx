@@ -19,7 +19,7 @@ const Newproject = () => {
     const client = Location()[3]
 
     const logoHandler = (e) => {
-        saveFile(e.target.files, setLogo)
+        saveFile(e, setLogo)
     }
 
     const projectNameHandler = (e) => {

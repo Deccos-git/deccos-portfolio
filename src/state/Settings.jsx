@@ -32,7 +32,7 @@ export const SettingsProvider = (props) => {
 
         userQuery()
 
-    },[settings])
+    },[])
 
 console.log(settings)
     return(
