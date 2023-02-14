@@ -45,6 +45,7 @@ const Newproject = () => {
 
         await setDoc(doc(db, "CompagnyMeta", uuid()), {
             Compagny: projectName,
+            CommunityName: projectName,
             ImpactManager: impactManager,
             Parent: arrayUnion(client),
             Logo: logo,
