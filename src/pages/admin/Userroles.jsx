@@ -44,7 +44,13 @@ const Userroles = () => {
 
   }
 
-  const deleteAdmin = (e) => {
+  const deleteAdmin = async (e) => {
+
+    const docid = e.target.dataset.docid
+
+    console.log(docid)
+
+    await deleteDoc(doc(db, "admins", docid));
 
   }
 
@@ -63,6 +69,8 @@ const Userroles = () => {
     sendEmail()
   }
 
+  console.log(host)
+
   const sendEmail = async () => {
 
     await setDoc(doc(dbDeccos, "Email", uuid()),{
@@ -71,7 +79,7 @@ const Userroles = () => {
       message: {
       subject: `Je bent als beheerder toegevoegd op ${organisationName}`,
       html: `Hallo ${adminName}, </br></br>
-          Je bent door een beheerder van de ${host.Name} ${host.Text} van ${organisationName} toegevoegd als beheerder.<br><br>
+          Je bent door een beheerder van de ${host.name} ${host.text} van ${organisationName} toegevoegd als beheerder.<br><br>
 
           Dat betekent dat je vanaf nu:<br><br>
 
@@ -82,7 +90,7 @@ const Userroles = () => {
           </ul><br><br>
           
           Vriendelijke groet, </br></br>
-          Team ${host.Name} </br></br>
+          Team ${host.name} </br></br>
           `,
       Gebruikersnaam: `${adminName}`,
       Emailadres: adminEmail,
