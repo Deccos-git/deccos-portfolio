@@ -15,8 +15,8 @@ const Team = () => {
   const [organisationName, setOrganisationName] = useState('')
 
   const client = Location()[3]
-
   const host = Hostname()
+  
   const members = useFirestoreArrayContainsDeccos('Users', 'Finpact', client)
   const users = useFirestoreGeneralDeccos('Users', 'Email', email)
   const organisatons = useFirestoreGeneral('compagnies', 'id', client)

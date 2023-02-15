@@ -42,6 +42,7 @@ const NewClient = () => {
             email: 'info@deccos.nl',
             photo: 'https://firebasestorage.googleapis.com/v0/b/deccos-app.appspot.com/o/ProfilePhotos%2Ffoto-gijs350.jpg?alt=media&token=0e8e886f-2384-4f4c-b5de-a14fa7376135',
             userId: '6a8bf-08c3-a1ad-d04d-231ebe51dc60',
+            name: 'Gijs van Beusekom'
         })
 
         await setDoc(doc(db, "settings", uuid()), {

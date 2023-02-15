@@ -1,0 +1,22 @@
+.userrole-users-container {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    border: 1px solid lightgray;
+    padding: 5px;
+    border-radius: 3px;
+    margin-bottom: 3px;
+    background-color: white;
+
+    img{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    svg{
+        margin-left: auto;
+        margin-right: 10px;
+    }
+}
