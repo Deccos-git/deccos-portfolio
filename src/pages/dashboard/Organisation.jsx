@@ -1,11 +1,23 @@
 import { useFirestoreGeneral } from "../../firebase/useFirestoreDeccos"
 import Location from "../../helpers/Location";
+import ProblemIcon from '@mui/icons-material/ExtensionOutlined';
+import GoalIcon from '@mui/icons-material/FlagOutlined';
+import GroupIcon from '@mui/icons-material/Groups2Outlined';
+import ActivityIcon from '@mui/icons-material/MonitorHeartOutlined';
+import EffectIcon from '@mui/icons-material/TurnSharpLeftOutlined';
 
 const Organisation = () => {
 
     const compagnyId = Location()[4]
 
     const compagnies = useFirestoreGeneral('CompagnyMeta', 'CompagnyID', compagnyId ? compagnyId : '')
+    const centralProblem = useFirestoreGeneral('CentralProblem', 'CompagnyID', compagnyId ? compagnyId : '')
+    const goals = useFirestoreGeneral('Goals', 'CompagnyID', compagnyId ? compagnyId : '')
+    const targetgroups = useFirestoreGeneral('Stakeholders', 'CompagnyID', compagnyId ? compagnyId : '')
+    const activities = useFirestoreGeneral('Activities', 'CompagnyID', compagnyId ? compagnyId : '')
+    const kpis = useFirestoreGeneral('OutputEffects', 'CompagnyID', compagnyId ? compagnyId : '')
+
+    console.log(targetgroups)
 
 
   return (
@@ -28,26 +40,26 @@ const Organisation = () => {
                     
                 ))}
             </div>
-            {/* <div className="report-inner-container">
+            <div className="report-inner-container">
                 <div className="report-section">
                     <div className="report-section-title-container">
-                        <img src={problemIcon} alt="" />
+                        <ProblemIcon/>
                         <h2>Het probleem waar wij ons voor inzetten</h2>
                     </div>
                     {centralProblem && centralProblem.map(item => (
                         <p>{item.CentralProblem}</p>
                     ))}
                     <div className="report-section-title-container">
-                        <img src={milestoneIcon} alt="" />
+                        <GoalIcon/>
                         <h2>Ons doel</h2>
                     </div>
-                    {goal && goal.map(item => (
+                    {goals && goals.map(item => (
                         <p>{item.Title}</p>
                     ))}
                 </div>
                 <div className="report-section-container-contrast">
                     <div className="report-section-title-container">
-                        <img src={personIcon} alt="" />
+                        <GroupIcon/>
                         <h2>Voor wie we het doen</h2>
                     </div>
                     <div className="report-targetgroup-container">
@@ -61,14 +73,14 @@ const Organisation = () => {
                 </div>
                 <div className="report-section">
                     <div className="report-section-title-container">
-                        <img src={activityIcon} alt="" />
+                        <ActivityIcon/>
                         <h2>Wat we doen</h2>
                     </div>
                     <div className="report-activities-container">
                         {activities && activities.map(item => (
                             <div className="report-activity-item-container">
                                 <h3>{item.Activity}</h3>
-                                <ActivityOutput activity={item.ID}/>
+                                {/* <ActivityOutput activity={item.ID}/> */}
                             </div>
                         ))}
                     </div>
@@ -76,17 +88,17 @@ const Organisation = () => {
                 </div>
                 <div className="report-section-container-contrast">
                     <div className="report-section-title-container">
-                        <img src={trajectIcon} alt="" />
+                        <EffectIcon/>
                         <h2>Wat we willen bereiken</h2>
                     </div>
                     {kpis && kpis.map(item => (
                         <div className="report-effect-data-item-container">
                             <h3>{item.Effect}</h3>
-                            <EffectData effect={item}/>
+                            {/* <EffectData effect={item}/> */}
                         </div>
                     ))}
                 </div>
-            </div> */}
+            </div>
         </div>
     </div>
   )

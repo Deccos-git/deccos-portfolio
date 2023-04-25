@@ -20,7 +20,7 @@ const Organisations = () => {
             <tr>
                 <th>LOGO</th>
                 <th>ORGANISATIE</th>
-                <th>IMPACT DASHBOARD</th>
+                <th>LIVE RAPPORTAGE</th>
                 <th>IMPACT SOFTWARE</th>
             </tr>
             {data[0] && data[0].map(item => (
@@ -32,7 +32,7 @@ const Organisations = () => {
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
-                    <p onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`)}>Bekijk</p>
+                    <p className="show-rapport-button" onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`)}>Bekijk</p>
                   </td>
                   <td>
                     <ImpactSoftwareLink compagny={item}/>
