@@ -34,7 +34,7 @@ const SidebarProfile = () => {
         <h2>Home</h2>
         <div className='sidebar-link-container'>
           <HomeIcon className='menu-icon'/>
-          <NavLink to={`/dashboard/wall/${id}`} activeClassName="selected">Home</NavLink>
+          <NavLink to={`/dashboard/home/${id}`} activeClassName="selected">Home</NavLink>
         </div>
       </div>
       <div className='sidebar-inner-container'>
@@ -51,16 +51,20 @@ const SidebarProfile = () => {
           <NavLink to={`/profile/newproject/${id}`} activeClassName="selected">Nieuw project</NavLink>
         </div>
         <div className='sidebar-link-container'>
-          <GroupAddOutlinedIcon className='menu-icon'/>
-          <NavLink to={`/profile/userroles/${id}`} activeClassName="selected">Gebruikersrollen</NavLink>
-        </div>
-        <div className='sidebar-link-container'>
           <Groups2OutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/team/${id}`} activeClassName="selected">Team</NavLink>
         </div>
         <div className='sidebar-link-container'>
+          <GroupAddOutlinedIcon className='menu-icon'/>
+          <NavLink to={`/profile/userroles/${id}`} activeClassName="selected">Gebruikersrollen</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
           <SettingsOutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/settings/${id}`} activeClassName="selected">Instellingen</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
+          <SettingsOutlinedIcon className='menu-icon'/>
+          <NavLink to={`/profile/effectsettings/${id}`} activeClassName="selected">Effecten</NavLink>
         </div>
       </div>
     </div>

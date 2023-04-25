@@ -100,38 +100,6 @@ const Newproject = () => {
             Timestamp: serverTimestamp()
           })
 
-          await setDoc(doc(db, "DirectCauses", uuid()), {
-            CentralProblemID: centralProblemID,
-            CompagnyID: id,
-            Timestamp: serverTimestamp(),
-            DirectCause: '',
-            ID: uuid()
-          })
-
-          await setDoc(doc(db, "IndirectCauses", uuid()), {
-            CentralProblemID: centralProblemID,
-            CompagnyID: id,
-            Timestamp: serverTimestamp(),
-            IndirectCause: '',
-            ID: uuid()
-          })
-
-          await setDoc(doc(db, "DirectConsequences", uuid()), {
-            CentralProblemID: centralProblemID,
-            CompagnyID: id,
-            Timestamp: serverTimestamp(),
-            DirectConsequences: '',
-            ID: uuid()
-          })
-
-          await setDoc(doc(db, "IndirectConsequences", uuid()), {
-            CentralProblemID: centralProblemID,
-            CompagnyID: id,
-            Timestamp: serverTimestamp(),
-            IndirectConsequences: '',
-            ID: uuid()
-          })
-
           await updateDoc(doc(db, "Users", user.docid), {
             Compagny: arrayUnion(id)
           })

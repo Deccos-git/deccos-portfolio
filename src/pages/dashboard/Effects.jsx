@@ -1,9 +1,11 @@
-import { Data } from "../../state/Data";
-import { useContext } from "react";
-import OrganisationMeta from "../../components/common/OrganisationMeta";
+import { useFirestoreGeneral } from '../../firebase/useFirestore'
+import Location from '../../helpers/Location'
 
 const Effects = () => {
-  const data = useContext(Data)
+
+  const client = Location()[3]
+  
+  const effects  = useFirestoreGeneral('effects', 'compagny', client)
 
   return (
     <div className='page-container'>
@@ -14,18 +16,18 @@ const Effects = () => {
           <table>
             <tr>
                 <th>EFFECTEN</th>
-                <th>ORGANISATIE</th>
+                <th>DETAILS</th>
             </tr>
-            {data[6] && data[6].map(item => (
+              {effects && effects.map(item => (
                 <tr key={item.ID} >
                   <td>
-                      {item.Effect}
+                      <p>{item.effect}</p>
                   </td>
                   <td>
-                    <OrganisationMeta item={item}/>
+                      <p></p>
                   </td>
-              </tr>
-            ))} 
+                </tr>
+              ))}
           </table>
         </div>
     </div>

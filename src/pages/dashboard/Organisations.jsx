@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { Data } from "../../state/Data";
 import { useContext } from "react";
 import ImpactSoftwareLink from "../../components/organisations/ImpactSoftwareLink";
+import Location from '../../helpers/Location';
 
 const Organisations = () => {
   const data = useContext(Data)
 
     const navigate = useNavigate()
+    const id = Location()[3]
 
   return (
     <div className='page-container'>
@@ -30,7 +32,7 @@ const Organisations = () => {
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
-                    <p>Bekijk</p>
+                    <p onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`)}>Bekijk</p>
                   </td>
                   <td>
                     <ImpactSoftwareLink compagny={item}/>

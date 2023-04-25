@@ -25,9 +25,9 @@ const Login = () => {
   const navigateToHQ = () => {
 
     if(client){
-      navigate(`/dashboard/wall/${client}`)
+      navigate(`/dashboard/home/${client}`)
     } else{
-      navigate(`/dashboard/wall/${user.Finpact[0]}`)
+      navigate(`/dashboard/home/${user.Finpact[0]}`)
     }
   }
 

@@ -15,7 +15,7 @@ const CompagnyCard = ({compagny}) => {
                     <img className='organisations-logo' src={item.logo} alt=""/>
                     <h3>{item.compagny}</h3>
                     <div className='card-button-container'>
-                        <button onClick={() => navigate(`/dashboard/wall/${item.id}/`) }>Bekijk</button>
+                        <button onClick={() => navigate(`/dashboard/home/${item.id}/`) }>Bekijk</button>
                     </div>
                 </div>
             </div>

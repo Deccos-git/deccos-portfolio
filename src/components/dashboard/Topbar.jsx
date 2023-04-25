@@ -51,7 +51,7 @@ const TopBar = () => {
 
   return (
       <div id='topbar-landing-container'>
-        <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/dashboard/wall/${id}`)} />
+        <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/dashboard/home/${id}`)} />
         <div className='icon-container'>
           <NavLink to={`/dashboard/search/${id}`} activeClassName="selected">
             <img src={SearchIcon} alt="search icon" />
