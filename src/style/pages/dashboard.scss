@@ -1,0 +1,60 @@
+.dashboard-topbar-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.key-metrics-container{
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 20px;
+    border: 1px solid rgb(242, 242, 242);
+    height: 75px;
+    width: 200px;
+
+    h1{
+        margin: 0px 10px 5px 10px;
+        text-align: left;
+    }
+}
+
+.key-matrics-growth-container{
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-growth-indicator{
+    color: green;
+    font-size: 12px;
+    width: 50px;
+    margin-left: 15px;
+}
+
+.dashboard-period-selector-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0px 30px 30px 30px;
+}
+
+.dashboard-period-selector{
+    width: 100px;
+    background-color: white;
+    border: 1px solid rgb(242, 242, 242);
+    border-radius: 5px;
+    padding: 0px 10px;
+
+    select{
+        background-color: white;
+        border: none;
+        box-shadow: none;
+        margin: 0px;
+        padding: 0px;
+        font-size: 12px;
+    }
+
+    p{
+        margin: 5px 0px 0px 4px;
+    }
+}

@@ -22,13 +22,6 @@ const Organisation = () => {
 
   return (
     <div className='page-container'>
-        <div className='page-top-container'>
-        {compagnies && compagnies.map(item => (
-          <div key={item.CompagnyID}>
-            <h1>{item.CommunityName}</h1>
-          </div>
-        ))}
-        </div>
         <div className="report-container">
             <div>
                 {compagnies && compagnies.map(item => (
