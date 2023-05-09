@@ -52,12 +52,16 @@ const Newproject = () => {
             CompagnyID: id,
             Premium: true,
             Timestamp: serverTimestamp(),
-            Impacthub: false,
+            MKBA: 'false',
+            Personas: 'false',
+            SDGs: 'false',
+            ImpactAI: 'false',
+            Report: 'true',
+            UpdateEmail: 'never',
             ImpactBanner: 'https://firebasestorage.googleapis.com/v0/b/deccos-app.appspot.com/o/ImpactHeaderDefault.png?alt=media&token=5d11c139-431d-4c66-84d1-23878e3ad460'
           })
 
           await setDoc(doc(db, "Admins", uuid()), {
-            Compagny: projectName.toLocaleLowerCase(),
             CompagnyID: id,
             Email: user.Email,
             Photo: user.Photo,
@@ -67,7 +71,6 @@ const Newproject = () => {
           })
 
           await setDoc(doc(db, "Admins", uuid()), {
-            Compagny: projectName.toLocaleLowerCase(),
             CompagnyID: id,
             Email: 'info@deccos.nl',
             Photo: 'https://firebasestorage.googleapis.com/v0/b/deccos-app.appspot.com/o/ProfilePhotos%2Ffoto-gijs350.jpg?alt=media&token=0e8e886f-2384-4f4c-b5de-a14fa7376135',
@@ -78,17 +81,7 @@ const Newproject = () => {
 
           await setDoc(doc(db, "Stakeholders", uuid()), {
             ID: uuid(),
-            Compagny: projectName.toLocaleLowerCase(),
             Name: '',
-            CompagnyID: id,
-            Timestamp: serverTimestamp()
-          })
-
-          await setDoc(doc(db, "Groups", uuid()), {
-            ID: uuid(),
-            Compagny: projectName.toLocaleLowerCase(),
-            MemberList: arrayUnion(id),
-            Room: 'Impact HQ',
             CompagnyID: id,
             Timestamp: serverTimestamp()
           })
@@ -96,6 +89,13 @@ const Newproject = () => {
           await setDoc(doc(db, "CentralProblem", uuid()), {
             ID: centralProblemID,
             CentralProblem: '',
+            CompagnyID: id,
+            Timestamp: serverTimestamp()
+          })
+
+          await setDoc(doc(db, "Goals", uuid()), {
+            ID: uuid(),
+            Title: '',
             CompagnyID: id,
             Timestamp: serverTimestamp()
           })
