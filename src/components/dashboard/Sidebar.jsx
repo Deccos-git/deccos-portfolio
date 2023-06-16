@@ -6,7 +6,7 @@ import organisationIcon from '../../assets/icons/organisation-icon.png'
 import Location from "../../helpers/Location";
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
-import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
+import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
 import OutputRoundedIcon from '@mui/icons-material/OutputRounded';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
@@ -42,6 +42,10 @@ const Sidebar = () => {
           <NavLink to={`/dashboard/organisations/${id}`} activeClassName="selected">{compagnyProject()}</NavLink>
         </div>
         <h2>Impact</h2>
+        <div className='sidebar-link-container'>
+          <TrendingUpOutlinedIcon className='menu-icon'/>
+          <NavLink to={`/dashboard/toc/${id}`} activeClassName="selected">Theory of Change</NavLink>
+        </div>
         <div className='sidebar-link-container'>
           <CompareArrowsOutlinedIcon className='menu-icon'/>
           <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>

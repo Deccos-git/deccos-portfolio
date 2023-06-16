@@ -6,10 +6,12 @@ import { NavLink } from "react-router-dom"
 import Location from "../../helpers/Location";
 import UserIcon from '../../assets/icons/user-icon.png'
 import SettingsIcon from '../../assets/icons/settings-icon.png'
+import MagicIcon from '../../assets/icons/magic-icon.svg'
 import SignOutIcon from '../../assets/icons/sign-out-icon.png'
 import { signOut } from "firebase/auth";
 import { useFirestoreCompagny } from "../../firebase/useFirestore";
 import { authDeccos } from "../../firebase/configDeccos";
+import Tooltip from "../common/Tooltip";
 
 const TopBar = () => {
   const [user] = useContext(Auth)
@@ -54,7 +56,14 @@ const TopBar = () => {
         <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/dashboard/home/${id}`)} />
         <div className='icon-container'>
           <NavLink to={`/dashboard/search/${id}`} activeClassName="selected">
-            <img src={SearchIcon} alt="search icon" />
+            <Tooltip content='Zoeken' width='80%' top='60px'>
+              <img src={SearchIcon} alt="search icon" />
+            </Tooltip>
+          </NavLink>
+          <NavLink to={`/guide/welcome/${id}`} activeClassName="selected">
+            <Tooltip content='Guide' width='80%' top='60px'>
+              <img src={MagicIcon} alt="search icon" />
+            </Tooltip>
           </NavLink>
         </div>
         <div>

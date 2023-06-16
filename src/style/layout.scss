@@ -321,6 +321,7 @@ table {
     input, select, textarea {
         border: none;
         background: transparent;
+        box-shadow: none;
     }
 }
 
@@ -355,3 +356,29 @@ table {
 .progressbar-progress {
     padding: 5px;
 }
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin: 0px;
+
+    p{
+        color: white;
+        font-size: 12px;
+    }
+  }
+  
+  .tooltip {
+    position: absolute;
+    z-index: 1;
+    background-color: black;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    left: 0;
+    font-size: 12px;
+  }
+
+  .tooltip-trigger{
+    margin: 0px;
+  }

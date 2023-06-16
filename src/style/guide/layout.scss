@@ -1,0 +1,52 @@
+#guide-container{
+    margin-top: 60px;
+    width: 100%;
+    background-color: #f3fafe;
+    padding: 30px
+}
+
+#guide-topbar-container{
+    display: flex;
+    flex-direction: column;
+
+    h1{
+        text-align: start;
+        margin-left: 0px;
+    }
+}
+
+#guide-navigation-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    margin-top: 15px;
+
+    p{
+        cursor: pointer;
+    }
+}
+
+#guide-instructions-container{
+    width: 80%;
+}
+
+.guide-section-title-container{
+    margin-top: 30px;
+
+    h2{
+        text-align: start;
+    }
+}
+
+.add-icon{
+    cursor: pointer;
+}
+
+.add-icon-container{
+    padding-top: 10px;
+}
+
+.delete-icon{
+    cursor: pointer;
+}

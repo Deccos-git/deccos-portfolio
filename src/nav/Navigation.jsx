@@ -25,6 +25,14 @@ import Userroles from "../pages/admin/Userroles";
 import NewClient from "../pages/admin/Newclient";
 import EffectsSettings from "../pages/admin/EffectsSettings";
 
+//Guide
+import LayoutGuide from "../components/guide/Layout";
+import Goal from "../pages/guide/Goal";
+import Overview from "../pages/guide/Overview";
+import ActivitiesGuide from "../pages/guide/Activities";
+import OutputsGuide from "../pages/guide/Outputs";
+import EffectsGuide from "../pages/guide/Effects";
+
 const Navigation = () => {
 
     return (
@@ -51,6 +59,13 @@ const Navigation = () => {
             <Route exact path={`/profile/team/:id`} element={<Team/>}/>
             <Route exact path={`/profile/userroles/:id`} element={<Userroles/>}/>
             <Route exact path={`/profile/effectsettings/:id`} element={<EffectsSettings/>}/>
+          </Route>
+          <Route path={`/guide`} element={<LayoutGuide/>}>
+            <Route exact path={`/guide/welcome/:id/`} element={<Overview/>}/>
+            <Route exact path={`/guide/goal/:id/`} element={<Goal/>}/>
+            <Route exact path={`/guide/activities/:id/`} element={<ActivitiesGuide/>}/>
+            <Route exact path={`/guide/outputs/:id/`} element={<OutputsGuide/>}/>
+            <Route exact path={`/guide/effects/:id/`} element={<EffectsGuide/>}/>
           </Route>
       </Routes>
     )
