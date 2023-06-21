@@ -18,6 +18,7 @@ const Effects = () => {
           <table>
             <tr>
                 <th>EFFECTEN</th>
+                <th>TERMIJN</th>
                 <th>DETAILS</th>
             </tr>
               {effects && effects.map(item => (
@@ -25,6 +26,7 @@ const Effects = () => {
                   <td>
                       <p>{item.title}</p>
                   </td>
+                  <td><p>{item.term}</p></td>
                   <td>
                     <Tooltip content='Details bekijken' top='-60px'>
                       <SearchOutlinedIcon className="table-icon"/>

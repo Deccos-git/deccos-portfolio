@@ -6,6 +6,8 @@ import Location from '../../helpers/Location';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Tooltip from "../../components/common/Tooltip";
 import { Settings } from '../../state/Settings';
+import CompagnyPackage from "../../components/organisations/CompagnyPackage";
+
 
 const Organisations = () => {
   const data = useContext(Data)
@@ -40,8 +42,9 @@ const Organisations = () => {
             <tr>
                 <th>LOGO</th>
                 <th>{compagnyProjectTable()}</th>
+                <th>THEMA</th>
                 <th>DETAILS</th>
-                <th>IMPACT SOFTWARE</th>
+                {/* <th>IMPACT SOFTWARE</th> */}
             </tr>
             {data[0] && data[0].map(item => (
                 <tr key={item.ID} >
@@ -52,15 +55,18 @@ const Organisations = () => {
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
+                      <CompagnyPackage item={item} />
+                  </td>
+                  <td>
                     <Tooltip content='Details bekijken' top='-60px'>
                       <SearchOutlinedIcon className="table-icon" onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`)}/>
                     </Tooltip>
                   </td>
-                  <td>
+                  {/* <td>
                     <Tooltip content='Link naar impact management software' top='-60px'>
                       <ImpactSoftwareLink compagny={item}/>
                     </Tooltip>
-                  </td>
+                  </td> */}
               </tr>
             ))} 
           </table>

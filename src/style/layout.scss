@@ -316,6 +316,7 @@ table {
         padding: 10px;
         border: 1px solid lightgray;
         min-width: 300px;
+        vertical-align: top;
     }
 
     input, select, textarea {
@@ -405,6 +406,7 @@ table {
 
   .table-icon{
     cursor: pointer;
+    margin-top: 10px;
   }
 
   .sidebar-section{

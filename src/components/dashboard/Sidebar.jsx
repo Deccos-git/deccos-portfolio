@@ -7,7 +7,7 @@ import Location from "../../helpers/Location";
 import OutlinedFlagIcon from '@mui/icons-material/OutlinedFlag';
 import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
 import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
-import OutputRoundedIcon from '@mui/icons-material/OutputRounded';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
@@ -54,18 +54,18 @@ const Sidebar = () => {
             <TrendingUpOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
           </div>
-          <div className='sidebar-link-container'>
+          {/* <div className='sidebar-link-container'>
             <OutlinedFlagIcon  className='menu-icon'/>
             <NavLink to={`/dashboard/goal/${id}`} activeClassName="selected">Maatschappelijk doel</NavLink>
-          </div>
-          <div className='sidebar-link-container'>
+          </div> */}
+          {/* <div className='sidebar-link-container'>
             <DirectionsWalkOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/activities/${id}`} activeClassName="selected">Activiteiten</NavLink>
           </div>
           <div className='sidebar-link-container'>
             <OutputRoundedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
-          </div>
+          </div> */}
           <div className='sidebar-link-container'>
             <CompareArrowsOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
@@ -73,6 +73,14 @@ const Sidebar = () => {
           <div className='sidebar-link-container'>
             <LandscapeOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/kpis/${id}`} activeClassName="selected">KPIs</NavLink>
+          </div>
+        </div>
+
+        <div className="sidebar-section">
+          <h2>Thema's</h2>
+          <div className='sidebar-link-container'>
+            <Inventory2OutlinedIcon className='menu-icon'/>
+            <NavLink to={`/dashboard/packages/${id}`} activeClassName="selected">Thema's</NavLink>
           </div>
         </div>
        

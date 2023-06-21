@@ -42,7 +42,7 @@ const TopBar = () => {
 
   const logout = () => {
     signOut(authDeccos).then(() => {
-      navigate(`/login`) 
+      navigate(`/`) 
     }).catch((error) => {
       alert(error)
     });

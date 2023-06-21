@@ -1,0 +1,22 @@
+#add-package-output-container{
+    display: flex;
+    align-items: center;
+
+    input{
+        margin-right: 10px;
+        border: 1px solid lightgray;
+        width: 90%;
+    }
+
+    select{
+        margin-right: 10px;
+        border: 1px solid lightgray;
+        max-width: 90%;
+        margin-bottom: 0px;
+    }
+}
+
+#package-compagny-pair-container{
+    display: flex;
+    align-items: center;
+}

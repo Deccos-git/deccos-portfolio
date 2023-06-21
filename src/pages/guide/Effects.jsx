@@ -15,6 +15,7 @@ import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 import { Data } from "../../state/Data";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import EffectTerm from "../../components/effects/EffectTerm";
 
 const Effects = () => {
 
@@ -60,7 +61,6 @@ const Effects = () => {
       await deleteDoc(doc(db, "effects", docid))
   }
 
-
   const settings = () => {
       return (
           <div className='table-container'>
@@ -72,7 +72,7 @@ const Effects = () => {
           <table>
             <tr>
                 <th>EFFECT</th>
-                <th>EFFECTEN KOPPELEN</th>
+                <th>TERMIJN</th>
                 <th>VERWIJDEREN</th>
             </tr>
               {effects && effects.map(item => (
@@ -81,9 +81,7 @@ const Effects = () => {
                       <input type="text" defaultValue={item.title} data-docid={item.docid} onChange={effectHandler} placeholder="Noteer hier je effect" />
                   </td>
                   <td>
-                      <Tooltip content='Effect koppelen van projecten/organisaties' width='80%' left='30px' top='-5px'>
-                          <LinkOutlinedIcon className="table-icon" onClick={() => navigate(`/guide/paireffects/${id}/${item.id}`)}/>
-                      </Tooltip>
+                        <EffectTerm item={item} docid={item.docid}/>
                   </td>
                   <td>
                       <Tooltip content='Effect verwijderen' width='80%' left='30px' top='-5px'>
@@ -103,6 +101,8 @@ const Effects = () => {
         <Navigation
         prev="Outputs"
         prevLink="outputs"
+        next='KPIs'
+        nextLink='kpis'
         />
         <Topbar 
         title="Effecten" 

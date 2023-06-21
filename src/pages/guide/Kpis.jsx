@@ -6,13 +6,11 @@ import Location from "../../helpers/Location"
 import { db } from "../../firebase/config"
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
 import { doc, setDoc, updateDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
-import { useEffect, useState } from "react"
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { useState } from "react"
 import Tooltip from '../../components/common/Tooltip'
 import { v4 as uuid } from 'uuid';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
-import { Data } from "../../state/Data";
 import { useNavigate } from "react-router-dom";
 import KpiMeta from "../../components/kpis/KpiMeta"
 
@@ -87,22 +85,12 @@ const Kpis = () => {
             <table>
               <tr>
                   <th>KPI</th>
-                  <th>KPIS KOPPELEN</th>
                   <th>VERWIJDEREN</th>
               </tr>
                 {kpis && kpis.map(item => (
                   <tr key={item.id}>
                     <td>
                         <KpiMeta kpi={item} />
-                    </td>
-                    <td>
-                        <div id='pair-kpi-container'>
-                            <Tooltip content='Kpi koppelen van projecten/organisaties' width='60%' left='30px' top='-5px'>
-                                <LinkOutlinedIcon className="table-icon" onClick={() => navigate(`/guide/pairkpis/${id}/${item.id}`)}/>
-                            </Tooltip>
-                            <p>Koppelingen: {item.pairedKpis ? item.pairedKpis.length : 0}</p>
-                        </div>
-                        
                     </td>
                     <td>
                         <Tooltip content='Kpi verwijderen' width='80%' left='30px' top='-5px'>
@@ -120,17 +108,19 @@ const Kpis = () => {
     return (
       <>
           <Navigation
-          prev="Effecten"
-          prevLink="effects"
+            prev="Effecten"
+            prevLink="effects"
+            next={`Thema's`}
+            nextLink='packages'
           />
           <Topbar 
-          title="Kpis" 
+            title="Kpis" 
           />
           <Instructions
-          text={text()}
+            text={text()}
           />
           <Settings
-          settings={settings()}
+            settings={settings()}
           />
       </>
     )

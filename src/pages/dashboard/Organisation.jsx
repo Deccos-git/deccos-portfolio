@@ -1,23 +1,25 @@
-import { useFirestoreGeneral } from "../../firebase/useFirestoreDeccos"
+import { useFirestoreGeneral as useFirestoreGeneralDeccos } from "../../firebase/useFirestoreDeccos"
+import { useFirestoreGeneral } from "../../firebase/useFirestore"
 import Location from "../../helpers/Location";
 import ProblemIcon from '@mui/icons-material/ExtensionOutlined';
 import GoalIcon from '@mui/icons-material/FlagOutlined';
 import GroupIcon from '@mui/icons-material/Groups2Outlined';
 import ActivityIcon from '@mui/icons-material/MonitorHeartOutlined';
 import EffectIcon from '@mui/icons-material/TurnSharpLeftOutlined';
+import PackageMeta from "../../components/packages/PackageMeta";
 
 const Organisation = () => {
 
     const compagnyId = Location()[4]
 
-    const compagnies = useFirestoreGeneral('CompagnyMeta', 'CompagnyID', compagnyId ? compagnyId : '')
-    const centralProblem = useFirestoreGeneral('CentralProblem', 'CompagnyID', compagnyId ? compagnyId : '')
-    const goals = useFirestoreGeneral('Goals', 'CompagnyID', compagnyId ? compagnyId : '')
-    const targetgroups = useFirestoreGeneral('Stakeholders', 'CompagnyID', compagnyId ? compagnyId : '')
-    const activities = useFirestoreGeneral('Activities', 'CompagnyID', compagnyId ? compagnyId : '')
-    const kpis = useFirestoreGeneral('OutputEffects', 'CompagnyID', compagnyId ? compagnyId : '')
+    const compagnies = useFirestoreGeneralDeccos('CompagnyMeta', 'CompagnyID', compagnyId ? compagnyId : '')
+    const centralProblem = useFirestoreGeneralDeccos('CentralProblem', 'CompagnyID', compagnyId ? compagnyId : '')
+    const goals = useFirestoreGeneralDeccos('Goals', 'CompagnyID', compagnyId ? compagnyId : '')
+    // const targetgroups = useFirestoreGeneral('Stakeholders', 'CompagnyID', compagnyId ? compagnyId : '')
+    // const activities = useFirestoreGeneral('Activities', 'CompagnyID', compagnyId ? compagnyId : '')
+    // const kpis = useFirestoreGeneral('OutputEffects', 'CompagnyID', compagnyId ? compagnyId : '')
 
-    console.log(targetgroups)
+    const packageCompagnyPairs = useFirestoreGeneral('packageCompagnyPairs', 'compagnyId', compagnyId ? compagnyId : '')
 
 
   return (
@@ -37,14 +39,14 @@ const Organisation = () => {
                 <div className="report-section">
                     <div className="report-section-title-container">
                         <ProblemIcon/>
-                        <h2>Het probleem waar wij ons voor inzetten</h2>
+                        <h2>Maatschappelijk probleem</h2>
                     </div>
                     {centralProblem && centralProblem.map(item => (
                         <p>{item.CentralProblem}</p>
                     ))}
                     <div className="report-section-title-container">
                         <GoalIcon/>
-                        <h2>Ons doel</h2>
+                        <h2>Maatschappelijk doel</h2>
                     </div>
                     {goals && goals.map(item => (
                         <p>{item.Title}</p>
@@ -53,13 +55,11 @@ const Organisation = () => {
                 <div className="report-section-container-contrast">
                     <div className="report-section-title-container">
                         <GroupIcon/>
-                        <h2>Voor wie we het doen</h2>
+                        <h2>Pakket</h2>
                     </div>
-                    <div className="report-targetgroup-container">
-                        {targetgroups && targetgroups.map(item => (
-                            <div className="report-targetgroup-item-container">
-                                <p>{item.Organisation}</p>
-                            </div>
+                    <div className="report-package-container">
+                        {packageCompagnyPairs && packageCompagnyPairs.map(item => (
+                            <PackageMeta item={item} />
                         ))}
                     </div>
               
@@ -67,29 +67,29 @@ const Organisation = () => {
                 <div className="report-section">
                     <div className="report-section-title-container">
                         <ActivityIcon/>
-                        <h2>Wat we doen</h2>
+                        <h2>Outputs</h2>
                     </div>
                     <div className="report-activities-container">
-                        {activities && activities.map(item => (
+                        {/* {activities && activities.map(item => (
                             <div className="report-activity-item-container">
                                 <h3>{item.Activity}</h3>
-                                {/* <ActivityOutput activity={item.ID}/> */}
+                                {/* <ActivityOutput activity={item.ID}/> }
                             </div>
-                        ))}
+                        ))} */}
                     </div>
                     
                 </div>
                 <div className="report-section-container-contrast">
                     <div className="report-section-title-container">
                         <EffectIcon/>
-                        <h2>Wat we willen bereiken</h2>
+                        <h2>KPIs</h2>
                     </div>
-                    {kpis && kpis.map(item => (
+                    {/* {kpis && kpis.map(item => (
                         <div className="report-effect-data-item-container">
                             <h3>{item.Effect}</h3>
-                            {/* <EffectData effect={item}/> */}
+                            {/* <EffectData effect={item}/> }
                         </div>
-                    ))}
+                    ))} */}
                 </div>
             </div>
         </div>

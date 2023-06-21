@@ -15,6 +15,7 @@ import Goal from "../pages/dashboard/Goal";
 import Outputs from "../pages/dashboard/Outputs";
 import Activities from "../pages/dashboard/Activities";
 import Kpis from "../pages/dashboard/Kpis";
+import Packages from "../pages/dashboard/Packages";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -38,7 +39,9 @@ import ActivitiesGuide from "../pages/guide/Activities";
 import OutputsGuide from "../pages/guide/Outputs";
 import EffectsGuide from "../pages/guide/Effects";
 import KpisGuide from "../pages/guide/Kpis";
-import PairKpis from "../pages/guide/PairKpis";
+import PairPackage from "../pages/guide/PairPackage";
+import PackagesGuide from "../pages/guide/Packages";
+import OrganisationsGuide from "../pages/guide/Organisations";
 
 const Navigation = () => {
 
@@ -56,6 +59,7 @@ const Navigation = () => {
             <Route exact path={`/dashboard/outputs/:id`} element={<Outputs/>}/>
             <Route exact path={`/dashboard/activities/:id`} element={<Activities/>}/>
             <Route exact path={`/dashboard/kpis/:id`} element={<Kpis/>}/>
+            <Route exact path={`/dashboard/packages/:id`} element={<Packages/>}/>
           </Route>
           <Route path={`/`} >
               <Route exact path={`/`} element={<Login/>}/>
@@ -79,7 +83,9 @@ const Navigation = () => {
             <Route exact path={`/guide/outputs/:id/`} element={<OutputsGuide/>}/>
             <Route exact path={`/guide/effects/:id/`} element={<EffectsGuide/>}/>
             <Route exact path={`/guide/kpis/:id/`} element={<KpisGuide/>}/>
-            <Route exact path={`/guide/pairKpis/:id/:id`} element={<PairKpis/>}/>
+            <Route exact path={`/guide/pairpackage/:id/:id`} element={<PairPackage/>}/>
+            <Route exact path={`/guide/packages/:id/`} element={<PackagesGuide/>}/>
+            <Route exact path={`/guide/organisations/:id/`} element={<OrganisationsGuide/>}/>
           </Route>
       </Routes>
     )
