@@ -62,10 +62,6 @@ const SidebarProfile = () => {
           <SettingsOutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/settings/${id}`} activeClassName="selected">Instellingen</NavLink>
         </div>
-        <div className='sidebar-link-container'>
-          <SettingsOutlinedIcon className='menu-icon'/>
-          <NavLink to={`/profile/effectsettings/${id}`} activeClassName="selected">Effecten</NavLink>
-        </div>
       </div>
     </div>
   )

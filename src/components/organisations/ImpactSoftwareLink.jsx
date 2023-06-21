@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFirestoreGeneral } from '../../firebase/useFirestoreDeccos'
+import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 
 const ImpactSoftwareLink = ({compagny}) => {
 
@@ -9,8 +10,7 @@ const ImpactSoftwareLink = ({compagny}) => {
     <>
         {impactManagers && impactManagers.map(item => (
             <div key={item.ID}>
-                <a href={`https://www.${item.Hostname}/${compagny.CompagnyID}/home`} target='_blank'>Bekijk in impact software</a>
-
+                <a href={`https://www.${item.Hostname}/${compagny.CompagnyID}/home`} target='_blank'><LinkOutlinedIcon className='table-icon'/></a>
             </div>
         ))}
     </>

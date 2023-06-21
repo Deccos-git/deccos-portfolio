@@ -27,7 +27,7 @@ const Goal = () => {
     }
 
     const goalHandler = async (e) => {
-      const docid= e.target.dataset.docid
+      const docid = e.target.dataset.docid
 
         await updateDoc(doc(db, "goals", docid), {
             title: e.target.value,
@@ -45,7 +45,7 @@ const Goal = () => {
                 {goals && goals.map(item => (
                   <tr key={item.ID} >
                     <td>
-                        <input type="text" defaultValue={item.goal} data-docid={item.docid} onChange={goalHandler} placeholder="Noteer hier je maatschappelijke doel" />
+                        <input type="text" defaultValue={item.title} data-docid={item.docid} onChange={goalHandler} placeholder="Noteer hier je maatschappelijke doel" />
                     </td>
                   </tr>
                 ))}

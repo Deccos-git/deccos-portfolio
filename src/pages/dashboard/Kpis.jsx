@@ -2,28 +2,29 @@ import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import Location from '../../helpers/Location'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Tooltip from "../../components/common/Tooltip";
+import KpiMeta from '../../components/kpis/KpiMeta';
 
-const Effects = () => {
+const Kpis = () => {
 
   const client = Location()[3]
   
-  const effects  = useFirestoreGeneral('effects', 'compagny', client)
+  const kpis  = useFirestoreGeneral('kpis', 'compagny', client)
 
   return (
     <div className='page-container'>
         <div className='page-top-container'>
-        <h1>Effecten</h1>
+        <h1>Kpis</h1>
         </div>
          <div className='table-container'>
           <table>
             <tr>
-                <th>EFFECTEN</th>
+                <th>KPI</th>
                 <th>DETAILS</th>
             </tr>
-              {effects && effects.map(item => (
+              {kpis && kpis.map(item => (
                 <tr key={item.ID} >
                   <td>
-                      <p>{item.title}</p>
+                      <KpiMeta kpi={item} />
                   </td>
                   <td>
                     <Tooltip content='Details bekijken' top='-60px'>
@@ -38,4 +39,4 @@ const Effects = () => {
   )
 }
 
-export default Effects
+export default Kpis

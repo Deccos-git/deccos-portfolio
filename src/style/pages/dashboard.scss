@@ -58,3 +58,18 @@
         margin: 5px 0px 0px 4px;
     }
 }
+
+#dashboard-outputs-container{
+    margin-top: 50px;
+}
+
+.dashboard-section-title-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h2{
+        text-align: left;
+        margin-left: 10px;
+    }
+}

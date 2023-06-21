@@ -382,3 +382,31 @@ table {
   .tooltip-trigger{
     margin: 0px;
   }
+
+  .select-activity-container{
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+  }
+
+  .select-activity-inner-container {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #f4f4f4;
+    margin: 20px 0px 20px 0px;
+    display: flex;
+}
+
+  .select-activity-item-container{
+    padding: 5px 10px;
+    cursor: pointer;
+    border-right: 1px solid #f4f4f4;
+  }
+
+  .table-icon{
+    cursor: pointer;
+  }
+
+  .sidebar-section{
+    margin-bottom: 30px;
+  }

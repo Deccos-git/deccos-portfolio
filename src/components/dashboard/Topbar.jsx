@@ -61,7 +61,7 @@ const TopBar = () => {
             </Tooltip>
           </NavLink>
           <NavLink to={`/guide/welcome/${id}`} activeClassName="selected">
-            <Tooltip content='Guide' width='80%' top='60px'>
+            <Tooltip content='Impact gids' width='80%' top='60px'>
               <img src={MagicIcon} alt="search icon" />
             </Tooltip>
           </NavLink>

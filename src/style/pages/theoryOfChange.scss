@@ -1,0 +1,36 @@
+.toc-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 50px;
+
+  h2{
+    text-align: start;
+  }
+}
+
+.toc-section-container{
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  margin: 10px 0px;
+  border: 1px solid rgb(242, 242, 242);
+
+  p{
+    margin-left: 30px;
+  }
+}
+
+.toc-section-title-container{
+  display: flex;
+  align-items: center;
+}
+
+.toc-section-icon{
+  margin-right: 10px;
+}
+
+.toc-arrow-up-container{
+  display: flex;
+  justify-content: center;
+}

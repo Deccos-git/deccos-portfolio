@@ -36,7 +36,7 @@ export const DataProvider = (props) => {
 
     },[client])
 
-    // Effects
+    // KPI's
     useEffect(() => {
 
         const array = []
@@ -44,7 +44,7 @@ export const DataProvider = (props) => {
         const userQuery = async (id) => {
 
             const col = collection(db, 'OutputEffects');
-            const q = query(col, where('CompagnyID', '==', id));
+            const q = query(col, where('CompagnyID', '==', id), where('KPI', '==', 'true'));
             const snapshot = await getDocs(q);
 
             snapshot.docs.forEach(doc => 
