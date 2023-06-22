@@ -17,6 +17,7 @@ import KpiMeta from "../../components/kpis/KpiMeta"
 import PackageOutputs from "../../components/packages/PackageOutputs"
 import KpiMetaPackage from "../../components/packages/KpiMetaPackage";
 import PackageCompagnyPairCount from "../../components/packages/PackageCompagnyPairCount";
+import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
 
 const Packages = () => {
 
@@ -122,10 +123,10 @@ const Packages = () => {
                 <table>
                 <tr>
                     <th>THEMA</th>
-                    <th>OMSCHRIJVING</th>
-                    <th>OUTPUTS</th>
-                    <th>KPI'S</th>
-                    <th>GEKOPPELDE ORGANISATIES</th>
+                    <th>AANPASSEN</th>
+                    {/* <th>OUTPUTS</th>
+                    <th>KPI'S</th> */}
+                    {/* <th>GEKOPPELDE ORGANISATIES</th> */}
                     <th>VERWIJDEREN</th>
                 </tr>
                     {packages && packages.map(item => (
@@ -134,9 +135,11 @@ const Packages = () => {
                             <input type="text" defaultValue={item.titel} data-docid={item.docid} onChange={packageTitleHandler}/>
                         </td>
                         <td>
-                           <textarea name="" id="" cols="30" rows="3" data-docid={item.docid} defaultValue={item.description} onChange={descriptionHandler}></textarea>
+                            <Tooltip content='Thema aanpassen' width='80%' left='30px' top='-5px'>
+                                <SettingsSuggestOutlinedIcon className='table-icon' onClick={() => navigate(`/guide/packagebuilder/${id}/${item.id}`)}/>
+                            </Tooltip>
                         </td>
-                        <td>
+                        {/* <td>
                             <div id='add-package-output-container'>
                                 <input type="text" onChange={outputHandler} placeholder="Output title"/>
                                 <Tooltip content='Output toevoegen' width='10%' left='30px' top='-5px'>
@@ -164,8 +167,8 @@ const Packages = () => {
                                     </li>
                                 </ul>
                             ))}
-                        </td>
-                        <td>
+                        </td> */}
+                        {/* <td>
                             <div id='package-compagny-pair-container'>
                                 <Tooltip content='Beheer koppelingen' width='80%' left='30px' top='-5px'>
                                     <LinkOutlinedIcon className="table-icon" onClick={() => navigate(`/guide/pairpackage/${id}/${item.id}`)}  />
@@ -173,10 +176,10 @@ const Packages = () => {
                                 <PackageCompagnyPairCount id={item.id} />
                             </div>
                             
-                        </td>
+                        </td> */}
                         <td>
-                            <Tooltip content='Kpi verwijderen' width='80%' left='30px' top='-5px'>
-                                <DeleteOutlineOutlinedIcon className="delete-icon" data-docid={item.docid} onClick={deletePackage} />
+                            <Tooltip content='Thema verwijderen' width='80%' left='30px' top='-5px'>
+                                <DeleteOutlineOutlinedIcon className="table-icon" data-docid={item.docid} onClick={deletePackage} />
                             </Tooltip>
                         </td>
                     </tr>

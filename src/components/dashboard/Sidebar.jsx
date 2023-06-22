@@ -11,6 +11,7 @@ import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
+import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 
 const Sidebar = () => {
   const [auth] = useContext(Auth)
@@ -79,7 +80,7 @@ const Sidebar = () => {
         <div className="sidebar-section">
           <h2>Thema's</h2>
           <div className='sidebar-link-container'>
-            <Inventory2OutlinedIcon className='menu-icon'/>
+            <PhotoAlbumOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/packages/${id}`} activeClassName="selected">Thema's</NavLink>
           </div>
         </div>

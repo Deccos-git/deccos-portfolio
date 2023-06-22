@@ -42,6 +42,7 @@ import KpisGuide from "../pages/guide/Kpis";
 import PairPackage from "../pages/guide/PairPackage";
 import PackagesGuide from "../pages/guide/Packages";
 import OrganisationsGuide from "../pages/guide/Organisations";
+import PackageBuilder from "../pages/guide/PackageBuilder";
 
 const Navigation = () => {
 
@@ -85,6 +86,7 @@ const Navigation = () => {
             <Route exact path={`/guide/kpis/:id/`} element={<KpisGuide/>}/>
             <Route exact path={`/guide/pairpackage/:id/:id`} element={<PairPackage/>}/>
             <Route exact path={`/guide/packages/:id/`} element={<PackagesGuide/>}/>
+            <Route exact path={`/guide/packagebuilder/:id/:id`} element={<PackageBuilder/>}/>
             <Route exact path={`/guide/organisations/:id/`} element={<OrganisationsGuide/>}/>
           </Route>
       </Routes>

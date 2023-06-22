@@ -8,6 +8,7 @@ import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import KpiMetaDashboard from '../../components/dashboard/KpiMetaDashboard'
 import DashboardPairedKpis from '../../components/dashboard/DashboardPairedKpis'
 import { Settings } from '../../state/Settings';
+import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 
 const Dashboard = () => {
   const data = useContext(Data)
@@ -26,6 +27,7 @@ const Dashboard = () => {
   const activities = useFirestoreGeneral('activities', 'compagny', client)
   const kpis = useFirestoreGeneral('kpis', 'compagny', client)
   const targetgroups = useFirestoreGeneral('targetgroups', 'compagny', client)
+  const packages = useFirestoreGeneral('packages', 'compagny', client)
 
   const compagnyProject = () => {
     if(settings[0]?.compagnyProject === 'project'){
@@ -126,19 +128,19 @@ const Dashboard = () => {
 
         <section id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
-            <OutputRoundedIcon />
-            <h2>Outputs</h2>
+            <PhotoAlbumOutlinedIcon/>
+            <h2>Thema's</h2>
           </div>
           <div className='select-activity-container'>
               <div className="select-activity-inner-container">
-                {activities && activities.map(item => (
+                {packages && packages.map(item => (
                     <div 
                     className="select-activity-item-container" 
                     key={item.ID} 
                     style={{backgroundColor: activityId === item.id ? '#f4f4f4' : 'white'}}
                     data-id={item.id} onClick={selectActivity}
                     >
-                      <p data-id={item.id} onClick={selectActivity}>{item.title}</p>
+                      <p data-id={item.id} onClick={selectActivity}>{item.titel}</p>
                     </div>
                 ))}
               </div>

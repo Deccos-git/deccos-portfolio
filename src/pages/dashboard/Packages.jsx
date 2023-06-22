@@ -26,7 +26,7 @@ const Packages = () => {
                     <th>OMSCHRIJVING</th>
                     <th>OUTPUTS</th>
                     <th>KPI'S</th>
-                    <th>GEKOPPELDE ORGANISATIES</th>
+                    <th>GECOMMITTEERDE ORGANISATIES</th>
                     <th>DETAILS</th>
                 </tr>
                     {packages && packages.map(item => (

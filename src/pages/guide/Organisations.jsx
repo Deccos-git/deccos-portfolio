@@ -20,6 +20,7 @@ import PackageCompagnyPairCount from "../../components/packages/PackageCompagnyP
 import { Data } from "../../state/Data";
 import CompagnyPackage from "../../components/organisations/CompagnyPackage";
 import PackageOutputsOrganisations from "../../components/organisations/PackageOutputsOrganisations"
+import CompagnyPackageKPIs from "../../components/organisations/CompagnyPackageKPIs"
 
 const Organisations = () => {
     const data = useContext(Data)
@@ -58,7 +59,7 @@ const Organisations = () => {
                             <PackageOutputsOrganisations item={item} organisation={item.ID} />
                         </td>
                         <td>
-
+                            <CompagnyPackageKPIs item={item} />
                         </td>
                     </tr>
                     ))}

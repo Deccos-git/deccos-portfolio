@@ -6,11 +6,11 @@ import { db } from "../../firebase/config";
 
 const PackageOutputGoals = ({item, organisation}) => {
 
-    console.log(organisation)
+    // console.log(organisation)
 
     const packageOutputGoals = useFirestoreGeneralTwo('packageOutputGoals', 'packageOutputId', item.id,  'organisationId', organisation)
 
-    console.log(packageOutputGoals)
+    // console.log(packageOutputGoals)
 
     const deleteGoal = (e) => {
         const docid = e.target.dataset.docid
