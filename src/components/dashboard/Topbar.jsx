@@ -4,21 +4,14 @@ import { useContext, useEffect, useState } from 'react';
 import SearchIcon from '../../assets/icons/search-icon.png'
 import { NavLink } from "react-router-dom"
 import Location from "../../helpers/Location";
-import UserIcon from '../../assets/icons/user-icon.png'
-import SettingsIcon from '../../assets/icons/settings-icon.png'
 import MagicIcon from '../../assets/icons/magic-icon.svg'
-import SignOutIcon from '../../assets/icons/sign-out-icon.png'
-import { signOut } from "firebase/auth";
 import { useFirestoreCompagny } from "../../firebase/useFirestore";
-import { authDeccos } from "../../firebase/configDeccos";
 import Tooltip from "../common/Tooltip";
 
 const TopBar = () => {
   const [user] = useContext(Auth)
 
   const [logo, setLogo] = useState('')
-
-  const [showProfileDropdown, setShowProfileDropdown] = useState('none')
 
   const navigate = useNavigate()
 
@@ -32,24 +25,6 @@ const TopBar = () => {
       setLogo(item.logo)
     })
   },[compagnies])
-
-  const profileLink = () => {
-
-    navigate(`/profile/profile/${id}/${user.ID}`) 
-    
-    setShowProfileDropdown('none')
-  }
-
-  const logout = () => {
-    signOut(authDeccos).then(() => {
-      navigate(`/`) 
-    }).catch((error) => {
-      alert(error)
-    });
-
-    
-  }
-
 
   return (
       <div id='topbar-landing-container'>
@@ -67,20 +42,9 @@ const TopBar = () => {
           </NavLink>
         </div>
         <div>
-          <div id='user-profile-container' onMouseEnter={() => setShowProfileDropdown('flex')}>
+          <div id='user-profile-container' onClick={() => navigate(`/profile/profile/${id}/${user.ID}`) }>
             <img src={user.Photo} alt="profile picture" />
             <p>{user.ForName}</p>
-          </div>
-          <div className='dropdown-container dropdown-container-profile' style={{display: showProfileDropdown}} onMouseLeave={() => setShowProfileDropdown('none')}>
-            <div className='dropdown-icon-container'>
-                <img src={UserIcon} alt="user-icon" onClick={profileLink}/>
-                <p onClick={profileLink}>Profiel</p>
-            </div>
-            <div className='line-div'></div>
-            <div className='dropdown-icon-container'>
-                <img src={SignOutIcon} alt="settings-icon" onClick={logout}/>
-                <p onClick={logout}>Uitloggen</p>
-            </div>
           </div>
         </div>
       </div>

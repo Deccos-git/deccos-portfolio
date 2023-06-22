@@ -16,6 +16,7 @@ import Outputs from "../pages/dashboard/Outputs";
 import Activities from "../pages/dashboard/Activities";
 import Kpis from "../pages/dashboard/Kpis";
 import Packages from "../pages/dashboard/Packages";
+import PackageDetail from "../pages/dashboard/PackageDetail";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -61,6 +62,7 @@ const Navigation = () => {
             <Route exact path={`/dashboard/activities/:id`} element={<Activities/>}/>
             <Route exact path={`/dashboard/kpis/:id`} element={<Kpis/>}/>
             <Route exact path={`/dashboard/packages/:id`} element={<Packages/>}/>
+            <Route exact path={`/dashboard/packagedetail/:id/:id`} element={<PackageDetail/>}/>
           </Route>
           <Route path={`/`} >
               <Route exact path={`/`} element={<Login/>}/>

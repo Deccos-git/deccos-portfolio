@@ -1,0 +1,69 @@
+import OutputLineChartWithReferenceLine from "../graphs/OutputLineChartWithReferenceLine"
+
+const OutputResults = ({output}) => {
+
+  const formattedDate = () => {
+    const dateArray = output.deadline.split('-')
+    const year = dateArray[0]
+    const month = dateArray[1]
+
+    return `${month}-${year}`
+
+  }
+
+  console.log(formattedDate())
+
+
+    const data = [
+        {
+            name: '02-2023',
+            uv: 3000,
+            deelnemers: 1398,
+            amt: 2210,
+          },
+          {
+            name: '02-2023',
+            uv: 3000,
+            deelnemers: 1398,
+            amt: 2210,
+          },
+        {
+          name: '01-2023',
+          deelnemers: 2400,
+        },
+        {
+            name: '06-2023',
+            uv: 2390,
+            deelnemers: 3800,
+            amt: 2500,
+          },
+        {
+            name: '04-2023',
+            uv: 2780,
+            deelnemers: 3908,
+            amt: 2000,
+          },
+          {
+            name: '05-2023',
+            uv: 1890,
+            deelnemers: 4800,
+            amt: 2181,
+          },
+        {
+          name: '03-2023',
+          uv: 2000,
+          deelnemers: 5200,
+          amt: 2290,
+        },
+    
+      ];
+
+  return (
+    <div className="graph-container">
+        <OutputLineChartWithReferenceLine data={data} label='KPI' kpi={output.goal} dataKey={'deelnemers'} deadline={formattedDate()} deadlineLabel={'Deadline'} />
+    </div>
+    
+  )
+}
+
+export default OutputResults

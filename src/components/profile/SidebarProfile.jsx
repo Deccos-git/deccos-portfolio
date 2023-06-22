@@ -10,15 +10,34 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Location from "../../helpers/Location";
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
+import { useFirestoreGeneral as useFirestoreGeneralDeccos } from '../../firebase/useFirestoreDeccos'
+import UserCompagnies from "./UserCompagnies";
+import { useNavigate } from "react-router-dom";
 
 const SidebarProfile = () => {
   const [auth] = useContext(Auth)
 
   const [admin, setAdmin] = useState(false) 
+  const [compagnySwitch, setCompagnySwitch] = useState(false)
 
   const id = Location()[3]
+  const user = Location()[4]
+  const navigate = useNavigate()
 
   const admins = useFirestoreGeneral('admins', 'compagnyID', id)
+  const users = useFirestoreGeneralDeccos('Users', 'ID', user)
+
+  // Set compagnyswitch visibility
+  useEffect(() => {
+    users && users.forEach(item => {
+      const length = item.Finpact.length
+
+      if(length > 1){
+        setCompagnySwitch(true)
+      }
+    })
+  },[users])
+
 
   useEffect(() => {
     admins && admins.forEach(item => {
@@ -28,6 +47,14 @@ const SidebarProfile = () => {
     })
   },[admins])
 
+  const switchAccountHandler = (e) => {
+
+    const compagnyId = e.target.options[e.target.selectedIndex].dataset.id
+
+    navigate(`/dashboard/home/${compagnyId}`)
+
+  }
+
   return (
     <div id='sidebar-container'>
        <div className='sidebar-inner-container'>
@@ -35,13 +62,6 @@ const SidebarProfile = () => {
         <div className='sidebar-link-container'>
           <HomeIcon className='menu-icon'/>
           <NavLink to={`/dashboard/home/${id}`} activeClassName="selected">Home</NavLink>
-        </div>
-      </div>
-      <div className='sidebar-inner-container'>
-        <h2>Profiel</h2>
-        <div className='sidebar-link-container'>
-          <AccountCircleOutlinedIcon className='menu-icon'/>
-          <NavLink to={`/profile/profile/${id}/${auth.ID}`} activeClassName="selected">Profiel</NavLink>
         </div>
       </div>
       <div className='sidebar-inner-container' style={{display: admin ? 'block' : 'none'}}>
@@ -62,6 +82,23 @@ const SidebarProfile = () => {
           <SettingsOutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/settings/${id}`} activeClassName="selected">Instellingen</NavLink>
         </div>
+      </div>
+      <div className='sidebar-inner-container'>
+        <h2>Mijn account</h2>
+        <div className='sidebar-link-container'>
+          <AccountCircleOutlinedIcon className='menu-icon'/>
+          <NavLink to={`/profile/profile/${id}/${auth.ID}`} activeClassName="selected">Instellingen</NavLink>
+        </div>
+      </div>
+      <div className='sidebar-inner-container' style={{display: compagnySwitch ? 'block' : 'none'}}>
+        <h2>Mijn portfiolo organisaties</h2>
+        <select name="" id="" onChange={switchAccountHandler}>
+          <option value="">-- Selecteer --</option>
+          {users && users.map(item => (
+            <UserCompagnies user={item}/>
+          ))}
+        </select>
+
       </div>
     </div>
   )

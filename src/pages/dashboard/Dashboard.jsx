@@ -140,7 +140,7 @@ const Dashboard = () => {
                     style={{backgroundColor: activityId === item.id ? '#f4f4f4' : 'white'}}
                     data-id={item.id} onClick={selectActivity}
                     >
-                      <p data-id={item.id} onClick={selectActivity}>{item.titel}</p>
+                      <p data-id={item.id} onClick={selectActivity}>{item.title}</p>
                     </div>
                 ))}
               </div>

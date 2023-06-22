@@ -9,6 +9,7 @@ body {
     background-color: #fff;
     width: 100%;
     position: fixed;
+    z-index: 3;
     display: -webkit-flex;
     padding: 5px 30px 5px 30px;
     display: flex;
@@ -335,6 +336,7 @@ table {
 
 .recharts-text {
     font-size: 15px;
+    font-weight: bold;
 }
 
 .milestone-progress-container {

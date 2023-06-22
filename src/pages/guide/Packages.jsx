@@ -65,7 +65,7 @@ const Packages = () => {
         const value = e.target.value
 
         await updateDoc(doc(db, "packages", docid), {
-            titel: value,
+            title: value,
         })
     }
 
@@ -132,7 +132,7 @@ const Packages = () => {
                     {packages && packages.map(item => (
                     <tr key={item.id}>
                         <td>
-                            <input type="text" defaultValue={item.titel} data-docid={item.docid} onChange={packageTitleHandler}/>
+                            <input type="text" defaultValue={item.title} data-docid={item.docid} onChange={packageTitleHandler}/>
                         </td>
                         <td>
                             <Tooltip content='Thema aanpassen' width='80%' left='30px' top='-5px'>

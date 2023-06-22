@@ -1,17 +1,15 @@
-import CompagnyCard from "./CompagnyCard"
+import SwitchAccountCompagnyMeta from "./SwitchAccountCompagnyMeta"
 
 const UserCompagnies = ({user}) => {
 
     const compagnies = user.Finpact
 
-    console.log(compagnies)
-
   return (
-    <div className='card-container center-container'>
+    <>
         {compagnies && compagnies.map(item => (
-            <CompagnyCard compagny={item}/>
+            <SwitchAccountCompagnyMeta compagny={item}/>
         ))}
-    </div>
+    </>
   )
 }
 

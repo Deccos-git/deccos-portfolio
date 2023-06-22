@@ -12,6 +12,7 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
+import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
 
 const Sidebar = () => {
   const [auth] = useContext(Auth)
