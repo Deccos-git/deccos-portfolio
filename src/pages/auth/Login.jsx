@@ -7,16 +7,36 @@ import { authDeccos } from '../../firebase/configDeccos';
 import Logo from '../../assets/deccos-finpact-logo.png'
 import Location from "../../helpers/Location";
 import Hostname from "../../helpers/Hostname";
+import Modal from 'react-modal';
+import { sendPasswordResetEmail } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
   const [user] = useContext(Auth)
   const [logo, setLogo] = useState()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [emailReset, setEmailReset] = useState('')
+  const [errorReset, setErrorReset] = useState('')
+  const [succesReset, setSuccesReset] = useState('')
 
   const navigate = useNavigate()
   const client = Location()[2]
   const host = Hostname()
+  Modal.setAppElement('#root');
+
+  const modalStyles = {
+      content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-10%',
+        transform: 'translate(-50%, -50%)',
+        width: '80%',
+        height: 'auto'
+      },
+    };
 
   useEffect(() => {
     setLogo(host.logo)
@@ -75,6 +95,50 @@ const Login = () => {
 
   isAuth()
 
+  const resetPasswordModal = () => {
+
+    setModalOpen(true)
+
+  }
+
+  const closeModal = () => {
+      setModalOpen(false);
+  }
+
+  const emailResetHandler = (e) => {
+      const email = e.target.value 
+
+      setEmailReset(email)
+  }
+
+  const resetPassword = (e) => {
+
+    ButtonClicked(e, 'Verzonden')
+
+    sendPasswordResetEmail(authDeccos, emailReset)
+    .then(() => {
+        setSuccesReset(`Er is een email verstuurd naar ${emailReset} waarmee je je wachtwoord kunt resetten.`)
+    })
+    .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if(errorCode === 'auth/user-not-found'){
+            setErrorReset('Dit emailaders is niet bekend. Probeer een ander emailadres of stuur een mailtje naar info@deccos.nl')
+            resetResetButton(e)
+        } else if (errorCode === ''){
+
+        }
+    });
+}
+
+const resetResetButton = (e) => {
+  setTimeout(() => {
+      e.target.innerText = 'Verzenden' 
+      e.target.style.borderColor = 'green'
+      e.target.style.color = 'green'
+  }, 3000)
+}
+
   return (
     <div className="layout-container">
       <div id='topbar-landing-container'>
@@ -86,10 +150,24 @@ const Login = () => {
           <input type="email" placeholder='Schrijf hier je email' onChange={emailHandler} />
           <p>Paswoord</p>
           <input type="password" placeholder='Schrijf hier je paswoord' onChange={passwordHandler} />
+          <p id='password-reset-button-modal' onClick={resetPasswordModal}>Wachtwoord vergeten? Klik hier.</p>
           <div className='button-container'>
               <button onClick={login}>Login</button>
           </div>
       </div>
+      <Modal
+          isOpen={modalOpen}
+          onRequestClose={closeModal}
+          style={modalStyles}
+          contentLabel="Upload file"
+      >
+          <h2>Reset wachtwoord</h2>
+          <p>Jouw emailadres</p>
+          <input type="text" placeholder='Schrijf hier je emailadres' onChange={emailResetHandler}/>
+          <p id='error-message-reset-password'>{errorReset}</p>
+          <p id='succes-message-password-reset'>{succesReset}</p>
+          <button id='button-reset-password' onClick={resetPassword}>Versturen</button>
+      </Modal>
     </div>
   )
 }

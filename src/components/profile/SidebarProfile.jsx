@@ -25,7 +25,7 @@ const SidebarProfile = () => {
   const navigate = useNavigate()
 
   const admins = useFirestoreGeneral('admins', 'compagnyID', id)
-  const users = useFirestoreGeneralDeccos('Users', 'ID', user)
+  const users = useFirestoreGeneralDeccos('Users', 'ID', user ? user : '')
 
   // Set compagnyswitch visibility
   useEffect(() => {

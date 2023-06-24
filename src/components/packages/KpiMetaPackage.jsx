@@ -10,6 +10,7 @@ const KpiMetaPackage = ({item}) => {
   return (
     <>
         {kpis && kpis.map(item => (
+          
             <KpiMeta kpi={item} />
         ))}
     </>

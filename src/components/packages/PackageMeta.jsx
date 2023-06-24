@@ -7,7 +7,7 @@ const PackageMeta = ({item}) => {
   return (
     <>
         {packages && packages.map(item => (
-            <p key={item.id}>{item.titel}</p>
+            <p key={item.id}>{item.title}</p>
         ))}
     </>
   )

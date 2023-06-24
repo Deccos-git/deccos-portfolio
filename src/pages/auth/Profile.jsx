@@ -3,6 +3,7 @@ import { useFirestoreGeneral } from '../../firebase/useFirestoreDeccos'
 import { signOut } from "firebase/auth";
 import { authDeccos } from "../../firebase/configDeccos";
 import { useNavigate } from "react-router-dom";
+import ButtonClicked from "../../components/common/ButtonClicked"
 
 const Profile = () => {
 
@@ -11,13 +12,13 @@ const Profile = () => {
 
   const users = useFirestoreGeneral('Users', 'ID', user)
 
-  const logoutHandler = () => {
+  const logoutHandler = async (e) => {
 
-    signOut(authDeccos).then(() => {
-      navigate(`/`) 
-    }).catch((error) => {
-      alert(error)
-    });
+    ButtonClicked(e, 'Uitgelogd')
+
+    await signOut(authDeccos)
+
+    navigate(`/`)
 
   }
 

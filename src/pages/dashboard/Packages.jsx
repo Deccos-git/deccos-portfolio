@@ -32,7 +32,7 @@ const Packages = () => {
                     {packages && packages.map(item => (
                     <tr key={item.id}>
                         <td>
-                            <p>{item.titel}</p>
+                            <p>{item.title}</p>
                         </td>
                         <td>
                            <p>{item.description}</p>
