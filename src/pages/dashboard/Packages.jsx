@@ -6,13 +6,24 @@ import Location from "../../helpers/Location"
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Tooltip from "../../components/common/Tooltip";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Settings } from '../../state/Settings';
 
 const Packages = () => {
+    const [settings] = useContext(Settings)
 
     const id = Location()[3]
     const navigate = useNavigate()
-
+   
     const packages = useFirestoreGeneral('packages', 'compagny', id)
+
+    const compagnyProjectTable = () => {
+        if(settings[0]?.compagnyProject === 'project'){
+          return 'PROJECTEN'
+        } else {
+          return 'ORGANISATIES'
+        }
+      }
 
   return (
     <div className='page-container'>
@@ -26,7 +37,7 @@ const Packages = () => {
                     <th>OMSCHRIJVING</th>
                     <th>OUTPUTS</th>
                     <th>KPI'S</th>
-                    <th>GECOMMITTEERDE ORGANISATIES</th>
+                    <th>GECOMMITTEERDE {compagnyProjectTable()}</th>
                     <th>DETAILS</th>
                 </tr>
                     {packages && packages.map(item => (

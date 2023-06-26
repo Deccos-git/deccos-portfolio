@@ -4,10 +4,29 @@ import Instructions from "../../components/guide/Instructions"
 import Settings from "../../components/guide/Settings"
 import { NavLink } from "react-router-dom"
 import Location from "../../helpers/Location";
+import { useContext } from "react";
+import { Settings as SettingsCompagny } from '../../state/Settings';
 
 const Overview = () => {
+    const [settingsCompagny] = useContext(SettingsCompagny)
 
     const id = Location()[3]
+
+    const compagnyProject = () => {
+        if(settingsCompagny[0]?.compagnyProject === 'project'){
+          return 'projecten'
+        } else {
+          return 'organisaties'
+        }
+      }
+
+      const compagnyProjectMenu = () => {
+        if(settingsCompagny[0]?.compagnyProject === 'project'){
+          return 'Projecten'
+        } else {
+          return 'Organisaties'
+        }  
+    }
 
     const text = () => {
 
@@ -20,7 +39,7 @@ const Overview = () => {
                 </p>
                 <p>
                     Op basis van de input die je geeft, wordt er een impact strategie op maat gemaakt.
-                    Je impact strategie wordt gebruikt om de impact van de projecten of organisaties die je beheert te koppelen aan
+                    Je impact strategie wordt gebruikt om de impact van de {compagnyProject()} die je beheert te koppelen aan
                     jouw maatschappelijke doelen. 
                 </p>
                 <p>
@@ -41,7 +60,7 @@ const Overview = () => {
                 <NavLink to={`/guide/effects/${id}`} activeClassName="selected"><p>5. Effecten</p></NavLink>
                 <NavLink to={`/guide/kpis/${id}`} activeClassName="selected"><p>6. KPI's</p></NavLink>
                 <NavLink to={`/guide/packages/${id}`} activeClassName="selected"><p>7. Thema's</p></NavLink>
-                <NavLink to={`/guide/organisations/${id}`} activeClassName="selected"><p>8. Organisaties</p></NavLink>
+                <NavLink to={`/guide/organisations/${id}`} activeClassName="selected"><p>8. {compagnyProjectMenu()}</p></NavLink>
             </div>
         )
     }

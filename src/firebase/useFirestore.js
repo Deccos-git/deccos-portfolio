@@ -34,7 +34,7 @@ const useFirestoreGeneralTwo = (coll, field, id, fieldTwo, idTwo) => {
     const [docs, setDocs] = useState([])
 
     const col = collection(db, coll);
-    const q = query(col, where(field, '==', id, where(fieldTwo, '==', idTwo)))
+    const q = query(col, where(field, '==', id), where(fieldTwo, '==', idTwo))
 
     useEffect(() => {
 

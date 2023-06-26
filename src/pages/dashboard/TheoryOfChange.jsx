@@ -1,4 +1,4 @@
-import { useFirestoreGeneral } from "../../firebase/useFirestore"
+import { useFirestoreGeneral, useFirestoreGeneralTwo } from "../../firebase/useFirestore"
 import Location from '../../helpers/Location'
 import NorthOutlinedIcon from '@mui/icons-material/NorthOutlined';
 import OutlinedFlagIcon from '@mui/icons-material/OutlinedFlag';
@@ -13,7 +13,10 @@ const TheoryOfChange = () => {
   const goal = useFirestoreGeneral('goals', 'compagny', client)
   const activities = useFirestoreGeneral('activities', 'compagny', client)
   const outputs = useFirestoreGeneral('outputs', 'compagny', client)
-  const effects = useFirestoreGeneral('effects', 'compagny', client)
+  const effectsShort = useFirestoreGeneralTwo('effects', 'compagny', client, 'term', 'Kort')
+  const effectsLong = useFirestoreGeneralTwo('effects', 'compagny', client, 'term', 'Lang')
+
+  console.log(effectsShort)
 
   return (
     <div className='page-container'>
@@ -36,17 +39,34 @@ const TheoryOfChange = () => {
               ))}
             </div>
 
-              <div className="toc-arrow-up-container">
-                <NorthOutlinedIcon/>
+            <div className="toc-arrow-up-container">
+              <NorthOutlinedIcon/>
+            </div>
+            
+            <div className="toc-section-container">
+              <div className="toc-section-title-container">
+                <CompareArrowsOutlinedIcon className="toc-section-icon"/>
+                <h2>Langetermijn effecten</h2>
               </div>
+              
+              {effectsLong && effectsLong.map((effect) => (
+                <div key={effect.id} className="toc-card">
+                  <p>{effect.title}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="toc-arrow-up-container">
+              <NorthOutlinedIcon/>
+            </div>
 
             <div className="toc-section-container">
               <div className="toc-section-title-container">
                 <CompareArrowsOutlinedIcon className="toc-section-icon"/>
-                <h2>Effecten</h2>
+                <h2>Kortetermijn effecten</h2>
               </div>
               
-              {effects && effects.map((effect) => (
+              {effectsShort && effectsShort.map((effect) => (
                 <div key={effect.id} className="toc-card">
                   <p>{effect.title}</p>
                 </div>
