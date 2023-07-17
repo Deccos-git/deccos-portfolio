@@ -106,21 +106,21 @@ const Dashboard = () => {
           <div className='key-metrics-container'>
             <h1>{effects.length}</h1>
             <div className='key-matrics-growth-container'>
-                <p>Effecten</p>
+                <p>{effects.length === 1 ? `Effect` : `Effecten`}</p>
                 {/* <p className='dashboard-growth-indicator'>+ {selectedPeriod(period, 1)}</p> */}
               </div>
           </div>
           <div className='key-metrics-container'>
             <h1>{outputs.length}</h1>
             <div className='key-matrics-growth-container'>
-                <p>Outputs</p>
+                <p>{outputs.length === 1 ? `Output` : `Outputs`}</p>
                 {/* <p className='dashboard-growth-indicator'>+ {selectedPeriod(period, 2)}</p> */}
               </div>
           </div>
           <div className='key-metrics-container'>
-            <h1>{targetgroups.length}</h1>
+            <h1>{packages.length}</h1>
             <div className='key-matrics-growth-container'>
-                <p>Doelgroepen</p>
+                <p>{packages.length === 1 ? `Thema` : `Thema's`}</p>
                 {/* <p className='dashboard-growth-indicator'>+ {selectedPeriod(period, 3)}</p> */}
               </div>
           </div>

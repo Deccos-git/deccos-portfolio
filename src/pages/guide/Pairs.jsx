@@ -5,13 +5,17 @@ import Settings from "../../components/guide/Settings"
 import { useContext } from "react"
 import { Data } from "../../state/Data";
 import CompagnyPackage from "../../components/organisations/CompagnyPackage";
-import PackageOutputsOrganisations from "../../components/organisations/PackageOutputsOrganisations"
-import CompagnyPackageKPIs from "../../components/organisations/CompagnyPackageKPIs"
+import Location from "../../helpers/Location"
 import { Settings as SettingsCompagny } from '../../state/Settings';
+import { useFirestoreGeneral } from "../../firebase/useFirestore"
 
-const Organisations = () => {
+const Pairs = () => {
     const data = useContext(Data)
     const [settingsCompagny] = useContext(SettingsCompagny)
+
+    const client = Location()[3]
+
+    const themes = useFirestoreGeneral('themes', 'compagny', client)
 
     const compagnyProject = () => {
         if(settingsCompagny[0]?.compagnyProject === 'project'){
@@ -29,24 +33,19 @@ const Organisations = () => {
         }
     }
 
-      const compagnyProjectMenu = () => {
-        if(settingsCompagny[0]?.compagnyProject === 'project'){
-          return 'Projecten'
-        } else {
-          return 'Organisaties'
-        }  
-    }
-
     const text = () => {
         return (
             <>
                 <p>
                     <b>
-                        Stel output doelen vast voor de portfolio {compagnyProject()}.
+                        Koppel de portfolio {compagnyProject()} aan de thema's.
                     </b>
                 </p>
             </>
         )
+    }
+
+    const themeHandler = (e) => {
     }
 
     const settings = () => {
@@ -55,9 +54,8 @@ const Organisations = () => {
                 <table>
                 <tr>
                     <th>{compagnyProjectTable()}</th>
-                    <th>PAKKET</th>
-                    <th>OUTPUT DOELEN</th>
-                    <th>KPIS</th>
+                    <th>THEMA</th>
+                    {/* <th>OUTPUT DOELEN</th> */}
                 </tr>
                     {data[0] && data[0].map(item => (
                     <tr key={item.ID}>
@@ -65,14 +63,15 @@ const Organisations = () => {
                            <p>{item.CommunityName}</p>
                         </td>
                         <td>
+                            <select name="" id="" onChange={themeHandler}>
+                                <option value="">-- Selecteer een thema --</option>
+                                {}
+                            </select>
                             <CompagnyPackage item={item} />
                         </td>
-                        <td>
+                        {/* <td>
                             <PackageOutputsOrganisations item={item} organisation={item.ID} />
-                        </td>
-                        <td>
-                            <CompagnyPackageKPIs item={item} />
-                        </td>
+                        </td> */}
                     </tr>
                     ))}
                 </table>
@@ -82,12 +81,12 @@ const Organisations = () => {
 
   return (
     <>
-        <Navigation
-        prev="Pakketten"
-        prevLink="packages"
-        />
         <Topbar 
-        title={compagnyProjectMenu()}
+        title={`Koppel ${compagnyProject()}`}
+        />
+        <Navigation
+        prev="Thema's"
+        prevLink="packages"
         />
         <Instructions
         text={text()}
@@ -99,4 +98,4 @@ const Organisations = () => {
   )
 }
 
-export default Organisations
+export default Pairs

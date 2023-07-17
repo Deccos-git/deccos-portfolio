@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom"
 import Location from "../../helpers/Location";
 import { useNavigate } from "react-router-dom";
+import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 
 const Navigation = ({prev, prevLink, next, nextLink}) => {
 
@@ -9,13 +11,13 @@ const Navigation = ({prev, prevLink, next, nextLink}) => {
 
   return (
     <div id='guide-navigation-container'>
-      <div style={{visibility: prev ? 'visible' : 'hidden'}}>
-        <p onClick={() => navigate(`/guide/${prevLink}/${id}`)}>Vorige</p>
-        <NavLink to={`/guide/${prevLink}/${id}`} activeClassName="selected"><p><b>{prev}</b> </p></NavLink>
+      <div className="guide-navigation-item-container" style={{visibility: prev ? 'visible' : 'hidden'}}>
+        <KeyboardArrowLeftOutlinedIcon id='guide-navigation-left-icon' onClick={() => navigate(`/guide/${prevLink}/${id}`)} />
+        <NavLink to={`/guide/${prevLink}/${id}`} activeClassName="selected"><p>{prev}</p></NavLink>
       </div>
-      <div style={{visibility: next ? 'visible' : 'hidden'}}>
-        <p onClick={() => navigate(`/guide/${nextLink}/${id}`)}>Volgende</p>
-        <NavLink to={`/guide/${nextLink}/${id}`} activeClassName="selected"><p><b>{next}</b> </p></NavLink>
+      <div className="guide-navigation-item-container" style={{visibility: next ? 'visible' : 'hidden'}}>
+        <NavLink to={`/guide/${nextLink}/${id}`} activeClassName="selected"><p>{next}</p></NavLink>
+        <KeyboardArrowRightOutlinedIcon id='guide-navigation-right-icon' onClick={() => navigate(`/guide/${nextLink}/${id}`)} />
       </div>
     </div>
   )

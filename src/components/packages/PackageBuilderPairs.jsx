@@ -1,41 +1,70 @@
-import { useFirestoreGeneral } from "../../firebase/useFirestore"
 import OutputLineChartWithReferenceLine from "../graphs/OutputLineChartWithReferenceLine"
+import { collection, query, where, getDocs, orderBy, onSnapshot } from "firebase/firestore"; 
+import { db } from "../../firebase/config";
+import { useState, useEffect } from "react";
+import Location from "../../helpers/Location";
 
 const PackageBuilderPairs = ({item}) => {
 
-    const packageCompagnyPairs = useFirestoreGeneral('packageCompagnyPairs', 'packageId', item.id)
+    const [data, setData] = useState([])
 
-    const data = [
-        {
-            name: '2-23',
-            organisations: 0,
-          },
-          {
-            name: '2-23',
-            organisations: 3,
-          },
-        {
-          name: '1-23',
-          organisations: 8,
-        },
-        {
-            name: '6-23',
-            organisations: 14,
-          },
-        {
-            name: '4-23',
-            organisations: 25,
-          },
-          {
-            name: '5-23',
-            organisations: 32,
-          },
-        {
-          name: '3-23',
-          organisations: 45,
-        },
+    const client = Location()[3]
+    const options = { month: 'numeric', year: 'numeric'};
+
+    // const data = [
+    //     {
+    //         name: '2-23',
+    //         organisations: 0,
+    //       },
+    //       {
+    //         name: '2-23',
+    //         organisations: 3,
+    //       },
+    //     {
+    //       name: '1-23',
+    //       organisations: 8,
+    //     },
+    //     {
+    //         name: '6-23',
+    //         organisations: 14,
+    //       },
+    //     {
+    //         name: '4-23',
+    //         organisations: 25,
+    //       },
+    //       {
+    //         name: '5-23',
+    //         organisations: 32,
+    //       },
+    //     {
+    //       name: '3-23',
+    //       organisations: 45,
+    //     },
     
-      ];
+    //   ];
+
+      const getData = async () => {
+
+        const array = []
+
+        const col = collection(db, 'packageCompagnyPairs');
+        const q = query(col, where('compagny', '==', client), where("packageId", '==', item.id, orderBy('createdAt', 'asc')));
+        const snapshot = await getDocs(q);
+
+        snapshot.forEach(doc => {
+          const object = {
+            name: doc.data().createdAt.toDate().toLocaleDateString("nl-NL", options),
+            organisations: snapshot.size
+          }
+          array.push(object)
+        })
+
+        setData(array)
+      }
+
+      useEffect(() => {
+        getData()
+      }, [])
 
   return (
     <div className="graph-container">

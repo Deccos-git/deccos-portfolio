@@ -20,21 +20,13 @@ const Overview = () => {
         }
       }
 
-      const compagnyProjectMenu = () => {
-        if(settingsCompagny[0]?.compagnyProject === 'project'){
-          return 'Projecten'
-        } else {
-          return 'Organisaties'
-        }  
-    }
-
     const text = () => {
 
         return (
             <>
                 <p>
                     <b>
-                        In de impact gids wordt je stap voor stap meegenomen in het proces om een impact strategie te ontwikkelen. 
+                        In de impact gids word je stap voor stap meegenomen in het proces om een impact strategie te ontwikkelen. 
                     </b>
                 </p>
                 <p>
@@ -60,7 +52,7 @@ const Overview = () => {
                 <NavLink to={`/guide/effects/${id}`} activeClassName="selected"><p>5. Effecten</p></NavLink>
                 <NavLink to={`/guide/kpis/${id}`} activeClassName="selected"><p>6. KPI's</p></NavLink>
                 <NavLink to={`/guide/packages/${id}`} activeClassName="selected"><p>7. Thema's</p></NavLink>
-                <NavLink to={`/guide/organisations/${id}`} activeClassName="selected"><p>8. {compagnyProjectMenu()}</p></NavLink>
+                {/* <NavLink to={`/guide/organisations/${id}`} activeClassName="selected"><p>8. {compagnyProjectMenu()}</p></NavLink> */}
             </div>
         )
     }
@@ -68,13 +60,13 @@ const Overview = () => {
 
   return (
     <div>
-         <Navigation
-        next="Maatschappelijk doel"
-        nextLink="goal"/>
-         <Topbar 
+       <Topbar 
         title="Welkom in de impact gids" 
         next="Maatschappelijk doel"
         />
+         <Navigation
+        next="Maatschappelijk doel"
+        nextLink="goal"/>
         <Instructions
         text={text()}
         />

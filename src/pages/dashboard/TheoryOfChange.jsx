@@ -5,6 +5,7 @@ import OutlinedFlagIcon from '@mui/icons-material/OutlinedFlag';
 import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
 import OutputRoundedIcon from '@mui/icons-material/OutputRounded';
 import DirectionsWalkOutlinedIcon from '@mui/icons-material/DirectionsWalkOutlined';
+import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
 
 const TheoryOfChange = () => {
 
@@ -16,12 +17,13 @@ const TheoryOfChange = () => {
   const effectsShort = useFirestoreGeneralTwo('effects', 'compagny', client, 'term', 'Kort')
   const effectsLong = useFirestoreGeneralTwo('effects', 'compagny', client, 'term', 'Lang')
 
-  console.log(effectsShort)
-
   return (
     <div className='page-container'>
         <div className='page-top-container'>
-        <h1>Theory of Change</h1>
+          <div className='page-header-title-container'>
+            <TrendingUpOutlinedIcon/>
+            <h1>Theory of Change</h1>
+          </div>
         </div>
         <div className='table-container'>
           <div className="toc-container">
@@ -46,7 +48,7 @@ const TheoryOfChange = () => {
             <div className="toc-section-container">
               <div className="toc-section-title-container">
                 <CompareArrowsOutlinedIcon className="toc-section-icon"/>
-                <h2>Langetermijn effecten</h2>
+                <h2>Lange-termijn effecten</h2>
               </div>
               
               {effectsLong && effectsLong.map((effect) => (
@@ -63,7 +65,7 @@ const TheoryOfChange = () => {
             <div className="toc-section-container">
               <div className="toc-section-title-container">
                 <CompareArrowsOutlinedIcon className="toc-section-icon"/>
-                <h2>Kortetermijn effecten</h2>
+                <h2>Korte-termijn effecten</h2>
               </div>
               
               {effectsShort && effectsShort.map((effect) => (

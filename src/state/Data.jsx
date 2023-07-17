@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { db } from '../firebase/configDeccos'
-import { collection, query, where, getDocs} from "firebase/firestore"; 
+import { collection, query, where, getDocs, orderBy} from "firebase/firestore"; 
 import Location from "../helpers/Location";
 
 export const Data = createContext()
@@ -21,7 +21,7 @@ export const DataProvider = (props) => {
         const userQuery = async () => {
 
             const col = collection(db, 'CompagnyMeta');
-            const q = query(col, where('Parent', 'array-contains', client ? client : ''));
+            const q = query(col, where('Parent', 'array-contains', client ? client : ''), orderBy('CommunityName', 'asc'));
             const snapshot = await getDocs(q);
 
             snapshot.docs.forEach(doc => 

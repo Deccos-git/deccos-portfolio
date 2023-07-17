@@ -3,8 +3,6 @@ import KpiMeta from "../kpis/KpiMeta"
 
 const KpiMetaPackage = ({item}) => {
 
-    console.log(item)
-
     const kpis = useFirestoreGeneral('kpis', 'id', item)
 
   return (

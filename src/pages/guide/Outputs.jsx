@@ -116,14 +116,14 @@ const Outputs = () => {
 
   return (
     <>
+        <Topbar 
+        title="Outputs" 
+        />
         <Navigation
         next="Effecten"
         nextLink="effects"
         prev="Activiteiten"
         prevLink="activities"
-        />
-        <Topbar 
-        title="Outputs" 
         />
         <Instructions
         text={text()}

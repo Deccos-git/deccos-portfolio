@@ -106,12 +106,12 @@ const PairPackage = () => {
 
   return (
     <>
+        <Topbar 
+        title={`Organisaties koppelen aan pakket '${packages.length > 0 ? packages[0].titel : 'Geen pakket gevonden'}'`} 
+        />
         <Navigation
         prev="Pakketten"
         prevLink="packages"
-        />
-        <Topbar 
-        title={`Organisaties koppelen aan pakket '${packages.length > 0 ? packages[0].titel : 'Geen pakket gevonden'}'`} 
         />
         <Instructions
         text={text()}

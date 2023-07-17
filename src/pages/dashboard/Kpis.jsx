@@ -3,17 +3,27 @@ import Location from '../../helpers/Location'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Tooltip from "../../components/common/Tooltip";
 import KpiMeta from '../../components/kpis/KpiMeta';
+import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
+import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
+import { useNavigate } from "react-router-dom";
 
 const Kpis = () => {
 
   const client = Location()[3]
+  const navigate = useNavigate()
   
   const kpis  = useFirestoreGeneral('kpis', 'compagny', client)
 
   return (
     <div className='page-container'>
         <div className='page-top-container'>
-        <h1>Kpis</h1>
+          <div className='page-header-title-container'>
+            <LandscapeOutlinedIcon/>
+            <h1>KPI's</h1>
+          </div>
+          <Tooltip content={`KPI's aanpassen`} top='-60px'>
+            <AutoFixHighOutlinedIcon className='page-edit-icon' onClick={() => navigate(`/guide/kpis/${client}`)}/>
+          </Tooltip>
         </div>
          <div className='table-container'>
           <table>
@@ -28,7 +38,7 @@ const Kpis = () => {
                   </td>
                   <td>
                     <Tooltip content='Details bekijken' top='-60px'>
-                      <SearchOutlinedIcon className="table-icon"/>
+                      <SearchOutlinedIcon className="table-icon" onClick={() => navigate(`/dashboard/kpidetail/${client}/${item.id}`)} />
                     </Tooltip>
                   </td>
                 </tr>

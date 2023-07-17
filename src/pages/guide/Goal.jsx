@@ -5,8 +5,7 @@ import Settings from "../../components/guide/Settings"
 import Location from "../../helpers/Location"
 import { db } from "../../firebase/config"
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
-import { doc, setDoc, updateDoc, serverTimestamp, arrayUnion, arrayRemove } from "firebase/firestore"; 
-import { useEffect, useState } from "react"
+import { doc, updateDoc} from "firebase/firestore"; 
 
 const Goal = () => {
 
@@ -56,14 +55,14 @@ const Goal = () => {
 
   return (
     <>
+        <Topbar 
+        title="Maatschappelijk doel" 
+        />
          <Navigation
         next="Activiteiten"
         nextLink="activities"
         prev="Welkom"
         prevLink="welcome"
-        />
-        <Topbar 
-        title="Maatschappelijk doel" 
         />
          <Instructions
         text={text()}

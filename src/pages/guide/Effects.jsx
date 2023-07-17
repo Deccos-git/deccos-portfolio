@@ -6,14 +6,10 @@ import Location from "../../helpers/Location"
 import { db } from "../../firebase/config"
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
 import { doc, setDoc, updateDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
-import { useEffect, useState } from "react"
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import Tooltip from '../../components/common/Tooltip'
 import { v4 as uuid } from 'uuid';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
-import { Data } from "../../state/Data";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import EffectTerm from "../../components/effects/EffectTerm";
 
@@ -98,15 +94,17 @@ const Effects = () => {
 
   return (
     <>
+        <Topbar 
+        title="Effecten" 
+        />
+
         <Navigation
         prev="Outputs"
         prevLink="outputs"
         next='KPIs'
         nextLink='kpis'
         />
-        <Topbar 
-        title="Effecten" 
-        />
+       
         <Instructions
         text={text()}
         />

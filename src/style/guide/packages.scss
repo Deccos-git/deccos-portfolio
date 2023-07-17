@@ -95,12 +95,23 @@
 
 .package-builder-section-title-container{
     margin-top: 30px;
-    display: flex;
-    align-items: center;
 
-    svg{
-        margin-right: 10px;
+    .package-builder-section-title-icon-title-container{
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        h2{
+            margin-left: 10px;
+        }
+
+        svg{
+            margin-right: 10px;
+        }
+       
     }
+
+    
 }
 
 #package-builder-compagny-meta-container{
@@ -127,8 +138,12 @@
     input{
         width: 150px;
         border: none;
-        box-shadow: none;
         margin-left: 10px;
+    }
+
+    h3{
+        width: 100px;
+        font-weight: 500;
     }
 }
 
@@ -143,6 +158,20 @@
 
 .package-detail-container{
     width: 80%;
+}
+
+.package-builder-kpi-container{
+    border: 1px solid rgb(242, 242, 242);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 30px;
+
+    p{
+        font-family: "Roboto Condensed", sans-serif;
+        font-size: 18px;
+        color: #2F2C41;
+        font-weight: bold;
+    }
 }
 
 

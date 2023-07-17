@@ -37,14 +37,6 @@ const Packages = () => {
         }  
     }
 
-    const compagnyProjectMenu = () => {
-        if(settingsCompagny[0]?.compagnyProject === 'project'){
-          return 'Projecten'
-        } else {
-          return 'Organisaties'
-        }  
-    }
-
     const text = () => {
         return (
             <>
@@ -87,7 +79,7 @@ const Packages = () => {
         return (
             <div className='table-container'>
                 <div className="add-icon-container">
-                    <Tooltip content='Pakket toevoegen' width='80%' left='30px' top='-5px'>
+                    <Tooltip content='Thema toevoegen' width='80%' left='30px' top='-5px'>
                         <AddCircleOutlineOutlinedIcon className="add-icon" onClick={addPackage} />
                     </Tooltip>
                 </div>
@@ -121,14 +113,14 @@ const Packages = () => {
 
   return (
     <>
-        <Navigation
-        prev="Kpis"
-        prevLink="kpis"
-        next={compagnyProjectMenu()}
-        nextLink="organisations"
-        />
         <Topbar 
         title="Thema's" 
+        />
+        <Navigation
+        prev="KPI's"
+        prevLink="kpis"
+        next={`Koppel ${compagnyProject()}`}
+        nextLink="organisations"
         />
         <Instructions
         text={text()}

@@ -1,12 +1,15 @@
-import React from 'react'
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 
 const Instructions = ({text}) => {
   return (
-    <div id='guide-instructions-container'>
+    <div className='guide-section-container'>
         <div className='guide-section-title-container'>
-            <h2>Uitleg</h2>
-            {text}
+            <div className='guide-section-title-container'>
+              <SchoolOutlinedIcon/>
+              <h2>Uitleg</h2>
+            </div>
         </div>
+        {text}
     </div>
   )
 }

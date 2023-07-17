@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import SearchIcon from '../../assets/icons/search-icon.png'
 import { NavLink } from "react-router-dom"
 import Location from "../../helpers/Location";
-import MagicIcon from '../../assets/icons/magic-icon.svg'
+import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 import { useFirestoreCompagny } from "../../firebase/useFirestore";
 import Tooltip from "../common/Tooltip";
 
@@ -37,7 +37,7 @@ const TopBar = () => {
           </NavLink>
           <NavLink to={`/guide/welcome/${id}`} activeClassName="selected">
             <Tooltip content='Impact gids' width='80%' top='60px'>
-              <img src={MagicIcon} alt="search icon" />
+              <AutoFixHighOutlinedIcon />
             </Tooltip>
           </NavLink>
         </div>

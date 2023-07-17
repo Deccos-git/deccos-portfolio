@@ -15,6 +15,7 @@ import Goal from "../pages/dashboard/Goal";
 import Outputs from "../pages/dashboard/Outputs";
 import Activities from "../pages/dashboard/Activities";
 import Kpis from "../pages/dashboard/Kpis";
+import KpiDetail from "../pages/dashboard/KpiDetail";
 import Packages from "../pages/dashboard/Packages";
 import PackageDetail from "../pages/dashboard/PackageDetail";
 
@@ -42,7 +43,7 @@ import EffectsGuide from "../pages/guide/Effects";
 import KpisGuide from "../pages/guide/Kpis";
 import PairPackage from "../pages/guide/PairPackage";
 import PackagesGuide from "../pages/guide/Packages";
-import OrganisationsGuide from "../pages/guide/Organisations";
+import OrganisationsGuide from "../pages/guide/Pairs";
 import PackageBuilder from "../pages/guide/PackageBuilder";
 
 const Navigation = () => {
@@ -61,6 +62,7 @@ const Navigation = () => {
             <Route exact path={`/dashboard/outputs/:id`} element={<Outputs/>}/>
             <Route exact path={`/dashboard/activities/:id`} element={<Activities/>}/>
             <Route exact path={`/dashboard/kpis/:id`} element={<Kpis/>}/>
+            <Route exact path={`/dashboard/kpidetail/:id/:id`} element={<KpiDetail/>}/>
             <Route exact path={`/dashboard/packages/:id`} element={<Packages/>}/>
             <Route exact path={`/dashboard/packagedetail/:id/:id`} element={<PackageDetail/>}/>
           </Route>

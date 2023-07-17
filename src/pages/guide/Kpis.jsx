@@ -10,7 +10,6 @@ import { useState } from "react"
 import Tooltip from '../../components/common/Tooltip'
 import { v4 as uuid } from 'uuid';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 import { useNavigate } from "react-router-dom";
 import KpiMeta from "../../components/kpis/KpiMeta"
 
@@ -107,21 +106,21 @@ const Kpis = () => {
   
     return (
       <>
-          <Navigation
-            prev="Effecten"
-            prevLink="effects"
-            next={`Thema's`}
-            nextLink='packages'
-          />
-          <Topbar 
-            title="Kpis" 
-          />
-          <Instructions
-            text={text()}
-          />
-          <Settings
-            settings={settings()}
-          />
+        <Topbar 
+        title="KPI's" 
+        />
+        <Navigation
+        prev="Effecten"
+        prevLink="effects"
+        next={`Thema's`}
+        nextLink='packages'
+        />
+        <Instructions
+        text={text()}
+        />
+        <Settings
+        settings={settings()}
+        />
       </>
     )
 }

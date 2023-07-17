@@ -6,7 +6,6 @@ import Location from "../../helpers/Location"
 import { db } from "../../firebase/config"
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
 import { doc, setDoc, updateDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
-import { useEffect, useState } from "react"
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import Tooltip from '../../components/common/Tooltip'
 import { v4 as uuid } from 'uuid';
@@ -88,14 +87,14 @@ const Activities = () => {
 
   return (
     <>
+        <Topbar 
+        title="Activiteiten" 
+        />
         <Navigation
         next="Outputs"
         nextLink="outputs"
         prev="Maatschappelijk doel"
         prevLink="goal"
-        />
-        <Topbar 
-        title="Activiteiten" 
         />
         <Instructions
         text={text()}

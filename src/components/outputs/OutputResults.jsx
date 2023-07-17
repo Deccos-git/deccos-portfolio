@@ -2,17 +2,6 @@ import OutputLineChartWithReferenceLine from "../graphs/OutputLineChartWithRefer
 
 const OutputResults = ({output}) => {
 
-  const formattedDate = () => {
-    const dateArray = output.deadline.split('-')
-    const year = dateArray[0]
-    const month = dateArray[1]
-
-    return `${month}-${year}`
-
-  }
-
-  console.log(formattedDate())
-
 
     const data = [
         {
@@ -60,7 +49,7 @@ const OutputResults = ({output}) => {
 
   return (
     <div className="graph-container">
-        <OutputLineChartWithReferenceLine data={data} label='KPI' kpi={output.goal} dataKey={'deelnemers'} deadline={formattedDate()} deadlineLabel={'Deadline'} />
+        <OutputLineChartWithReferenceLine data={data} label='Doel' kpi={output.goal} dataKey={'deelnemers'} />
     </div>
     
   )

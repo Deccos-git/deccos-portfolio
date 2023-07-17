@@ -12,8 +12,6 @@ import {
 
 const OutputLineChartWithReferenceLine = ({data, label, kpi, dataKey, deadline, deadlineLabel}) => {
 
-  console.log(deadline)
-
       return (
         <ResponsiveContainer width="100%" height="100%">
           <LineChart

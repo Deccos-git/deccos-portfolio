@@ -16,8 +16,8 @@ import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import PackageBuilderOutputs from "../../components/packages/PackageBuilderOutputs"
 import PackageBuilderPairs from "../../components/packages/PackageBuilderPairs"
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
-import PackageBuilderKPIs from "../../components/packages/PackageBuilderKPIs"
 import PackageDetailOutputs from "../../components/packages/PackageDetailOutputs"
+import KpiMetaPackage from "../../components/kpis/KpiMetaPackage"
 
 const PackageDetail = () => {
 
@@ -83,7 +83,7 @@ const PackageDetail = () => {
                             <h2>KPI's</h2>
                         </div>
                         {packages && packages.map(item => (
-                            <PackageBuilderKPIs item={item}/>
+                            <KpiMetaPackage kpi={item.KPIId}/>
                         ))}
                     </div>
                 </div>
