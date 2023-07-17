@@ -5,35 +5,37 @@ import Settings from "../../components/guide/Settings"
 import Location from "../../helpers/Location"
 import { db } from "../../firebase/config"
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
-import { doc, updateDoc, setDoc, serverTimestamp } from "firebase/firestore"; 
-import { useState } from "react"
+import { doc, updateDoc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
+import { useState, useEffect, useContext } from "react"
 import Tooltip from '../../components/common/Tooltip'
 import saveFile from "../../components/core/savefile"
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import { useEffect, useContext } from "react"
 import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
-import PackageBuilderOutputs from "../../components/packages/PackageBuilderOutputs"
-import PackageBuilderPairs from "../../components/packages/PackageBuilderPairs"
+import ThemeBuilderOutputs from "../../components/themes/ThemeBuilderOutputs"
+import ThemeBuilderPairs from "../../components/themes/ThemeBuilderPairs"
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
 import { Settings as SettingsCompagny } from '../../state/Settings';
 import { v4 as uuid } from 'uuid';
 import ButtonClicked from "../../components/common/ButtonClicked"
 import EffectMeta from "../../components/effects/EffectMeta"
-import KpiMetaPackage from "../../components/kpis/KpiMetaPackage"
+import KpiMetaTheme from "../../components/kpis/KpiMetaTheme.jsx"
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-const PackageBuilder = () => {
+const ThemeBuilder = () => {
     const [settingsCompagny] = useContext(SettingsCompagny)
 
     const [banner, setBanner] = useState('')
     const [showEditBanner, setShowEditBanner] = useState(false)
     const [docid, setDocid] = useState('')
-    const [title, setTitle] = useState('')
     const [output, setOutput] = useState('')
     const [KPI, setKPI] = useState('')
 
     const id = Location()[4]
     const route = Location()[3]
+    const themeTitle = Location()[5]
+    const title = themeTitle.replace(/%20/g, " ")
+
     const compagnyProject = () => {
         if(settingsCompagny[0]?.compagnyProject === 'project'){
           return 'projecten'
@@ -42,12 +44,12 @@ const PackageBuilder = () => {
         }
       }
 
-    const packages = useFirestoreGeneral('packages', 'id', id)
+    const themes = useFirestoreGeneral('themes', 'id', id)
     const compagny = useFirestoreGeneral('compagnies', 'id', route)
     const outputs = useFirestoreGeneral('outputs', 'compagny', route)   
-    const packagesOutputs = useFirestoreGeneral('packageOutputs', 'packageId', id)
+    const themesOutputs = useFirestoreGeneral('themesOutputs', 'themeId', id)
     const kpis  = useFirestoreGeneral('kpis', 'compagny', route)
-    const packagesKPIs = useFirestoreGeneral('packageKPIs', 'packageId', id)
+    const themesKPIs = useFirestoreGeneral('themeKPIs', 'themeId', id)
 
     const text = () => {
         return(
@@ -61,12 +63,11 @@ const PackageBuilder = () => {
 
     // Set docid, title, description and banner of package
     useEffect(() => {
-        packages && packages.map(item => {
+        themes && themes.map(item => {
             setDocid(item.docid)
-            setTitle(item.title)
             setBanner(item.banner)
         })
-    }, [packages])
+    }, [themes])
 
     const bannerHandler = (e) => {
         saveFile(e, setBanner)
@@ -74,7 +75,7 @@ const PackageBuilder = () => {
     
     // Save banner to firebase
     const saveBanner = async () => {
-        await updateDoc(doc(db, "packages", docid), {
+        await updateDoc(doc(db, "themes", docid), {
             banner: banner
         });
     }
@@ -87,7 +88,7 @@ const PackageBuilder = () => {
         const value = e.target.value
         const docId = e.target.docid
 
-        await updateDoc(doc(db, "packages", docId), {
+        await updateDoc(doc(db, "themes", docId), {
             title: value
         });
     }
@@ -96,16 +97,18 @@ const PackageBuilder = () => {
         const docid = e.target.dataset.docid
         const value = e.target.value
 
-        await updateDoc(doc(db, "packages", docid), {
+        await updateDoc(doc(db, "themes", docid), {
             description: value,
         })
+
+        console.log('description saved')
     }
 
     const maximumHandler = async (e) => {
         const value = e.target.value
         const docid = e.target.dataset.docid
 
-        await updateDoc(doc(db, "packages", docid), {
+        await updateDoc(doc(db, "themes", docid), {
             maximum: value
         });
     }
@@ -114,7 +117,7 @@ const PackageBuilder = () => {
         const value = e.target.value
         const docid = e.target.dataset.docid
 
-        await updateDoc(doc(db, "packages", docid), {
+        await updateDoc(doc(db, "themes", docid), {
             deadline: value
         });
     }
@@ -129,14 +132,14 @@ const PackageBuilder = () => {
 
         ButtonClicked(e, 'Toegevoegd')
 
-        await setDoc(doc(db, "packageOutputs", uuid()), {
+        await setDoc(doc(db, "themeOutputs", uuid()), {
             outputId: output,
-            packageId: id,
+            themeId: id,
             compagny: route,
             id: uuid(),
             createdAt: serverTimestamp(),
             deadline: '',
-            position: packagesOutputs.length + 1
+            position: themesOutputs.length + 1
         });
 
     }
@@ -151,9 +154,9 @@ const PackageBuilder = () => {
 
         ButtonClicked(e, 'Toegevoegd')
 
-        await setDoc(doc(db, "packageKPIs", uuid()), {
+        await setDoc(doc(db, "themeKPIs", uuid()), {
             KPIId: KPI,
-            packageId: id,
+            themeId: id,
             compagny: route,
             id: uuid(),
             createdAt: serverTimestamp(),
@@ -161,6 +164,15 @@ const PackageBuilder = () => {
             position: kpis.length + 1
         });
 
+    }
+
+    const deleteKPIOutput = async (e) => {
+
+        const docid = e.target.dataset.docid
+
+        console.log(docid)
+
+        await deleteDoc(doc(db, "themeKPIs", docid))
     }
 
     const settings = () => {
@@ -185,12 +197,12 @@ const PackageBuilder = () => {
                         ))}
                     </div>
                     <div id='package-builder-title-container'>
-                        {packages && packages.map(item => (
+                        {themes && themes.map(item => (
                             <input type="text" data-docid={item.docid} defaultValue={item.title} onChange={titleHandler}/>
                         ))}
                     </div>
                     <div id='package-builder-description-container'>
-                        {packages && packages.map(item => (
+                        {themes && themes.map(item => (
                             <textarea name="" id="" cols="30" rows="10" defaultValue={item.description} data-docid={item.docid} placeholder="Geef het thema een omschrijving" onChange={descriptionHandler}></textarea>
                         ))}
                     </div>
@@ -202,7 +214,7 @@ const PackageBuilder = () => {
                             </div>
                             <p>Stel in hoeveel projecten maximaal op dit thema kunnen inschrijven en op welke datum de inschrijving voor dit thema sluit.</p>
                         </div>
-                        {packages && packages.map(item => (
+                        {themes && themes.map(item => (
                             <div key={item.id}>
                                 <div className="package-builder-kpi-selector-container">
                                     <h3>Maximum</h3>
@@ -212,7 +224,7 @@ const PackageBuilder = () => {
                                     <h3>Deadline</h3>
                                     <input type="date" defaultValue={item.deadline} data-docid={item.docid} onChange={deadlineHandler} />
                                 </div>
-                                <PackageBuilderPairs item={item}/>
+                                <ThemeBuilderPairs item={item}/>
                             </div>
                         ))}
                     </div>
@@ -236,8 +248,8 @@ const PackageBuilder = () => {
                             </div>
                            
                         </div>
-                        {packages && packages.map(item => (
-                            <PackageBuilderOutputs item={item}/>
+                        {themes && themes.map(item => (
+                            <ThemeBuilderOutputs item={item}/>
                         ))}
                     </div>
                     <div>
@@ -257,8 +269,13 @@ const PackageBuilder = () => {
                             </select>
                             <button onClick={saveKPI}>Toevoegen</button>
                         </div>
-                        {packagesKPIs && packagesKPIs.map(item => (
-                            <KpiMetaPackage kpi={item.KPIId} packageKpiDocid={item.docid}/>
+                        {themesKPIs && themesKPIs.map(item => (
+                            <div key={item.id} className="package-builder-kpi-container">
+                                <KpiMetaTheme kpi={item.KPIId} />
+                                <Tooltip content='Verwijderen' top='-60px'>
+                                    <DeleteOutlineOutlinedIcon data-docid={item.docid} onClick={deleteKPIOutput} className='delete-icon'/>
+                                </Tooltip>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -272,7 +289,7 @@ const PackageBuilder = () => {
         />
         <Navigation
         prev="Thema's"
-        prevLink="packages"
+        prevLink="themes"
         />
         <Instructions
         text={text()}
@@ -284,4 +301,4 @@ const PackageBuilder = () => {
   )
 }
 
-export default PackageBuilder
+export default ThemeBuilder

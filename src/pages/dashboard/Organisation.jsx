@@ -6,7 +6,7 @@ import GoalIcon from '@mui/icons-material/FlagOutlined';
 import GroupIcon from '@mui/icons-material/Groups2Outlined';
 import ActivityIcon from '@mui/icons-material/MonitorHeartOutlined';
 import EffectIcon from '@mui/icons-material/TurnSharpLeftOutlined';
-import PackageMeta from "../../components/packages/PackageMeta";
+import PackageMeta from "../../components/themes/ThemeMeta";
 
 const Organisation = () => {
 

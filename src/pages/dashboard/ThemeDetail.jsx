@@ -1,35 +1,35 @@
-import Topbar from "../../components/guide/Topbar"
-import Navigation from "../../components/guide/Navigation"
-import Instructions from "../../components/guide/Instructions"
-import Settings from "../../components/guide/Settings"
 import Location from "../../helpers/Location"
-import { db } from "../../firebase/config"
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
-import { doc, updateDoc } from "firebase/firestore"; 
-import { useState } from "react"
-import Tooltip from '../../components/common/Tooltip'
-import saveFile from "../../components/core/savefile"
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import { useEffect } from "react"
 import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
-import PackageBuilderOutputs from "../../components/packages/PackageBuilderOutputs"
-import PackageBuilderPairs from "../../components/packages/PackageBuilderPairs"
+import ThemeBuilderPairs from "../../components/themes/ThemeBuilderPairs"
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
-import PackageDetailOutputs from "../../components/packages/PackageDetailOutputs"
-import KpiMetaPackage from "../../components/kpis/KpiMetaPackage"
+import ThemeDetailOutputs from "../../components/themes/ThemeDetailOutputs"
+import KpiMetaTheme from "../../components/kpis/KpiMetaTheme"
+import { Settings as SettingsCompagny } from '../../state/Settings';
+import { useContext } from "react"
 
-const PackageDetail = () => {
+const ThemeDetail = () => {
+    const [settingsCompagny] = useContext(SettingsCompagny)
 
     const id = Location()[4]
     const route = Location()[3]
 
-    const packages = useFirestoreGeneral('packages', 'id', id)
-    const compagny = useFirestoreGeneral('compagnies', 'id', route)
+    const themes = useFirestoreGeneral('themes', 'id', id ? id : '')
+    const compagny = useFirestoreGeneral('compagnies', 'id', route ? route : '')
+    const themesKPIs = useFirestoreGeneral('themeKPIs', 'themeId', id)
+
+    const compagnyProject = () => {
+        if(settingsCompagny[0]?.compagnyProject === 'project'){
+          return 'projecten'
+        } else {
+          return 'organisaties'
+        }
+      }
 
   return (
     <>
-        {packages && packages.map(item => (
+        {themes && themes.map(item => (
             <div className='package-builder-container package-detail-container'>
                 <div id='package-builder-banner-container'>
                     <img src={item.banner} alt="" />
@@ -51,10 +51,12 @@ const PackageDetail = () => {
                     </div>
                     <div>
                         <div className="package-builder-section-title-container">
-                            <CorporateFareOutlinedIcon />
-                            <h2>Aantal gecommiteerde organisaties</h2>
+                            <div className="package-builder-section-title-icon-title-container">
+                                <CorporateFareOutlinedIcon />
+                                <h2>Gecommitteerde {compagnyProject()}</h2>
+                            </div>
                         </div>
-                        {packages && packages.map(item => (
+                        {themes && themes.map(item => (
                             <div key={item.id}>
                                 <div className="package-detail-kpi-selector-container">
                                     <h3>Maximum</h3>
@@ -64,26 +66,32 @@ const PackageDetail = () => {
                                     <h3>Deadline</h3>
                                     <p>{item.deadline}</p>
                                 </div>
-                                <PackageBuilderPairs item={item}/>
+                                <ThemeBuilderPairs item={item}/>
                             </div>
                         ))}
                     </div>
                     <div>
                         <div className="package-builder-section-title-container">
-                            <OutputOutlinedIcon />
-                            <h2>Outputs</h2>
+                            <div className="package-builder-section-title-icon-title-container">
+                                <OutputOutlinedIcon />
+                                <h2>Outputs</h2>
+                            </div>
                         </div>
-                        {packages && packages.map(item => (
-                            <PackageDetailOutputs item={item}/>
+                        {themes && themes.map(item => (
+                            <ThemeDetailOutputs item={item}/>
                         ))}
                     </div>
                     <div>
                         <div className="package-builder-section-title-container">
-                            <LandscapeOutlinedIcon />
-                            <h2>KPI's</h2>
+                            <div className="package-builder-section-title-icon-title-container">
+                                <LandscapeOutlinedIcon />
+                                <h2>KPI's</h2>
+                            </div>
                         </div>
-                        {packages && packages.map(item => (
-                            <KpiMetaPackage kpi={item.KPIId}/>
+                        {themesKPIs && themesKPIs.map(item => (
+                            <div className="package-builder-kpi-container">
+                                <KpiMetaTheme kpi={item.KPIId}/>   
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -93,4 +101,4 @@ const PackageDetail = () => {
   )
 }
 
-export default PackageDetail
+export default ThemeDetail

@@ -6,15 +6,15 @@ import OutputMeta from "../outputs/OutputMeta"
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Tooltip from "../common/Tooltip"
 
-const PackageBuilderOutputs = ({item}) => {
+const ThemeBuilderOutputs = ({item}) => {
 
-    const packages = useFirestoreGeneral('packageOutputs', 'packageId', item.id)
+    const packages = useFirestoreGeneral('themeOutputs', 'themeId', item.id)
 
     const outputGoalHandler = async (e) => {
       const value = e.target.value
       const docid = e.target.dataset.docid
 
-      await updateDoc(doc(db, "packageOutputs", docid), {
+      await updateDoc(doc(db, "themeOutputs", docid), {
           goal: value,
       })
   }
@@ -22,7 +22,7 @@ const PackageBuilderOutputs = ({item}) => {
     const deletePackageOutput = async (e) => {
         const docid = e.target.dataset.docid
 
-        await deleteDoc(doc(db, "packageOutputs", docid))
+        await deleteDoc(doc(db, "themeOutputs", docid))
     }
 
 
@@ -45,4 +45,4 @@ const PackageBuilderOutputs = ({item}) => {
   )
 }
 
-export default PackageBuilderOutputs
+export default ThemeBuilderOutputs

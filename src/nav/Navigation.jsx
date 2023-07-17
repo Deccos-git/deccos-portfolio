@@ -16,8 +16,8 @@ import Outputs from "../pages/dashboard/Outputs";
 import Activities from "../pages/dashboard/Activities";
 import Kpis from "../pages/dashboard/Kpis";
 import KpiDetail from "../pages/dashboard/KpiDetail";
-import Packages from "../pages/dashboard/Packages";
-import PackageDetail from "../pages/dashboard/PackageDetail";
+import Themes from "../pages/dashboard/Themes";
+import ThemeDetail from "../pages/dashboard/ThemeDetail";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -41,10 +41,9 @@ import ActivitiesGuide from "../pages/guide/Activities";
 import OutputsGuide from "../pages/guide/Outputs";
 import EffectsGuide from "../pages/guide/Effects";
 import KpisGuide from "../pages/guide/Kpis";
-import PairPackage from "../pages/guide/PairPackage";
-import PackagesGuide from "../pages/guide/Packages";
-import OrganisationsGuide from "../pages/guide/Pairs";
-import PackageBuilder from "../pages/guide/PackageBuilder";
+import ThemesGuide from "../pages/guide/Themes";
+import PairsGuide from "../pages/guide/Pairs";
+import ThemeBuilder from "../pages/guide/ThemeBuilder";
 
 const Navigation = () => {
 
@@ -63,8 +62,8 @@ const Navigation = () => {
             <Route exact path={`/dashboard/activities/:id`} element={<Activities/>}/>
             <Route exact path={`/dashboard/kpis/:id`} element={<Kpis/>}/>
             <Route exact path={`/dashboard/kpidetail/:id/:id`} element={<KpiDetail/>}/>
-            <Route exact path={`/dashboard/packages/:id`} element={<Packages/>}/>
-            <Route exact path={`/dashboard/packagedetail/:id/:id`} element={<PackageDetail/>}/>
+            <Route exact path={`/dashboard/themes/:id`} element={<Themes/>}/>
+            <Route exact path={`/dashboard/themedetail/:id/:id`} element={<ThemeDetail/>}/>
           </Route>
           <Route path={`/`} >
               <Route exact path={`/`} element={<Login/>}/>
@@ -88,10 +87,9 @@ const Navigation = () => {
             <Route exact path={`/guide/outputs/:id/`} element={<OutputsGuide/>}/>
             <Route exact path={`/guide/effects/:id/`} element={<EffectsGuide/>}/>
             <Route exact path={`/guide/kpis/:id/`} element={<KpisGuide/>}/>
-            <Route exact path={`/guide/pairpackage/:id/:id`} element={<PairPackage/>}/>
-            <Route exact path={`/guide/packages/:id/`} element={<PackagesGuide/>}/>
-            <Route exact path={`/guide/packagebuilder/:id/:id`} element={<PackageBuilder/>}/>
-            <Route exact path={`/guide/organisations/:id/`} element={<OrganisationsGuide/>}/>
+            <Route exact path={`/guide/themes/:id/`} element={<ThemesGuide/>}/>
+            <Route exact path={`/guide/themebuilder/:id/:id/:id`} element={<ThemeBuilder/>}/>
+            <Route exact path={`/guide/pairs/:id/`} element={<PairsGuide/>}/>
           </Route>
       </Routes>
     )

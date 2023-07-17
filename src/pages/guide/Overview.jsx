@@ -51,7 +51,7 @@ const Overview = () => {
                 <NavLink to={`/guide/outputs/${id}`} activeClassName="selected"><p>4. Outputs</p></NavLink>
                 <NavLink to={`/guide/effects/${id}`} activeClassName="selected"><p>5. Effecten</p></NavLink>
                 <NavLink to={`/guide/kpis/${id}`} activeClassName="selected"><p>6. KPI's</p></NavLink>
-                <NavLink to={`/guide/packages/${id}`} activeClassName="selected"><p>7. Thema's</p></NavLink>
+                <NavLink to={`/guide/themes/${id}`} activeClassName="selected"><p>7. Thema's</p></NavLink>
                 {/* <NavLink to={`/guide/organisations/${id}`} activeClassName="selected"><p>8. {compagnyProjectMenu()}</p></NavLink> */}
             </div>
         )

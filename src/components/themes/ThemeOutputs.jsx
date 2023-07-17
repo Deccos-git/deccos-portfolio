@@ -1,6 +1,6 @@
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
 
-const PackageOutputs = ({id}) => {
+const ThemeOutputs = ({id}) => {
 
     const packageOutputs = useFirestoreGeneral('packageOutputs', 'packageId', id)
 
@@ -15,4 +15,4 @@ const PackageOutputs = ({id}) => {
   )
 }
 
-export default PackageOutputs
+export default ThemeOutputs

@@ -82,7 +82,7 @@ const Sidebar = () => {
           <h2>Thema's</h2>
           <div className='sidebar-link-container'>
             <PhotoAlbumOutlinedIcon className='menu-icon'/>
-            <NavLink to={`/dashboard/packages/${id}`} activeClassName="selected">Thema's</NavLink>
+            <NavLink to={`/dashboard/themes/${id}`} activeClassName="selected">Thema's</NavLink>
           </div>
         </div>
        

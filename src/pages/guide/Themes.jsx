@@ -16,7 +16,7 @@ import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutl
 import { useContext } from "react";
 import { Settings as SettingsCompagny } from '../../state/Settings';
 
-const Packages = () => {
+const Themes = () => {
     const [settingsCompagny] = useContext(SettingsCompagny)
 
     const [output, setOutput] = useState('')
@@ -25,9 +25,9 @@ const Packages = () => {
     const id = Location()[3]
     const navigate = useNavigate()
 
-    const packages = useFirestoreGeneral('packages', 'compagny', id)
+    const themes = useFirestoreGeneral('themes', 'compagny', id)
     const kpis = useFirestoreGeneral('kpis', 'compagny', id)
-    const packageCompagnyPairs = useFirestoreGeneral('packageCompagnyPairs', 'compagnyId', id)
+    const themeCompagnyPairs = useFirestoreGeneral('themesCompagnyPairs', 'compagnyId', id)
 
     const compagnyProject = () => {
         if(settingsCompagny[0]?.compagnyProject === 'project'){
@@ -52,12 +52,12 @@ const Packages = () => {
     const deletePackage = async (e) => {
         const docid = e.target.dataset.docid
 
-        await deleteDoc(doc(db, "packages", docid));
+        await deleteDoc(doc(db, "themes", docid));
     }
 
     const addPackage = async (e) => {
 
-        await setDoc(doc(db, "packages", uuid()), {
+        await setDoc(doc(db, "themes", uuid()), {
             compagny: id,
             titel: '',
             description: '',
@@ -70,7 +70,7 @@ const Packages = () => {
         const docid = e.target.dataset.docid
         const value = e.target.value
 
-        await updateDoc(doc(db, "packages", docid), {
+        await updateDoc(doc(db, "themes", docid), {
             title: value,
         })
     }
@@ -89,14 +89,14 @@ const Packages = () => {
                     <th>AANPASSEN</th>
                     <th>VERWIJDEREN</th>
                 </tr>
-                    {packages && packages.map(item => (
+                    {themes && themes.map(item => (
                     <tr key={item.id}>
                         <td>
                             <input type="text" defaultValue={item.title} data-docid={item.docid} onChange={packageTitleHandler}/>
                         </td>
                         <td>
                             <Tooltip content='Thema aanpassen' width='80%' left='30px' top='-5px'>
-                                <SettingsSuggestOutlinedIcon className='table-icon' onClick={() => navigate(`/guide/packagebuilder/${id}/${item.id}`)}/>
+                                <SettingsSuggestOutlinedIcon className='table-icon' onClick={() => navigate(`/guide/themebuilder/${id}/${item.id}/${item.title}`)}/>
                             </Tooltip>
                         </td>
                         <td>
@@ -120,7 +120,7 @@ const Packages = () => {
         prev="KPI's"
         prevLink="kpis"
         next={`Koppel ${compagnyProject()}`}
-        nextLink="organisations"
+        nextLink="pairs"
         />
         <Instructions
         text={text()}
@@ -132,4 +132,4 @@ const Packages = () => {
   )
 }
 
-export default Packages
+export default Themes

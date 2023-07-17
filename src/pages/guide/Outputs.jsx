@@ -97,7 +97,6 @@ const Outputs = () => {
               </tr>
                 {outputs && outputs.map(item => (
                   <tr key={item.id}>
-                    {console.log(item.title)}
                     <td>
                         <input type="text" defaultValue={item.title} data-docid={item.docid} onChange={outputHandler} placeholder="Noteer hier je output" />
                     </td>

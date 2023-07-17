@@ -2,7 +2,7 @@ import { useFirestoreGeneral } from "../../firebase/useFirestore"
 import { useContext } from "react";
 import { Settings } from '../../state/Settings';
 
-const PackageCompagnyPairCount = ({id}) => {
+const ThemeCompagnyPairCount = ({id}) => {
   const [settings] = useContext(Settings)
 
   const compagnyProject = () => {
@@ -13,7 +13,7 @@ const PackageCompagnyPairCount = ({id}) => {
     }
   }
 
-  const packageCompagnyPairs = useFirestoreGeneral('packageCompagnyPairs', 'packageId', id)
+  const packageCompagnyPairs = useFirestoreGeneral('themeCompagnyPairs', 'themeId', id)
 
 
   return (
@@ -21,4 +21,4 @@ const PackageCompagnyPairCount = ({id}) => {
   )
 }
 
-export default PackageCompagnyPairCount
+export default ThemeCompagnyPairCount

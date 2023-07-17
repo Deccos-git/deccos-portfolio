@@ -5,7 +5,7 @@ import Location from '../../helpers/Location';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Tooltip from "../../components/common/Tooltip";
 import { Settings } from '../../state/Settings';
-import CompagnyPackage from "../../components/organisations/CompagnyPackage";
+import CompagnyTheme from "../../components/organisations/CompagnyTheme";
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
 
 
@@ -53,7 +53,7 @@ const Organisations = () => {
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
-                      <CompagnyPackage item={item} />
+                      <CompagnyTheme item={item} />
                   </td>
                   <td>
                     <Tooltip content='Details bekijken' top='-60px'>

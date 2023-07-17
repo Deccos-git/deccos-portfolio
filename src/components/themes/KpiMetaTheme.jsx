@@ -1,7 +1,7 @@
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
 import KpiMeta from "../kpis/KpiMeta"
 
-const KpiMetaPackage = ({item}) => {
+const KpiMetaTheme = ({item}) => {
 
     const kpis = useFirestoreGeneral('kpis', 'id', item)
 
@@ -15,4 +15,4 @@ const KpiMetaPackage = ({item}) => {
   )
 }
 
-export default KpiMetaPackage
+export default KpiMetaTheme

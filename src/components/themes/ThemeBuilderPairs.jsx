@@ -4,7 +4,7 @@ import { db } from "../../firebase/config";
 import { useState, useEffect } from "react";
 import Location from "../../helpers/Location";
 
-const PackageBuilderPairs = ({item}) => {
+const ThemeBuilderPairs = ({item}) => {
 
     const [data, setData] = useState([])
 
@@ -47,14 +47,14 @@ const PackageBuilderPairs = ({item}) => {
 
         const array = []
 
-        const col = collection(db, 'packageCompagnyPairs');
-        const q = query(col, where('compagny', '==', client), where("packageId", '==', item.id, orderBy('createdAt', 'asc')));
+        const col = collection(db, 'themeCompagnyPairs');
+        const q = query(col, where('compagny', '==', client), where("themeId", '==', item.id, orderBy('createdAt', 'asc')));
         const snapshot = await getDocs(q);
 
         snapshot.forEach(doc => {
           const object = {
             name: doc.data().createdAt.toDate().toLocaleDateString("nl-NL", options),
-            organisations: snapshot.size
+            organisaties: snapshot.size
           }
           array.push(object)
         })
@@ -68,9 +68,9 @@ const PackageBuilderPairs = ({item}) => {
 
   return (
     <div className="graph-container">
-        <OutputLineChartWithReferenceLine data={data} label='Maximum' kpi={item.maximum} dataKey={'organisations'} />
+        <OutputLineChartWithReferenceLine data={data} label='Maximum' kpi={item.maximum} dataKey={'organisaties'} />
     </div>
   )
 }
 
-export default PackageBuilderPairs
+export default ThemeBuilderPairs

@@ -4,7 +4,7 @@ import { doc, deleteDoc } from 'firebase/firestore';
 import Tooltip from "../common/Tooltip";
 import { db } from "../../firebase/config";
 
-const PackageOutputGoals = ({item, organisation}) => {
+const ThemeOutputGoals = ({item, organisation}) => {
 
     // console.log(organisation)
 
@@ -35,4 +35,4 @@ const PackageOutputGoals = ({item, organisation}) => {
   )
 }
 
-export default PackageOutputGoals
+export default ThemeOutputGoals
