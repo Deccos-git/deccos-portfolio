@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { db } from '../firebase/configDeccos'
+import { dbDeccos as db } from '../firebase/configDeccos'
 import { collection, query, where, getDocs, orderBy} from "firebase/firestore"; 
 import Location from "../helpers/Location";
 

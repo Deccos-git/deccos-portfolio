@@ -4,7 +4,7 @@ import ButtonClicked from "../../components/common/ButtonClicked";
 import { Auth } from '../../state/Auth';
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc, serverTimestamp, arrayUnion, updateDoc } from "firebase/firestore"; 
-import { db } from '../../firebase/configDeccos'
+import { dbDeccos as db } from '../../firebase/configDeccos'
 import saveFile from '../../components/core/savefile';
 import Location from "../../helpers/Location";
 
@@ -41,10 +41,10 @@ const Newproject = () => {
         ButtonClicked(e, 'Opgeslagen')
 
         const id = uuid()
-        const centralProblemID = uuid()
 
         await setDoc(doc(db, "CompagnyMeta", uuid()), {
-            Compagny: projectName,
+            Compagny: id,
+            CompagnyID: id,
             CommunityName: projectName,
             ImpactManager: impactManager,
             Parent: arrayUnion(client),
@@ -53,6 +53,7 @@ const Newproject = () => {
             Premium: true,
             Timestamp: serverTimestamp(),
             MKBA: 'false',
+            Subscription: 'paid',
             Personas: 'false',
             SDGs: 'false',
             ImpactAI: 'false',
@@ -87,7 +88,7 @@ const Newproject = () => {
           })
 
           await setDoc(doc(db, "CentralProblem", uuid()), {
-            ID: centralProblemID,
+            ID: uuid(),
             CentralProblem: '',
             CompagnyID: id,
             Timestamp: serverTimestamp()
@@ -107,8 +108,6 @@ const Newproject = () => {
           await updateDoc(doc(db, "Users", 'RdnXtfMWx2TwvjggSb34JWVgpkG3'), {
             Compagny: arrayUnion(id)
           })
-
-         
 
           navigate(`/dashboard/organisation/${client}/${id}`)
 

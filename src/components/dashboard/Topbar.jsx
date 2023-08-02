@@ -42,9 +42,9 @@ const TopBar = () => {
           </NavLink>
         </div>
         <div>
-          <div id='user-profile-container' onClick={() => navigate(`/profile/profile/${id}/${user.ID}`) }>
-            <img src={user.Photo} alt="profile picture" />
-            <p>{user.ForName}</p>
+          <div id='user-profile-container' onClick={() => navigate(`/profile/profile/${id}/${user.id}`) }>
+            <img src={user.photo} alt="profile picture" />
+            <p>{user.forName}</p>
           </div>
         </div>
       </div>

@@ -8,8 +8,10 @@ import uuid from "react-uuid";
 import { useFirestoreGeneral } from "../../firebase/useFirestore";
 import dummyPhoto from '../../assets/dummy-photo.jpeg'
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { db, authDeccos } from "../../firebase/configDeccos";
+import { dbDeccos } from "../../firebase/configDeccos";
+import { db } from "../../firebase/config";
 import { useNavigate } from "react-router-dom"
+import { auth } from "../../firebase/config";
 
 const Register = () => {
   const [email, setEmail] = useState("")
@@ -18,7 +20,6 @@ const Register = () => {
   const [forname, setForname] = useState("")
   const [surname, setSurname] = useState("")
   const [photo, setPhoto] = useState(dummyPhoto)
-  const [loader, setLoader] = useState("")
   const [communityNameDB, setCommunityNameDB] = useState("")
   const [modalOpen, setModalOpen] = useState(false);
   const [logo, setLogo] = useState()
@@ -105,20 +106,20 @@ const Register = () => {
 
     const registerHandler = () => {
     
-      createUserWithEmailAndPassword(authDeccos, email, password)
+      createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
-          await setDoc(doc(db, "Users", userCredential.user.uid), {
-                UserName: `${forname} ${surname}`,
-                ForName: forname,
-                SurName: surname,
-                Timestamp: serverTimestamp(),
-                Email: email.toLocaleLowerCase(),
-                Photo: logo,
-                ID: id,
-                Approved: false,
-                Deleted: false,
-                Docid: userCredential.user.uid,
-                Finpact: arrayUnion(client)
+          await setDoc(doc(db, "users", userCredential.user.uid), {
+                userName: `${forname} ${surname}`,
+                forName: forname,
+                surName: surname,
+                timestamp: serverTimestamp(),
+                email: email.toLocaleLowerCase(),
+                photo: photo,
+                id: id,
+                approved: false,
+                deleted: false,
+                docid: userCredential.user.uid,
+                ortfolio: arrayUnion(client)
             })
             .then(() => {
                 verificationEmail(email, forname, surname, communityNameDB)
@@ -134,7 +135,7 @@ const Register = () => {
 
 
     const verificationEmail = async (email, forname, surname, communityName ) => {
-      await setDoc(doc(db, "Email", uuid()), {
+      await setDoc(doc(dbDeccos, "Email", uuid()), {
             to: email,
             from: 'info@deccos.nl',
             replyTo: `${host.Name}`,
@@ -176,7 +177,7 @@ const Register = () => {
             <input onChange={passwordRepeatHandler} type="password" placeholder="Herhaal hier je wachtwoord" />
             <p>Profielfoto</p>
             <div className="register-logo-container">
-                <img src={logo} alt="" />
+                <img src={photo} alt="" />
             </div>
             <input onChange={photoHandler} type="file" />
         </form>

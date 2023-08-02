@@ -3,8 +3,7 @@ import ButtonClicked from "../../components/common/ButtonClicked";
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
 import { Auth } from '../../state/Auth';
-import { authDeccos } from '../../firebase/configDeccos';
-import Logo from '../../assets/deccos-finpact-logo.png'
+import { auth } from '../../firebase/config';
 import Location from "../../helpers/Location";
 import Hostname from "../../helpers/Hostname";
 import Modal from 'react-modal';
@@ -47,7 +46,7 @@ const Login = () => {
     if(client){
       navigate(`/dashboard/home/${client}`)
     } else{
-      navigate(`/dashboard/home/${user.Finpact[0]}`)
+      navigate(`/dashboard/home/${user.portfolio[0]}`)
     }
   }
 
@@ -55,7 +54,7 @@ const Login = () => {
 
     ButtonClicked(e, 'Inloggen')
 
-    signInWithEmailAndPassword(authDeccos, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const auth = userCredential.user;
 
@@ -115,7 +114,7 @@ const Login = () => {
 
     ButtonClicked(e, 'Verzonden')
 
-    sendPasswordResetEmail(authDeccos, emailReset)
+    sendPasswordResetEmail(auth, emailReset)
     .then(() => {
         setSuccesReset(`Er is een email verstuurd naar ${emailReset} waarmee je je wachtwoord kunt resetten.`)
     })

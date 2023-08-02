@@ -1,7 +1,7 @@
 import Location from "../../helpers/Location";
-import { useFirestoreGeneral } from '../../firebase/useFirestoreDeccos'
+import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import { signOut } from "firebase/auth";
-import { authDeccos } from "../../firebase/configDeccos";
+import { auth } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import ButtonClicked from "../../components/common/ButtonClicked"
 
@@ -10,13 +10,13 @@ const Profile = () => {
   const user = Location()[4]
   const navigate = useNavigate()
 
-  const users = useFirestoreGeneral('Users', 'ID', user)
+  const users = useFirestoreGeneral('users', 'id', user)
 
   const logoutHandler = async (e) => {
 
     ButtonClicked(e, 'Uitgelogd')
 
-    await signOut(authDeccos)
+    await signOut(auth)
 
     navigate(`/`)
 
@@ -26,13 +26,13 @@ const Profile = () => {
     <div className='page-container'>
         <div className='page-top-container'>
           {users && users.map(item => (
-            <h1 key={item.ID}>{item.UserName}</h1>
+            <h1 key={item.id}>{item.userName}</h1>
           ))}
         </div>
         <div className='banner-container'>
           {users && users.map(item => (
-            <div key={item.ID} className='profile-container'>
-              <img className='profile-avatar' src={item.Photo} alt="" />
+            <div key={item.id} className='profile-container'>
+              <img className='profile-avatar' src={item.photo} alt="" />
               <div id='logout-button-container'>
                 <button onClick={logoutHandler}>Uitloggen</button>
               </div>

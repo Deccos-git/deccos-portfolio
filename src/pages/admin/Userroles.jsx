@@ -1,11 +1,11 @@
 import Location from "../../helpers/Location";
 import { useFirestoreGeneral } from "../../firebase/useFirestore";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { useFirestoreArrayContains } from "../../firebase/useFirestoreDeccos";
+import { useFirestoreArrayContains } from "../../firebase/useFirestore";
 import { useState, useEffect } from "react";
 import uuid from "react-uuid";
 import { db } from "../../firebase/config";
-import { db as dbDeccos } from "../../firebase/configDeccos";
+import { dbDeccos } from "../../firebase/configDeccos";
 import Hostname from "../../helpers/Hostname";
 import { doc, setDoc, deleteDoc, serverTimestamp} from "firebase/firestore"; 
 
@@ -20,7 +20,7 @@ const Userroles = () => {
   const host = Hostname()
 
   const admins = useFirestoreGeneral('admins', 'compagnyID', client)
-  const users = useFirestoreArrayContains('Users',  'Finpact', client)
+  const users = useFirestoreArrayContains('users',  'Portfolio', client)
   const organisatons = useFirestoreGeneral('compagnies', 'id', client)
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const Userroles = () => {
             <select className="userrole-select" name="" id="" onChange={adminHandler}>
                 <option value="">--- Selecteer ---</option>
                 {users && users.map(user => (
-                    <option data-id={user.ID} data-name={user.UserName} data-photo={user.Photo} data-email={user.Email} key={user.ID}>{user.UserName}</option>
+                    <option data-id={user.id} data-name={user.userName} data-photo={user.photo} data-email={user.email} key={user.id}>{user.userName}</option>
                 ))}
             </select>
             <div className="button-userrole-container">

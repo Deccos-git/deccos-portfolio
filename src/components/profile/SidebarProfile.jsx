@@ -10,9 +10,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Location from "../../helpers/Location";
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
-import { useFirestoreGeneral as useFirestoreGeneralDeccos } from '../../firebase/useFirestoreDeccos'
-import UserCompagnies from "./UserCompagnies";
 import { useNavigate } from "react-router-dom";
+import SwitchAccountCompagnyMeta from "./SwitchAccountCompagnyMeta";
 
 const SidebarProfile = () => {
   const [auth] = useContext(Auth)
@@ -21,27 +20,20 @@ const SidebarProfile = () => {
   const [compagnySwitch, setCompagnySwitch] = useState(false)
 
   const id = Location()[3]
-  const user = Location()[4]
   const navigate = useNavigate()
 
   const admins = useFirestoreGeneral('admins', 'compagnyID', id)
-  const users = useFirestoreGeneralDeccos('Users', 'ID', user ? user : '')
 
   // Set compagnyswitch visibility
   useEffect(() => {
-    users && users.forEach(item => {
-      const length = item.Finpact.length
-
-      if(length > 1){
-        setCompagnySwitch(true)
-      }
-    })
-  },[users])
-
+    if(auth && auth.portfolio?.length > 1){
+      setCompagnySwitch(true)
+    }
+  },[auth])
 
   useEffect(() => {
     admins && admins.forEach(item => {
-      if(item.userId === auth.ID){
+      if(item.userId === auth.id){
         setAdmin(true)
       }
     })
@@ -94,9 +86,9 @@ const SidebarProfile = () => {
         <h2>Mijn portfiolo organisaties</h2>
         <select name="" id="" onChange={switchAccountHandler}>
           <option value="">-- Selecteer --</option>
-          {users && users.map(item => (
-            <UserCompagnies user={item}/>
-          ))}
+            {auth && auth.portfolio?.map(item => (
+              <SwitchAccountCompagnyMeta compagny={item}/>
+            ))}
         </select>
 
       </div>

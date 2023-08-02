@@ -1,4 +1,4 @@
-import { db } from "./configDeccos";
+import { dbDeccos as db } from "./configDeccos";
 import { useState, useEffect} from 'react';
 import { collection, query, where, getDocs, orderBy, onSnapshot } from "firebase/firestore"; 
 

@@ -1,11 +1,11 @@
 import Location from "../../helpers/Location";
-import { useFirestoreArrayContains as useFirestoreArrayContainsDeccos, useFirestoreGeneral as useFirestoreGeneralDeccos } from "../../firebase/useFirestoreDeccos";
-import { useFirestoreGeneral } from "../../firebase/useFirestore";
+import { useFirestoreGeneral, useFirestoreArrayContains } from "../../firebase/useFirestore";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useEffect, useState } from "react";
 import ButtonClicked from '../../components/common/ButtonClicked';
 import { doc, setDoc, updateDoc, serverTimestamp, arrayUnion, arrayRemove } from "firebase/firestore"; 
-import { db as deccosdb } from '../../firebase/configDeccos';
+import { db } from "../../firebase/config";
+import { dbDeccos } from "../../firebase/configDeccos";
 import uuid from "react-uuid";
 import Hostname from "../../helpers/Hostname";
 
@@ -17,8 +17,8 @@ const Team = () => {
   const client = Location()[3]
   const host = Hostname()
   
-  const members = useFirestoreArrayContainsDeccos('Users', 'Finpact', client)
-  const users = useFirestoreGeneralDeccos('Users', 'Email', email)
+  const members = useFirestoreArrayContains('users', 'portfolio', client)
+  const users = useFirestoreGeneral('users', 'email', email)
   const organisatons = useFirestoreGeneral('compagnies', 'id', client)
 
   useEffect(() => {
@@ -57,15 +57,15 @@ const Team = () => {
 
   const updateExistingMember = async () => {
 
-      await updateDoc(doc(deccosdb, "Users", docid),{     
-        Finpact: arrayUnion(client)
+      await updateDoc(doc(db, "users", docid),{     
+        portfolio: arrayUnion(client)
     })
 
   }
 
   const sendMailToExistingMember = async () => {
 
-    await setDoc(doc(deccosdb, "Email", uuid()), {
+    await setDoc(doc(dbDeccos, "Email", uuid()), {
       to: email,
       cc: "info@deccos.nl",
       from: "info@deccos.nl",
@@ -91,7 +91,7 @@ const Team = () => {
 
   const sendMailToNewMember = async () => {
 
-    await setDoc(doc(deccosdb, "Email", uuid()), {
+    await setDoc(doc(dbDeccos, "Email", uuid()), {
           to: email,
           cc: "info@deccos.nl",
           from: "info@deccos.nl",
@@ -119,8 +119,8 @@ const Team = () => {
 
     const docid = e.target.dataset.docid 
 
-    await updateDoc(doc(deccosdb, "Users", docid), {
-      Finpact: arrayRemove(client)
+    await updateDoc(doc(db, "users", docid), {
+      Portfolio: arrayRemove(client)
     })
   }
 
@@ -137,9 +137,9 @@ const Team = () => {
             </div>
             <h2>Teamleden</h2>
             {members && members.map(item => (
-              <div key={item.ID} className='members-container'>
-                <img src={item.Photo} alt="" />
-                <p>{item.UserName}</p>
+              <div key={item.id} className='members-container'>
+                <img src={item.photo} alt="" />
+                <p>{item.userName}</p>
                 <DeleteOutlineOutlinedIcon className='members-container-delete-button' data-docid={item.docid} onClick={deleteMember}/>
               </div>
             ))}

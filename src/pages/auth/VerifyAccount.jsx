@@ -1,4 +1,4 @@
-import { db } from "../../firebase/configDeccos";
+import { dbDeccos as db } from "../../firebase/configDeccos";
 import { useNavigate } from "react-router-dom"
 import Location from "../../helpers/Location";
 import { useState, useEffect } from "react";

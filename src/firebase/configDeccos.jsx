@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
-import { getAuth} from "firebase/auth";
 
 const deccosFirebaseConfig = {
   apiKey: "AIzaSyDfHDAPUhBE-t8k41EHbOVpsy2q0kzKe_o",
@@ -13,7 +12,6 @@ const deccosFirebaseConfig = {
 };
 
 const deccosApp = initializeApp(deccosFirebaseConfig, 'deccos');
-const db = getFirestore(deccosApp);
-const authDeccos = getAuth(deccosApp);
+const dbDeccos = getFirestore(deccosApp);
 
-export { db, authDeccos }
+export { dbDeccos }

@@ -113,7 +113,7 @@ const Kpis = () => {
         prev="Effecten"
         prevLink="effects"
         next={`Thema's`}
-        nextLink='packages'
+        nextLink='themes'
         />
         <Instructions
         text={text()}

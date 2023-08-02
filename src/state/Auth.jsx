@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect } from "react";
-import { db } from '../firebase/configDeccos'
+import { db } from '../firebase/config'
 import { collection, query, where, getDocs} from "firebase/firestore"; 
 import { onAuthStateChanged } from "firebase/auth";
-import { authDeccos } from "../firebase/configDeccos";
+import { auth } from "../firebase/config";
 
 export const Auth = createContext()
 
@@ -11,7 +11,7 @@ export const AuthProvider = (props) => {
     const [user, setUser] = useState("")
     const [email, setEmail] = useState('')
 
-    onAuthStateChanged(authDeccos, (user) => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
             const email = user.email;
 
@@ -26,8 +26,8 @@ export const AuthProvider = (props) => {
 
         const userQuery = async () => {
 
-            const col = collection(db, 'Users');
-            const q = query(col, where('Email', '==', email));
+            const col = collection(db, 'users');
+            const q = query(col, where('email', '==', email));
             const snapshot = await getDocs(q);
 
             snapshot.docs.forEach(doc => 

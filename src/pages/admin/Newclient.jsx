@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { db } from "../../firebase/config";
-import { db as deccosdb } from '../../firebase/configDeccos';
+import { dbDeccos } from '../../firebase/configDeccos';
 import uuid from 'react-uuid';
 import saveFile from '../../components/core/savefile';
 import { useNavigate } from "react-router-dom";
@@ -57,7 +57,7 @@ const NewClient = () => {
             title: ''
         })
 
-        await updateDoc(doc(deccosdb, "Users", 'RdnXtfMWx2TwvjggSb34JWVgpkG3'),{     
+        await updateDoc(doc(dbDeccos, "Users", 'RdnXtfMWx2TwvjggSb34JWVgpkG3'),{     
             Finpact: arrayUnion(id)
         })
                    
