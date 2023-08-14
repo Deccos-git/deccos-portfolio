@@ -9,10 +9,11 @@ import Hostname from "../../helpers/Hostname";
 import Modal from 'react-modal';
 import { sendPasswordResetEmail } from "firebase/auth";
 
-const Login = () => {
+const Login = () => { 
+  const [user] = useContext(Auth)
+
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
-  const [user] = useContext(Auth)
   const [logo, setLogo] = useState()
   const [modalOpen, setModalOpen] = useState(false)
   const [emailReset, setEmailReset] = useState('')

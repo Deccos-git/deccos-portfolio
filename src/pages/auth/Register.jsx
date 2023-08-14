@@ -119,7 +119,7 @@ const Register = () => {
                 approved: false,
                 deleted: false,
                 docid: userCredential.user.uid,
-                ortfolio: arrayUnion(client)
+                portfolio: arrayUnion(client)
             })
             .then(() => {
                 verificationEmail(email, forname, surname, communityNameDB)

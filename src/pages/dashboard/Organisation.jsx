@@ -6,7 +6,9 @@ import GoalIcon from '@mui/icons-material/FlagOutlined';
 import GroupIcon from '@mui/icons-material/Groups2Outlined';
 import ActivityIcon from '@mui/icons-material/MonitorHeartOutlined';
 import EffectIcon from '@mui/icons-material/TurnSharpLeftOutlined';
-import PackageMeta from "../../components/themes/ThemeMeta";
+import ThemeMeta from "../../components/themes/ThemeMeta";
+import PairedOutputs from "../../components/themes/PairedOutputs";
+import PairedKPIs from "../../components/themes/PairedKPIs";
 
 const Organisation = () => {
 
@@ -15,12 +17,7 @@ const Organisation = () => {
     const compagnies = useFirestoreGeneralDeccos('CompagnyMeta', 'CompagnyID', compagnyId ? compagnyId : '')
     const centralProblem = useFirestoreGeneralDeccos('CentralProblem', 'CompagnyID', compagnyId ? compagnyId : '')
     const goals = useFirestoreGeneralDeccos('Goals', 'CompagnyID', compagnyId ? compagnyId : '')
-    // const targetgroups = useFirestoreGeneral('Stakeholders', 'CompagnyID', compagnyId ? compagnyId : '')
-    // const activities = useFirestoreGeneral('Activities', 'CompagnyID', compagnyId ? compagnyId : '')
-    // const kpis = useFirestoreGeneral('OutputEffects', 'CompagnyID', compagnyId ? compagnyId : '')
-
-    const packageCompagnyPairs = useFirestoreGeneral('packageCompagnyPairs', 'compagnyId', compagnyId ? compagnyId : '')
-
+    const themeCompagnyPairs = useFirestoreGeneral('themeCompagnyPairs', 'compagnyId', compagnyId ? compagnyId : '')
 
   return (
     <div className='page-container'>
@@ -52,44 +49,25 @@ const Organisation = () => {
                         <p>{item.Title}</p>
                     ))}
                 </div>
-                <div className="report-section-container-contrast">
+                <div className="report-section-container">
                     <div className="report-section-title-container">
                         <GroupIcon/>
                         <h2>Pakket</h2>
                     </div>
                     <div className="report-package-container">
-                        {packageCompagnyPairs && packageCompagnyPairs.map(item => (
-                            <PackageMeta item={item} />
+                        {themeCompagnyPairs && themeCompagnyPairs.map(item => (
+                            <div key={item.id}>
+                                <ThemeMeta item={item} />
+                                <div id='organisation-detail-theme-pairs-container'>
+                                    <h3>Gekoppelde outputs</h3>
+                                    <PairedOutputs theme={item.themeId} compagnyId={compagnyId}/>
+                                    <h3>Gekoppelde KPI's</h3>
+                                    <PairedKPIs theme={item.themeId} compagnyId={compagnyId}/>
+                                </div>
+                                
+                            </div>
                         ))}
                     </div>
-              
-                </div>
-                <div className="report-section">
-                    <div className="report-section-title-container">
-                        <ActivityIcon/>
-                        <h2>Outputs</h2>
-                    </div>
-                    <div className="report-activities-container">
-                        {/* {activities && activities.map(item => (
-                            <div className="report-activity-item-container">
-                                <h3>{item.Activity}</h3>
-                                {/* <ActivityOutput activity={item.ID}/> }
-                            </div>
-                        ))} */}
-                    </div>
-                    
-                </div>
-                <div className="report-section-container-contrast">
-                    <div className="report-section-title-container">
-                        <EffectIcon/>
-                        <h2>KPIs</h2>
-                    </div>
-                    {/* {kpis && kpis.map(item => (
-                        <div className="report-effect-data-item-container">
-                            <h3>{item.Effect}</h3>
-                            {/* <EffectData effect={item}/> }
-                        </div>
-                    ))} */}
                 </div>
             </div>
         </div>

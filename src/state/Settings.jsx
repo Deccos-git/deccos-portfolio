@@ -10,7 +10,6 @@ export const SettingsProvider = (props) => {
     const [settings, setSettings] = useState('')
 
     const client = Location()[3]
-    console.log(client)
 
     useEffect(() => {
 
@@ -34,7 +33,6 @@ export const SettingsProvider = (props) => {
 
     },[])
 
-console.log(settings)
     return(
         <Settings.Provider value={[settings]}>
             {props.children}

@@ -120,7 +120,7 @@ const Pairs = () => {
         />
         <Navigation
         prev="Thema's"
-        prevLink="packages"
+        prevLink="themes"
         />
         <Instructions
         text={text()}
