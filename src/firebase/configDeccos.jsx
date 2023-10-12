@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
+import { getFunctions } from "firebase/functions";
 
 const deccosFirebaseConfig = {
   apiKey: "AIzaSyDfHDAPUhBE-t8k41EHbOVpsy2q0kzKe_o",
@@ -13,5 +14,6 @@ const deccosFirebaseConfig = {
 
 const deccosApp = initializeApp(deccosFirebaseConfig, 'deccos');
 const dbDeccos = getFirestore(deccosApp);
+const functionsDeccos = getFunctions(deccosApp);
 
-export { dbDeccos }
+export { dbDeccos, functionsDeccos }

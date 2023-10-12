@@ -12,6 +12,7 @@ import Location from "../../helpers/Location";
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import { useNavigate } from "react-router-dom";
 import SwitchAccountCompagnyMeta from "./SwitchAccountCompagnyMeta";
+import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
 
 const SidebarProfile = () => {
   const [auth] = useContext(Auth)
@@ -73,6 +74,10 @@ const SidebarProfile = () => {
         <div className='sidebar-link-container'>
           <SettingsOutlinedIcon className='menu-icon'/>
           <NavLink to={`/profile/settings/${id}`} activeClassName="selected">Instellingen</NavLink>
+        </div>
+        <div className='sidebar-link-container'>
+          <CorporateFareOutlinedIcon className='menu-icon'/>
+          <NavLink to={`/profile/projects/${id}`} activeClassName="selected">Projecten</NavLink>
         </div>
       </div>
       <div className='sidebar-inner-container'>

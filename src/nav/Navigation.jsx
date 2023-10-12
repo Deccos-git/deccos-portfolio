@@ -32,6 +32,7 @@ import Team from "../pages/admin/Team";
 import Userroles from "../pages/admin/Userroles";
 import NewClient from "../pages/admin/Newclient";
 import EffectsSettings from "../pages/admin/EffectsSettings";
+import Projects from "../pages/admin/Projects";
 
 //Guide
 import LayoutGuide from "../components/guide/Layout";
@@ -79,6 +80,7 @@ const Navigation = () => {
             <Route exact path={`/profile/team/:id`} element={<Team/>}/>
             <Route exact path={`/profile/userroles/:id`} element={<Userroles/>}/>
             <Route exact path={`/profile/effectsettings/:id`} element={<EffectsSettings/>}/>
+            <Route exact path={`/profile/projects/:id`} element={<Projects/>}/>
           </Route>
           <Route path={`/guide`} element={<LayoutGuide/>}>
             <Route exact path={`/guide/welcome/:id/`} element={<Overview/>}/>
