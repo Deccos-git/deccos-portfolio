@@ -101,8 +101,8 @@ const Effects = () => {
         <Navigation
         prev="Outputs"
         prevLink="outputs"
-        next='KPIs'
-        nextLink='kpis'
+        next='Themas'
+        nextLink='themes'
         />
        
         <Instructions

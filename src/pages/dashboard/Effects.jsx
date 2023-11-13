@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Tooltip from "../../components/common/Tooltip";
 import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const Effects = () => {
 
@@ -28,7 +29,7 @@ const Effects = () => {
             <tr>
                 <th>EFFECTEN</th>
                 <th>TERMIJN</th>
-                {/* <th>DETAILS</th> */}
+                <th>DETAILS</th>
             </tr>
               {effects && effects.map(item => (
                 <tr key={item.ID} >
@@ -36,11 +37,11 @@ const Effects = () => {
                       <p>{item.title}</p>
                   </td>
                   <td><p>{item.term}</p></td>
-                  {/* <td>
+                  <td>
                     <Tooltip content='Details bekijken' top='-60px'>
-                      <SearchOutlinedIcon className="table-icon"/>
+                      <SearchOutlinedIcon className="table-icon" onClick={() => navigate(`/dashboard/effectdetail/${client}/${item.id}`)}/>
                     </Tooltip>
-                  </td> */}
+                  </td>
                 </tr>
               ))}
           </table>

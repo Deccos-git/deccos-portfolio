@@ -4,11 +4,9 @@ import Location from "../../helpers/Location";
 import ProblemIcon from '@mui/icons-material/ExtensionOutlined';
 import GoalIcon from '@mui/icons-material/FlagOutlined';
 import GroupIcon from '@mui/icons-material/Groups2Outlined';
-import ActivityIcon from '@mui/icons-material/MonitorHeartOutlined';
-import EffectIcon from '@mui/icons-material/TurnSharpLeftOutlined';
 import ThemeMeta from "../../components/themes/ThemeMeta";
 import PairedOutputs from "../../components/themes/PairedOutputs";
-import PairedKPIs from "../../components/themes/PairedKPIs";
+import PairedEffects from "../../components/themes/PairedEffects";
 
 const Organisation = () => {
 
@@ -52,21 +50,23 @@ const Organisation = () => {
                 <div className="report-section-container">
                     <div className="report-section-title-container">
                         <GroupIcon/>
-                        <h2>Pakket</h2>
+                        <h2>Thema's</h2>
                     </div>
                     <div className="report-package-container">
-                        {themeCompagnyPairs && themeCompagnyPairs.map(item => (
-                            <div key={item.id}>
-                                <ThemeMeta item={item} />
-                                <div id='organisation-detail-theme-pairs-container'>
-                                    <h3>Gekoppelde outputs</h3>
-                                    <PairedOutputs theme={item.themeId} compagnyId={compagnyId}/>
-                                    <h3>Gekoppelde KPI's</h3>
-                                    <PairedKPIs theme={item.themeId} compagnyId={compagnyId}/>
-                                </div>
-                                
-                            </div>
-                        ))}
+                        <div className='table-container'>
+                            <table>
+                                <tr>
+                                    <th>THEMA</th>
+                                </tr>
+                                {themeCompagnyPairs && themeCompagnyPairs.map(item => (
+                                    <tr key={item.id} >
+                                        <td>
+                                            <ThemeMeta item={item} />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

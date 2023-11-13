@@ -117,10 +117,8 @@ const Themes = () => {
         title="Thema's" 
         />
         <Navigation
-        prev="KPI's"
-        prevLink="kpis"
-        next={`Koppel ${compagnyProject()}`}
-        nextLink="pairs"
+        prev="Effecten"
+        prevLink="effects"
         />
         <Instructions
         text={text()}

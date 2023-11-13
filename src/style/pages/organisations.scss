@@ -33,6 +33,7 @@
 
 .report-inner-container {
     margin: 20px 40px 40px 40px;
+    padding-bottom: 50px;
 }
 
 .report-section-container-contrast {
@@ -95,4 +96,8 @@
     h3{
         margin-left: 0px;
     }
+}
+
+#organisations-themes-container{
+    cursor: pointer;
 }

@@ -6,8 +6,6 @@ const ThemeDetailOutputs = ({item}) => {
 
     const outputs = useFirestoreGeneral('themeOutputs', 'themeId', item.id)
 
-    console.log(outputs)
-
   return (
     <>
         {outputs && outputs.map(output => (

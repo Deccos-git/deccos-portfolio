@@ -20,7 +20,7 @@ const Userroles = () => {
   const host = Hostname()
 
   const admins = useFirestoreGeneral('admins', 'compagnyID', client)
-  const users = useFirestoreArrayContains('users',  'Portfolio', client)
+  const users = useFirestoreArrayContains('users',  'portfolio', client)
   const organisatons = useFirestoreGeneral('compagnies', 'id', client)
 
   useEffect(() => {

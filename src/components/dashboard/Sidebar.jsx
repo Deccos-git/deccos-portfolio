@@ -56,25 +56,9 @@ const Sidebar = () => {
             <TrendingUpOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
           </div>
-          {/* <div className='sidebar-link-container'>
-            <OutlinedFlagIcon  className='menu-icon'/>
-            <NavLink to={`/dashboard/goal/${id}`} activeClassName="selected">Maatschappelijk doel</NavLink>
-          </div> */}
-          {/* <div className='sidebar-link-container'>
-            <DirectionsWalkOutlinedIcon className='menu-icon'/>
-            <NavLink to={`/dashboard/activities/${id}`} activeClassName="selected">Activiteiten</NavLink>
-          </div>
-          <div className='sidebar-link-container'>
-            <OutputRoundedIcon className='menu-icon'/>
-            <NavLink to={`/dashboard/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
-          </div> */}
           <div className='sidebar-link-container'>
             <CompareArrowsOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
-          </div>
-          <div className='sidebar-link-container'>
-            <LandscapeOutlinedIcon className='menu-icon'/>
-            <NavLink to={`/dashboard/kpis/${id}`} activeClassName="selected">KPIs</NavLink>
           </div>
         </div>
 

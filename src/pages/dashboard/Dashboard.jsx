@@ -6,7 +6,6 @@ import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import { useFirestoreGeneral as useFirestoreGeneralDeccos } from '../../firebase/useFirestoreDeccos'
 import OutputRoundedIcon from '@mui/icons-material/OutputRounded';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
-import KpiMetaDashboard from '../../components/dashboard/KpiMetaDashboard'
 import DashboardPairedKpis from '../../components/dashboard/DashboardPairedKpis'
 import { Settings } from '../../state/Settings';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
@@ -18,7 +17,7 @@ const Dashboard = () => {
   const [period, setPeriod] = useState('all')
   const [outputId, setOutputId] = useState('')
   const [activityId, setActivityId] = useState('')
-  const [kpiId, setKpiId] = useState('')
+  const [effectId, setEffectId] = useState('')
 
   const client = Location()[3]
   const options = {year: 'numeric'};
@@ -27,14 +26,10 @@ const Dashboard = () => {
   const effects  = useFirestoreGeneral('effects', 'compagny', client)
   const outputs = useFirestoreGeneral('outputs', 'compagny', client)
   const activities = useFirestoreGeneral('activities', 'compagny', client)
-  const kpis = useFirestoreGeneral('kpis', 'compagny', client)
   const themes = useFirestoreGeneral('themes', 'compagny', client)
-  const pairedKpis = useFirestoreGeneralDeccos('PairedKPIs', 'ThemeKpiId', kpiId)
+  // const pairedKpis = useFirestoreGeneralDeccos('PairedKPIs', 'ThemeKpiId', kpiId)
   const pairedOutputs = useFirestoreGeneralDeccos('PairedOutputs', 'ThemeOutputId', outputId)
 
-  console.log(kpiId)
-
-  console.log(pairedKpis)
 
   const compagnyProject = () => {
     if(settings[0]?.compagnyProject === 'project'){
@@ -49,10 +44,10 @@ const Dashboard = () => {
       activities.length > 0 ? setActivityId(activities[0].id) : setActivityId(null)
   },[activities])
 
-  // Set the first kpi as default
+  // Set the first effect as default
   useEffect(() => {
-    kpis.length > 0 ? setKpiId(kpis[0].id) : setKpiId(null)
-  },[kpis]) 
+    effects.length > 0 ? setEffectId(effects[0].id) : setEffectId(null)
+  },[effects]) 
 
   const selectedPeriod = (period, datatype) => {
 
@@ -156,18 +151,18 @@ const Dashboard = () => {
         <section id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
             <LandscapeOutlinedIcon />
-            <h2>KPIs</h2>
+            <h2>Effecten</h2>
           </div>
           <div className='select-activity-container'>
               <div className="select-activity-inner-container">
-                {kpis && kpis.map(item => (
+                {effects && effects.map(item => (
                     <div 
                     className="select-activity-item-container" 
                     key={item.ID} 
-                    style={{backgroundColor: kpiId === item.id ? '#f4f4f4' : 'white'}}
-                    data-id={item.id} onClick={() => setKpiId(item.id)}
+                    style={{backgroundColor: effectId === item.id ? '#f4f4f4' : 'white'}}
+                    data-id={item.id} onClick={() => setEffectId(item.id)}
                     >
-                    <KpiMetaDashboard kpi={item} setKpiId={setKpiId}/>  
+                    <p data-id={item.id} onClick={() => setEffectId(item.id)}>{item.title}</p>
                     </div>
                 ))}
               </div>

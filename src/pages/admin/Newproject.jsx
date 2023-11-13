@@ -3,7 +3,7 @@ import uuid from 'react-uuid';
 import ButtonClicked from "../../components/common/ButtonClicked";
 import { Auth } from '../../state/Auth';
 import { useNavigate } from "react-router-dom";
-import { doc, setDoc, serverTimestamp, arrayUnion, updateDoc, collection, getDocs, query, where } from "firebase/firestore"; 
+import { collection, getDocs, query, where } from "firebase/firestore"; 
 import { dbDeccos as db, functionsDeccos } from '../../firebase/configDeccos'
 import saveFile from '../../components/core/savefile';
 import Location from "../../helpers/Location";
@@ -94,103 +94,7 @@ const Newproject = () => {
           alert(`Er is iets mis gegaan, neem contact op met Deccos`)
         });
 
-
-
-
-
-
-
         ButtonClicked(e, 'Opslaan..')
-
-      
-
-        // console.log(id)
-        // console.log(projectUser.docid)
-
-        // await setDoc(doc(db, "CompagnyMeta", uuid()), {
-        //     Compagny: id,
-        //     CompagnyID: id,
-        //     CommunityName: projectName,
-        //     ImpactManager: impactManager,
-        //     Parent: arrayUnion(client),
-        //     Logo: logo,
-        //     CompagnyID: id,
-        //     Premium: true,
-        //     Timestamp: serverTimestamp(),
-        //     MKBA: 'false',
-        //     Subscription: 'paid',
-        //     Personas: 'false',
-        //     SDGs: 'false',
-        //     ImpactAI: 'false',
-        //     Report: 'true',
-        //     UpdateEmail: 'never',
-        //     ImpactBanner: 'https://firebasestorage.googleapis.com/v0/b/deccos-app.appspot.com/o/ImpactHeaderDefault.png?alt=media&token=5d11c139-431d-4c66-84d1-23878e3ad460'
-        //   })
-
-        //   await setDoc(doc(db, "Admins", uuid()), {
-        //     CompagnyID: id,
-        //     Email: projectUser.email,
-        //     Photo: projectUser.photo,
-        //     UserID: projectUser.id,
-        //     UserName: projectUser.userName,
-        //     Timestamp: serverTimestamp()
-        //   })
-
-        //   await setDoc(doc(db, "Admins", uuid()), {
-        //     CompagnyID: id,
-        //     Email: 'info@deccos.nl',
-        //     Photo: 'https://firebasestorage.googleapis.com/v0/b/deccos-app.appspot.com/o/ProfilePhotos%2Ffoto-gijs350.jpg?alt=media&token=0e8e886f-2384-4f4c-b5de-a14fa7376135',
-        //     UserID: '6a8bf-08c3-a1ad-d04d-231ebe51dc60',
-        //     UserName: `Gijs van Beusekom`,
-        //     Timestamp: serverTimestamp()
-        //   })
-
-        //   await setDoc(doc(db, "Stakeholders", uuid()), {
-        //     ID: uuid(),
-        //     Name: '',
-        //     CompagnyID: id,
-        //     Timestamp: serverTimestamp()
-        //   })
-
-        //   await setDoc(doc(db, "CentralProblem", uuid()), {
-        //     ID: uuid(),
-        //     CentralProblem: '',
-        //     CompagnyID: id,
-        //     Timestamp: serverTimestamp()
-        //   })
-
-        //   await setDoc(doc(db, "Goals", uuid()), {
-        //     ID: uuid(),
-        //     Title: '',
-        //     CompagnyID: id,
-        //     Timestamp: serverTimestamp()
-        //   })
-
-        //   await setDoc(doc(db, "SourceData", uuid()), {
-        //     ID: uuid(),
-        //     Compagny: id,
-        //     CompagnyID: id,
-        //     Timestamp: serverTimestamp()
-        //   })
-
-        //   await setDoc(doc(db, "DashboardSettings", uuid()), {
-        //     ID: uuid(),
-        //     Compagny: id,
-        //     End: new Date(),
-        //     Start: serverTimestamp(),
-        //     CompagnyID: id,
-        //     Timestamp: serverTimestamp()
-        //   })
-
-        //   await updateDoc(doc(db, "Users", projectUser.docid), {
-        //     Compagny: arrayUnion(id)
-        //   })
-
-        //   await updateDoc(doc(db, "Users", 'RdnXtfMWx2TwvjggSb34JWVgpkG3'), {
-        //     Compagny: arrayUnion(id)
-        //   })
-
-        //   navigate(`/dashboard/organisation/${client}/${id}`)
 
     }
 

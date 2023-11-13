@@ -7,7 +7,7 @@ import Tooltip from "../../components/common/Tooltip";
 import { Settings } from '../../state/Settings';
 import CompagnyTheme from "../../components/organisations/CompagnyTheme";
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
-
+import plusIcon from '../../assets/icons/plus-icon.png'
 
 const Organisations = () => {
   const data = useContext(Data)
@@ -53,7 +53,12 @@ const Organisations = () => {
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
-                      <CompagnyTheme item={item} />
+                      <Tooltip content='Thema koppelen' top='-60px'>
+                        <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}/>
+                      </Tooltip>
+                      <div onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}>
+                        <CompagnyTheme item={item} />
+                      </div>
                   </td>
                   <td>
                     <Tooltip content='Details bekijken' top='-60px'>

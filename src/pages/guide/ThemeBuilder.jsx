@@ -12,29 +12,36 @@ import saveFile from "../../components/core/savefile"
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
-import ThemeBuilderOutputs from "../../components/themes/ThemeBuilderOutputs"
-import ThemeBuilderPairs from "../../components/themes/ThemeBuilderPairs"
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
 import { Settings as SettingsCompagny } from '../../state/Settings';
 import { v4 as uuid } from 'uuid';
 import ButtonClicked from "../../components/common/ButtonClicked"
 import EffectMeta from "../../components/effects/EffectMeta"
-import KpiMetaTheme from "../../components/kpis/KpiMetaTheme.jsx"
+import OutputMeta from "../../components/outputs/OutputMeta"
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import OrganisationMeta from "../../components/organisations/OrganisationMeta";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { useNavigate } from "react-router-dom";
+import { Data } from "../../state/Data";
+import ThemeBuilderPairs from "../../components/themes/ThemeBuilderPairs"
 
 const ThemeBuilder = () => {
+    const data = useContext(Data)
+
     const [settingsCompagny] = useContext(SettingsCompagny)
 
     const [banner, setBanner] = useState('')
     const [showEditBanner, setShowEditBanner] = useState(false)
     const [docid, setDocid] = useState('')
     const [output, setOutput] = useState('')
-    const [KPI, setKPI] = useState('')
+    const [effect, setEffect] = useState('')
+    const [organisation, setOrganisation] = useState('')
 
     const id = Location()[4]
     const route = Location()[3]
     const themeTitle = Location()[5]
     const title = themeTitle.replace(/%20/g, " ")
+    const navigate = useNavigate()
 
     const compagnyProject = () => {
         if(settingsCompagny[0]?.compagnyProject === 'project'){
@@ -47,15 +54,17 @@ const ThemeBuilder = () => {
     const themes = useFirestoreGeneral('themes', 'id', id)
     const compagny = useFirestoreGeneral('compagnies', 'id', route)
     const outputs = useFirestoreGeneral('outputs', 'compagny', route)   
-    const themesOutputs = useFirestoreGeneral('themesOutputs', 'themeId', id)
-    const kpis  = useFirestoreGeneral('kpis', 'compagny', route)
-    const themesKPIs = useFirestoreGeneral('themeKPIs', 'themeId', id)
+    const themesOutputs = useFirestoreGeneral('themeOutputs', 'themeId', id)
+    const themesEffects = useFirestoreGeneral('themeEffects', 'themeId', id)
+    const effects  = useFirestoreGeneral('effects', 'compagny', route)
+    const themeCompagnyPairs = useFirestoreGeneral('themeCompagnyPairs', 'themeId', id)
+    const allOrganisations = data[0]
 
     const text = () => {
         return(
             <>
                 <p><b>Pas het thema '{title}' inhoudelijk en visueel aan.</b></p>
-                <p>Koppel outputs en KPI's waar de portfolio {compagnyProject()} zich aan verbinden. </p>
+                <p>Koppel outputs en effecten waar de portfolio {compagnyProject()} zich aan verbinden. </p>
                 <p>Stel een totaal output doel vast waar de portfolio {compagnyProject()} naar toe werken. Stel deadlines in waarneer dit output doel behaald dient te zijn.</p>
             </>
         )
@@ -144,35 +153,77 @@ const ThemeBuilder = () => {
 
     }
 
-    const KPIhandler = (e) => {
-        const value = e.target.options[e.target.selectedIndex].value
+    const themeOutputGoalHandler = async (e) => {
 
-        setKPI(value)
+        const docid = e.target.dataset.docid
+        const value = e.target.value
+
+        await updateDoc(doc(db, "themeOutputs", docid), {
+            goal: value
+        });
+
     }
 
-    const saveKPI = async (e) => {
+    const deleteThemeOutput = async (e) => {
+
+        const docid = e.target.dataset.docid
+
+        await deleteDoc(doc(db, "themeOutputs", docid))
+    }
+
+    const themeEffecthandler = (e) => {
+        const value = e.target.options[e.target.selectedIndex].value
+
+        setEffect(value)
+    }
+
+    const saveThemeEffect = async (e) => {
 
         ButtonClicked(e, 'Toegevoegd')
 
-        await setDoc(doc(db, "themeKPIs", uuid()), {
-            KPIId: KPI,
+        await setDoc(doc(db, "themeEffects", uuid()), {
+            effectId: effect,
             themeId: id,
             compagny: route,
             id: uuid(),
             createdAt: serverTimestamp(),
             deadline: '',
-            position: kpis.length + 1
+            position: themesEffects.length + 1
         });
 
     }
 
-    const deleteKPIOutput = async (e) => {
+    const deleteThemeEffect = async (e) => {
 
         const docid = e.target.dataset.docid
 
-        console.log(docid)
+        await deleteDoc(doc(db, "themeEffects", docid))
+    }
 
-        await deleteDoc(doc(db, "themeKPIs", docid))
+    const deleteThemeCompagnyPair = async (e) => {
+
+        const docid = e.target.dataset.docid
+
+        await deleteDoc(doc(db, "themeCompagnyPairs", docid))
+    }
+
+    const organisationHandler = (e) => {
+        const value = e.target.options[e.target.selectedIndex].value
+
+        setOrganisation(value)
+    }
+
+    const addOrganisation = async () => {
+
+        await setDoc(doc(db, "themeCompagnyPairs", uuid()), {
+            themeId: id,
+            compagnyId: organisation,
+            compagny: route,
+            id: uuid(),
+            createdAt: serverTimestamp(),
+            approved: false
+        });
+
     }
 
     const settings = () => {
@@ -227,7 +278,37 @@ const ThemeBuilder = () => {
                                 <ThemeBuilderPairs item={item}/>
                             </div>
                         ))}
-                    </div>
+                        {/* <div id='theme-table-container'>
+                            <table>
+                                <tr>
+                                    <th>ORGANISATIE</th>
+                                    <th>GOEDGEKEURD</th>
+                                    <th>DETAILS</th>
+                                    <th>VERWIJDEREN</th>
+                                </tr>
+                                {themeCompagnyPairs && themeCompagnyPairs.map(item => (
+                                    <tr key={item.id}>
+                                        <td>
+                                            <OrganisationMeta organisation={item.compagnyId}/>
+                                        </td>
+                                        <td>
+                                            <p>{item.approved ? 'Ja' : 'Nee'}</p>
+                                        </td>
+                                        <td>
+                                            <Tooltip content='Details bekijken' top='-60px'>
+                                                <SearchOutlinedIcon className="table-icon" onClick={() => navigate(`/dashboard/organisation/${route}/${item.compagnyId}`)}/>
+                                            </Tooltip>
+                                        </td>
+                                        <td>
+                                            <Tooltip content='Effect verwijderen' width='80%' left='30px' top='-5px'>
+                                                <DeleteOutlineOutlinedIcon data-docid={item.docid} onClick={deleteThemeCompagnyPair} className='delete-icon'/>
+                                            </Tooltip>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </table> 
+                        </div> */}
+                    </div>        
                     <div>
                         <div className="package-builder-section-title-container">
                             <div className="package-builder-section-title-container">
@@ -235,7 +316,7 @@ const ThemeBuilder = () => {
                                     <OutputOutlinedIcon />
                                     <h2>Outputs</h2>
                                 </div>
-                                <p>Selecteer outputs en stel per output in wat het totale doel is.</p>
+                                <p>Selecteer outputs en stel per output in wat de KPI is. De kwantatieve resultaten van de gecommiteerde organisaties worden hieraan gekoppeld.</p>
                             </div>
                             <div>
                                 <select name="" id="" onChange={outputHandler}>
@@ -248,40 +329,68 @@ const ThemeBuilder = () => {
                             </div>
                            
                         </div>
-                        {themes && themes.map(item => (
-                            <ThemeBuilderOutputs item={item}/>
-                        ))}
+                        <table>
+                            <tr>
+                                <th>OUTPUT</th>
+                                <th>KPI</th>
+                                <th>VERWIJDEREN</th>
+                            </tr>
+                            {themesOutputs && themesOutputs.map(item => (
+                                <tr key={item.id}>
+                                    <td>
+                                        <OutputMeta output={item.outputId}/>
+                                    </td>
+                                    <td><input type="number" defaultValue={item.goal} data-docid={item.docid} onChange={themeOutputGoalHandler}/></td>
+                                    <td>
+                                        <Tooltip content='Effect verwijderen' width='80%' left='30px' top='-5px'>
+                                            <DeleteOutlineOutlinedIcon data-docid={item.docid} onClick={deleteThemeOutput} className='delete-icon'/>
+                                        </Tooltip>
+                                    </td>
+                                </tr>
+                            ))}
+                        </table>         
                     </div>
                     <div>
                         <div className="package-builder-section-title-container">
                             <div className="package-builder-section-title-icon-title-container">
                                 <LandscapeOutlinedIcon />
-                                <h2>KPI's</h2>
+                                <h2>Effecten</h2>
                             </div>
-                            <p>Hieronder staan de KPI's die zijn verbonden aan dit thema. De onderzoeksresulaten van de gecommitteerde {compagnyProject()} worden hieraan gekoppeld ter onderbouwing van dit KPI.</p>
+                            <p>Hieronder staan de effecten die zijn verbonden aan dit thema. De onderzoeksresulaten van de gecommitteerde {compagnyProject()} worden hieraan gekoppeld ter onderbouwing van dit effect.</p>
                         </div>
                         <div>
-                            <select name="" id="" onChange={KPIhandler}>
-                                <option value="">-- Selecter KPI --</option>
-                                {kpis && kpis.map(item => (
-                                    <option value={item.id}><EffectMeta effect={item.effectId}/></option>
+                            <select name="" id="" onChange={themeEffecthandler}>
+                                <option value="">-- Selecter effect --</option>
+                                {effects && effects.map(item => (
+                                    <option value={item.id}>{item.title}</option>
                                 ))}
                             </select>
-                            <button onClick={saveKPI}>Toevoegen</button>
+                            <button onClick={saveThemeEffect}>Toevoegen</button>
                         </div>
-                        {themesKPIs && themesKPIs.map(item => (
-                            <div key={item.id} className="package-builder-kpi-container">
-                                <KpiMetaTheme kpi={item.KPIId} />
-                                <Tooltip content='Verwijderen' top='-60px'>
-                                    <DeleteOutlineOutlinedIcon data-docid={item.docid} onClick={deleteKPIOutput} className='delete-icon'/>
-                                </Tooltip>
-                            </div>
-                        ))}
+                        <table>
+                            <tr>
+                                <th>EFFECT</th>
+                                <th>VERWIJDEREN</th>
+                            </tr>
+                            {themesEffects && themesEffects.map(item => (
+                                <tr key={item.id}>
+                                    <td>
+                                        <EffectMeta effect={item.effectId}/>
+                                    </td>
+                                    <td>
+                                        <Tooltip content='Effect verwijderen' width='80%' left='30px' top='-5px'>
+                                            <DeleteOutlineOutlinedIcon data-docid={item.docid} onClick={deleteThemeEffect} className='delete-icon'/>
+                                        </Tooltip>
+                                    </td>
+                                </tr>
+                            ))}
+                        </table>         
                     </div>
                 </div>
             </div>
         )
     }
+
   return (
     <>
         <Topbar 

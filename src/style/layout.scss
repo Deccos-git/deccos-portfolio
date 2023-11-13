@@ -334,7 +334,6 @@ table {
         text-align: left;
         background-color: #63cadc;
         color: #fff;
-        min-width: 150px;
     }
 
     td {
@@ -343,6 +342,11 @@ table {
         border: 1px solid lightgray;
         min-width: 300px;
         vertical-align: top;
+
+        img{
+            height: 20px;
+            cursor: pointer;
+        }
     }
 
     input, select, textarea {
@@ -450,5 +454,30 @@ table {
         text-align: center;
     }
   }
+
+  #modal-button-container {
+    display: flex;
+    justify-content: end;
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin: 50px -20px -20px -20px;
+
+    button{
+        border-radius: 5px;
+        margin-left: 20px;
+    }
+
+    #modal-cancel-button{
+        background-color: #ff0000;
+        border: 1px solid #ff0000;
+    }
+}
+
+#modal-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
 
 

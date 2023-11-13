@@ -5,9 +5,10 @@ import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import ThemeBuilderPairs from "../../components/themes/ThemeBuilderPairs"
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
 import ThemeDetailOutputs from "../../components/themes/ThemeDetailOutputs"
-import KpiMetaTheme from "../../components/kpis/KpiMetaTheme"
+import EffectMeta from "../../components/effects/EffectMeta"
 import { Settings as SettingsCompagny } from '../../state/Settings';
 import { useContext } from "react"
+import ThemeOutputResults from "../../components/data/ThemeOutputResults";
 
 const ThemeDetail = () => {
     const [settingsCompagny] = useContext(SettingsCompagny)
@@ -17,7 +18,11 @@ const ThemeDetail = () => {
 
     const themes = useFirestoreGeneral('themes', 'id', id ? id : '')
     const compagny = useFirestoreGeneral('compagnies', 'id', route ? route : '')
-    const themesKPIs = useFirestoreGeneral('themeKPIs', 'themeId', id)
+    const themeEffects = useFirestoreGeneral('themeEffects', 'themeId', id)
+
+    const themeOutputResults = ThemeOutputResults(id)
+
+    console.log(themeOutputResults)
 
     const compagnyProject = () => {
         if(settingsCompagny[0]?.compagnyProject === 'project'){
@@ -85,12 +90,12 @@ const ThemeDetail = () => {
                         <div className="package-builder-section-title-container">
                             <div className="package-builder-section-title-icon-title-container">
                                 <LandscapeOutlinedIcon />
-                                <h2>KPI's</h2>
+                                <h2>Effecten</h2>
                             </div>
                         </div>
-                        {themesKPIs && themesKPIs.map(item => (
+                        {themeEffects && themeEffects.map(item => (
                             <div className="package-builder-kpi-container">
-                                <KpiMetaTheme kpi={item.KPIId}/>   
+                                <EffectMeta effect={item.effectId}/>   
                             </div>
                         ))}
                     </div>
