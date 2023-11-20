@@ -1,4 +1,4 @@
-import OutputLineChartWithReferenceLine from "../graphs/OutputLineChartWithReferenceLine"
+import OutputLineChartWithReferenceLine from "../visualisations/OutputLineChartWithReferenceLine"
 import { collection, query, where, getDocs, orderBy, onSnapshot } from "firebase/firestore"; 
 import { db } from "../../firebase/config";
 import { useState, useEffect } from "react";

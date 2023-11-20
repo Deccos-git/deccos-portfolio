@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Location from "../../helpers/Location"
 import { useFirestoreGeneralTwo as useFirestoreGeneralTwoDeccos } from "../../firebase/useFirestoreDeccos"
 import { useFirestoreGeneral as useFirestoreGeneralDeccos } from "../../firebase/useFirestoreDeccos"
-import { useFirestoreGeneral } from "../../firebase/useFirestore"
+import { useFirestoreGeneral, useFirestoreGeneralTwo } from "../../firebase/useFirestore"
+import { collection, query, where, getDocs } from "firebase/firestore";
 import Tooltip from '../../components/common/Tooltip'
 import CableOutlinedIcon from '@mui/icons-material/CableOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -13,22 +14,18 @@ import { dbDeccos, functionsDeccos } from "../../firebase/configDeccos"
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useState } from 'react';
 import Modal from 'react-modal';
-import OutputMeta from '../../components/outputs/OutputMeta';
-import { v4 as uuid } from 'uuid';
 import { httpsCallable } from "firebase/functions";
-import ButtonClicked from '../../components/common/ButtonClicked';
+import OutputConnecter from '../../components/themeConnecter/OutputConnecter';
 
 const ThemeConnecter = () => {
 
   const [compagnyName, setCompagnyName] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const [selectedTheme, setSelectedTheme] = useState('')
-  const [selectedActivity, setSelectedActivity] = useState('')
-  const [selectedOutput, setSelectedOutput] = useState('')
-  const [selectedOutputDocid, setSelectedOutputDocid] = useState('')
+  const [outputsToUpdate, setOutputsToUpdate] = useState([])
 
   const compagnyId = Location()[4]
-  const portofioId = Location()[3]
+  const portfolioId = Location()[3]
   Modal.setAppElement('#root');
   const modalStyles = {
     content: {
@@ -42,11 +39,10 @@ const ThemeConnecter = () => {
   };
 
   const compagnies = useFirestoreGeneralDeccos('CompagnyMeta', 'CompagnyID', compagnyId ? compagnyId : '')
-  const themes = useFirestoreGeneral('themes', 'compagny', portofioId ? portofioId : '')
-  const themesCompagnyPairs = useFirestoreGeneral('themeCompagnyPairs', 'compagnyId', compagnyId ? compagnyId : '')
+  const themes = useFirestoreGeneral('themes', 'compagny', portfolioId ? portfolioId : '')
   const themeOutputs = useFirestoreGeneral('themeOutputs', 'themeId', selectedTheme ? selectedTheme : '')
-  const compagnyOutputs = useFirestoreGeneralTwoDeccos('Outputs', 'CompagnyID', compagnyId ? compagnyId : '', 'ActivityID', selectedActivity ? selectedActivity : '')
-  const activities = useFirestoreGeneralDeccos('Activities', 'CompagnyID', compagnyId ? compagnyId : '')
+
+  console.log(outputsToUpdate)
 
   // Set the compagny name in state
   useEffect(() => {
@@ -57,6 +53,16 @@ const ThemeConnecter = () => {
 
   // Add a theme
   const addTheme = async () => {
+
+    // Update the existing outputs in the project database
+    if(outputsToUpdate.length > 0) {
+      outputsToUpdate.forEach(item => {
+        updateExistingOutput(item)
+      })
+    }
+
+    // Close the modal
+    setOpenModal(false)
 
   }
 
@@ -74,72 +80,22 @@ const ThemeConnecter = () => {
     setSelectedTheme(e.target.options[e.target.selectedIndex].value)
   }
 
-  // Create a new output
-  const createOutputHandler = async (e) => {
-
-    const outputId = e.target.dataset.outputid
+  const updateExistingOutput = async (item) => {
 
     const data = {
-      CompagnyId: compagnyId,
-      ActivityID: selectedActivity,
-      Title: outputId,
-      Position: compagnyOutputs.length + 1,
-      Color: '#000000',
-      ThemeId: selectedTheme,
-      PortfolioId: portofioId,
+      themeId: item.themeId,
+      portfolioId: portfolioId,
+      themeOutputId: item.themeOutputId,
+      docid: item.docid,
     }
 
-    const createOutput = httpsCallable(functionsDeccos, 'createOutput');
-
-    createOutput({ data: data })
-      .then((result) => {
-        if(result.data === 'success') {
-          alert(`Output is gecreeerd`)
-        } else {
-          alert(`Er is iets mis gegaan, neem contact op met Deccos`)
-        }
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error(error);
-        alert(`Er is iets mis gegaan, neem contact op met Deccos`)
-      });
-
-      ButtonClicked(e, 'Opslaan..')
-}
-
-
-  // Select an existing activity
-  const activityHandler = async (e) => {
-
-    const activityId = e.target.options[e.target.selectedIndex].value
-
-    setSelectedActivity(activityId)
-
-  }
-
-  // Select an existing output
-  const existingOutputHanlder = async (e) => {
-
-    setSelectedOutput(e.target.options[e.target.selectedIndex].value)
-    setSelectedOutputDocid(e.target.options[e.target.selectedIndex].dataset.docid)
-
-  }
-
-  const updateExistingOutput = async (e) => {
-
-    const data = {
-      themeId: selectedTheme,
-      portfolioId: portofioId,
-      docid: selectedOutputDocid,
-    }
-
+    // Update the existing output in the project database via a cloud function
     const updateOutput = httpsCallable(functionsDeccos, 'updateOutput');
 
     updateOutput({ data: data })
       .then((result) => {
         if(result.data === 'success') {
-          alert(`Output is gekoppeld`)
+          console.log('Output updated')
         } else {
           alert(`Er is iets mis gegaan, neem contact op met Deccos`)
         }
@@ -150,8 +106,17 @@ const ThemeConnecter = () => {
         alert(`Er is iets mis gegaan, neem contact op met Deccos`)
       });
 
-      ButtonClicked(e, 'Opslaan..')
+  }
 
+  const closeModal = () => {
+
+    // Close the modal
+    setOpenModal(false)
+
+    // Clean the state
+    setOutputsToUpdate([])
+    setSelectedTheme('')
+    
   }
 
   return (
@@ -174,10 +139,10 @@ const ThemeConnecter = () => {
               <th>OUTPUTS</th>
               <th>VERWIJDEREN</th>
           </tr>
-          {themesCompagnyPairs && themesCompagnyPairs.map(item => (
+          {/* {themesConnections && themesConnections.map(item => (
               <tr key={item.id} >
                 <td>
-                    <ThemeMeta item={item} />
+                    <ThemeMeta themeId={item.themeId} />
                 </td>
                 <td>
                 
@@ -188,7 +153,7 @@ const ThemeConnecter = () => {
                   </Tooltip>
                 </td>
             </tr>
-          ))} 
+          ))}  */}
         </table>
       </div>
       <Modal
@@ -214,48 +179,21 @@ const ThemeConnecter = () => {
             <p><b>Koppel outputs</b></p>
             <table>
             <tr>
-                <th>THEME OUTPUT</th>
+                <th>THEMA OUTPUT</th>
                 <th>ORGANISATIE OUTPUT</th>
             </tr>
             {themeOutputs && themeOutputs.map(item => (
-                <tr key={item.id}>
-                  <td>
-                    <OutputMeta output={item.outputId} />
-                  </td>
-                  <td>
-                    <div>
-                      <div>
-                        <p><b>1. Selecteer een activiteit</b></p>
-                        <select name="" id="" onChange={activityHandler}>
-                          <option value="">-- Selecteer activiteit --</option>
-                          {activities && activities.map(item => (
-                            <option value={item.ID}>{item.Activity}</option>
-                          ))}
-                        </select>
-                        <div style={{display: selectedActivity === '' ? 'none' : 'block'}}>
-                          <p><u>2. Selecteer een output</u> </p>
-                          <select name="" id="" onChange={existingOutputHanlder}>
-                            <option value="">-- Selecteer output --</option>
-                            {compagnyOutputs && compagnyOutputs.map(item => (
-                              <option value={item.ID} data-docid={item.docid}>{item.Title}</option>
-                            ))}
-                          </select>
-                          <button style={{display: selectedOutput === '' ? 'none' : 'block'}} onClick={updateExistingOutput}>Selecteer</button>
-                          <div>
-                            <p><u>Of creëer nieuwe output</u></p>
-                            <OutputMeta output={item.outputId} />
-                            <button data-outputId={item.outputId} onClick={createOutputHandler}>Creëer</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                <OutputConnecter 
+                themeOutput={item}
+                setOutputsToUpdate={setOutputsToUpdate}
+                outputsToUpdate={outputsToUpdate}
+                selectedTheme={selectedTheme}
+                />
               ))}
           </table>
           </div>
           <div id='modal-button-container'>
-            <button id='modal-cancel-button' onClick={() => setOpenModal(false)}>Annuleren</button>
+            <button id='modal-cancel-button' onClick={closeModal}>Annuleren</button>
             <button onClick={addTheme}>Opslaan</button>
           </div>
 

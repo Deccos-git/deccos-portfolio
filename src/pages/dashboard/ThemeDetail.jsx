@@ -8,7 +8,6 @@ import ThemeDetailOutputs from "../../components/themes/ThemeDetailOutputs"
 import EffectMeta from "../../components/effects/EffectMeta"
 import { Settings as SettingsCompagny } from '../../state/Settings';
 import { useContext } from "react"
-import ThemeOutputResults from "../../components/data/ThemeOutputResults";
 
 const ThemeDetail = () => {
     const [settingsCompagny] = useContext(SettingsCompagny)
@@ -19,10 +18,6 @@ const ThemeDetail = () => {
     const themes = useFirestoreGeneral('themes', 'id', id ? id : '')
     const compagny = useFirestoreGeneral('compagnies', 'id', route ? route : '')
     const themeEffects = useFirestoreGeneral('themeEffects', 'themeId', id)
-
-    const themeOutputResults = ThemeOutputResults(id)
-
-    console.log(themeOutputResults)
 
     const compagnyProject = () => {
         if(settingsCompagny[0]?.compagnyProject === 'project'){
@@ -83,10 +78,12 @@ const ThemeDetail = () => {
                             </div>
                         </div>
                         {themes && themes.map(item => (
-                            <ThemeDetailOutputs item={item}/>
+                            <div key={item.id}>
+                                <ThemeDetailOutputs item={item} KPI={item.maximum}/>
+                            </div>
                         ))}
                     </div>
-                    <div>
+                    {/* <div>
                         <div className="package-builder-section-title-container">
                             <div className="package-builder-section-title-icon-title-container">
                                 <LandscapeOutlinedIcon />
@@ -98,7 +95,7 @@ const ThemeDetail = () => {
                                 <EffectMeta effect={item.effectId}/>   
                             </div>
                         ))}
-                    </div>
+                    </div> */}
                 </div>
             </div>
         ))}

@@ -3,33 +3,26 @@ import { Data } from "../../state/Data";
 import { useContext, useState, useEffect } from "react";
 import Location from '../../helpers/Location';
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
-import { useFirestoreGeneral as useFirestoreGeneralDeccos } from '../../firebase/useFirestoreDeccos'
-import OutputRoundedIcon from '@mui/icons-material/OutputRounded';
-import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
-import DashboardPairedKpis from '../../components/dashboard/DashboardPairedKpis'
 import { Settings } from '../../state/Settings';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
+import OutputMeta from '../../components/outputs/OutputMeta'
+import OutputsTotal from '../../components/visualisations/OutputsTotal';
 
 const Dashboard = () => {
   const data = useContext(Data)
   const [settings] = useContext(Settings)
 
   const [period, setPeriod] = useState('all')
-  const [outputId, setOutputId] = useState('')
-  const [activityId, setActivityId] = useState('')
-  const [effectId, setEffectId] = useState('')
+  const [themeId, setThemeId] = useState('')
 
   const client = Location()[3]
   const options = {year: 'numeric'};
   const compagnies = data[0]
 
   const effects  = useFirestoreGeneral('effects', 'compagny', client)
-  const outputs = useFirestoreGeneral('outputs', 'compagny', client)
   const activities = useFirestoreGeneral('activities', 'compagny', client)
   const themes = useFirestoreGeneral('themes', 'compagny', client)
-  // const pairedKpis = useFirestoreGeneralDeccos('PairedKPIs', 'ThemeKpiId', kpiId)
-  const pairedOutputs = useFirestoreGeneralDeccos('PairedOutputs', 'ThemeOutputId', outputId)
-
+  const themeOutputs = useFirestoreGeneral('themeOutputs', 'themeId', themeId)
 
   const compagnyProject = () => {
     if(settings[0]?.compagnyProject === 'project'){
@@ -39,15 +32,10 @@ const Dashboard = () => {
     }
   }
 
-   // Set the first activity as default
+   // Set the first theme as default
    useEffect(() => {
-      activities.length > 0 ? setActivityId(activities[0].id) : setActivityId(null)
-  },[activities])
-
-  // Set the first effect as default
-  useEffect(() => {
-    effects.length > 0 ? setEffectId(effects[0].id) : setEffectId(null)
-  },[effects]) 
+      themes.length > 0 ? setThemeId(themes[0].id) : setThemeId(null)
+  },[themes])
 
   const selectedPeriod = (period, datatype) => {
 
@@ -64,7 +52,6 @@ const Dashboard = () => {
 
     })
 
-    console.log(array)
     return array.length
   }
 
@@ -123,32 +110,33 @@ const Dashboard = () => {
         <section id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
             <PhotoAlbumOutlinedIcon/>
-            <h2>Activiteiten</h2>
+            <h2>Thema's</h2>
           </div>
           <div className='select-activity-container'>
               <div className="select-activity-inner-container">
-                {activities && activities.map(item => (
+                {themes && themes.map(item => (
                     <div 
                     className="select-activity-item-container" 
                     key={item.ID} 
-                    style={{backgroundColor: activityId === item.id ? '#f4f4f4' : 'white'}}
-                    data-id={item.id} onClick={() => setActivityId(item.id)}
+                    style={{backgroundColor: themeId === item.id ? '#f4f4f4' : 'white'}}
+                    data-id={item.id} onClick={() => setThemeId(item.id)}
                     >
-                      <p data-id={item.id} onClick={() => setActivityId(item.id)}>{item.title}</p>
+                      <p data-id={item.id} onClick={() => setThemeId(item.id)}>{item.title}</p>
                     </div>
                 ))}
               </div>
           </div>
           <div>
-            {pairedOutputs && pairedOutputs.map(item => (
-              <div key={item.ID}>
-                <p>Test</p>
+            {themeOutputs && themeOutputs.map(item => (
+              <div key={item.id}>
+                <OutputMeta output={item.outputId} />
+                <OutputsTotal themeOutputId={item.outputId} KPI={item.goal} themeId={themeId}/>
               </div>
             ))}
           </div>
         </section>
 
-        <section id='dashboard-outputs-container'>
+        {/* <section id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
             <LandscapeOutlinedIcon />
             <h2>Effecten</h2>
@@ -168,9 +156,9 @@ const Dashboard = () => {
               </div>
           </div>
           <div>
-            {/* <DashboardPairedKpis kpiId={kpiId} /> */}
+            <DashboardPairedKpis kpiId={kpiId} />
           </div>
-        </section>
+        </section> */}
 
     </div>
   )

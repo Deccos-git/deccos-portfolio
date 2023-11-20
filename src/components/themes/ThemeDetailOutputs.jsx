@@ -1,8 +1,11 @@
 import { useFirestoreGeneral } from "../../firebase/useFirestore"
-import OutpuResults from "../outputs/OutputResults"
 import OutputMeta from "../outputs/OutputMeta"
+import OutputsTotal from "../../components/visualisations/OutputsTotal";
+import ThemeOutputResults from "../data/ThemeOutputResults";
 
 const ThemeDetailOutputs = ({item}) => {
+
+    const themeOutputResults = ThemeOutputResults(item.id)
 
     const outputs = useFirestoreGeneral('themeOutputs', 'themeId', item.id)
 
@@ -13,7 +16,7 @@ const ThemeDetailOutputs = ({item}) => {
                 <div className="package-detail-kpi-selector-container">
                     <p><OutputMeta output={output.outputId}/></p>
                 </div>
-                <OutpuResults output={output}/>
+                <OutputsTotal data={themeOutputResults}/>
             </div>
         ))}
     </>

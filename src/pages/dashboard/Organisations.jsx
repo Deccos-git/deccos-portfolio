@@ -32,6 +32,8 @@ const Organisations = () => {
       }
     }
 
+    console.log(data[0])
+
   return (
     <div className='page-container'>
         <div className='page-top-container'>
@@ -57,7 +59,7 @@ const Organisations = () => {
                         <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}/>
                       </Tooltip>
                       <div onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}>
-                        <CompagnyTheme item={item} />
+                        <CompagnyTheme companyId={item.CompagnyID} portfolioId={id} />
                       </div>
                   </td>
                   <td>
