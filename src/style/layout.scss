@@ -4,67 +4,19 @@ body {
     scroll-behavior: smooth;
 }
 
-#topbar-landing-container{
-    height: 60px;
-    background-color: #fff;
+#layout-container{
+    display: flex;
     width: 100%;
-    position: fixed;
-    z-index: 3;
-    display: -webkit-flex;
-    padding: 5px 30px 5px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
-
-    #topbar-logo{
-        width: auto;
-        height: 50px;
-        cursor: pointer;
-    }
-
-    .icon-container img{
-        height: 20px;
-        width: 20px;
-        margin: 5px;
-        cursor: pointer;
-    }
-}
-
-#footer-container{
-    margin-bottom: 0px;
-    margin-top: auto;
-}
-
-.page-container{
-    min-height: 90vh;
-    padding: 60px 30px 30px 30px;
-    background-color: #f3fafe;
-    width: 80%;
-    margin-top: 60px;
-}
-
-#sidebar-outlet-container{
-    display: flex;
     min-height: 100vh;
 }
 
-#sidebar-container{
-    width: 20%;
-    background-color: #f3fafe;
-    padding: 70px 30px 10px 40px;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
-
-    h2{
-       font-size: 18px;
-       font-weight: bold;
-       color: rgb(48, 45, 45);
-       text-align: left;
-    }
-
-    .sidebar-inner-container{
-        margin-top: 50px;
-    }
+#page-outer-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    padding: 0px 30px 30px 30px;
+    background-color: #fafbff;
 }
 
 #user-profile-container{
@@ -83,41 +35,6 @@ body {
         margin-left: 10px;
         cursor: pointer;
     }
-}
-
-.sidebar-link-container{
-    display: flex;
-    align-items: center;
-    margin: 10px 0px 10px 0px;
-
-    img{
-        width: 20px;
-        height: 20px;
-        margin-right: 15px;
-    }
-
-    .menu-icon{
-        width: 25px;
-        height: 25px;
-        margin-right: 10px;
-    }
-
-    a{
-        font-weight: 400;
-        color: black;
-    }  
-
-    .comming-soon{
-        margin-left: 5px;
-        font-size: 10px;
-        color: orange;
-        font-weight: bold;
-    }
-}
-
-.active{
-    font-weight: bold !important;
-    color: #8f0300 !important;
 }
 
 .card-container{
@@ -169,6 +86,10 @@ body {
     .card-button-container{
         margin: auto 30px 30px 30px;
     }
+}
+
+.page-container{
+    margin-top: 10px;
 }
 
 .banner-container{

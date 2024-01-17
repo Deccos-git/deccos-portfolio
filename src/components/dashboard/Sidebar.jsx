@@ -13,11 +13,13 @@ import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
+import { PortfolioMeta } from "../../state/PortfolioMeta";
+import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 
 const Sidebar = () => {
   const [auth] = useContext(Auth)
   const [settings] = useContext(Settings)
-  const [organisationProject, setOrganisationProject] = useState('')
+  const [portfolioMeta] = useContext(PortfolioMeta)
 
   const id = Location()[3]
 
@@ -29,10 +31,17 @@ const Sidebar = () => {
     }
   }
 
+  console.log(portfolioMeta)
+
 
   return (
     <div id='sidebar-container'>
       <div className='sidebar-inner-container'>
+        <div id='sidebar-logo-container'>
+          <img src={portfolioMeta && portfolioMeta[0].logo} alt="" />
+        </div>
+
+        <div className="left-sidebar-seperator"></div>
 
         <div className="sidebar-section">
           <h2>Dashboard</h2>
@@ -40,7 +49,13 @@ const Sidebar = () => {
             <DashboardRoundedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/home/${id}`} activeClassName="selected">Dashboard</NavLink>
           </div>
+          <div className='sidebar-link-container'>
+            <AutoFixHighOutlinedIcon className='menu-icon'/>
+            <NavLink to={`/guide/welcome/${id}`} activeClassName="selected">Impactgids</NavLink>
+          </div>
         </div>
+
+        <div className="left-sidebar-seperator"></div>
         
         <div className="sidebar-section">
           <h2>Portfolio</h2>
@@ -49,6 +64,8 @@ const Sidebar = () => {
             <NavLink to={`/dashboard/organisations/${id}`} activeClassName="selected">{compagnyProject()}</NavLink>
           </div>
         </div>
+
+        <div className="left-sidebar-seperator"></div>
 
         <div className="sidebar-section">
           <h2>Theory of Change</h2>
@@ -61,6 +78,8 @@ const Sidebar = () => {
             <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
           </div>
         </div>
+
+        <div className="left-sidebar-seperator"></div>
 
         <div className="sidebar-section">
           <h2>Thema's</h2>

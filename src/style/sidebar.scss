@@ -1,0 +1,70 @@
+#sidebar-logo-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+
+    img{
+        max-height: 50px;
+        max-width: 200px;
+        height: 50px;
+        cursor: pointer;
+    }
+}
+
+#sidebar-container{
+    width: 20%;
+    background-color: #f3f7fd;
+    padding: 0px 30px 10px 40px;
+    border-right: 1px solid #ededed;
+
+    h2{
+       font-size: 18px;
+       font-weight: bold;
+       color: rgb(48, 45, 45);
+       text-align: left;
+    }
+
+    .sidebar-inner-container{
+        margin-top: 40px;
+    }
+}
+
+.left-sidebar-seperator {
+    height: 3px;
+    background-color: #fafbff;
+}
+
+.sidebar-link-container{
+    display: flex;
+    align-items: center;
+    margin: 10px 0px 10px 0px;
+
+    img{
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+    }
+
+    .menu-icon{
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+    }
+
+    a{
+        font-weight: 400;
+        color: black;
+    }  
+
+    .comming-soon{
+        margin-left: 5px;
+        font-size: 10px;
+        color: orange;
+        font-weight: bold;
+    }
+}
+
+.active{
+    font-weight: bold !important;
+    color: #8f0300 !important;
+}

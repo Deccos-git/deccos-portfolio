@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './state/Auth';
 import { DataProvider } from './state/Data';
 import { SettingsProvider } from './state/Settings';
+import { PortfolioMetaProvider } from './state/PortfolioMeta';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +15,11 @@ root.render(
      <BrowserRouter key='router'>
       <DataProvider>
         <AuthProvider>
-          <SettingsProvider>
-            <App />
-          </SettingsProvider>
+          <PortfolioMetaProvider>
+            <SettingsProvider>
+              <App />
+            </SettingsProvider>
+          </PortfolioMetaProvider>
         </AuthProvider>
       </DataProvider>
     </BrowserRouter>

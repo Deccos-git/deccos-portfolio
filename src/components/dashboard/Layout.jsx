@@ -4,10 +4,10 @@ import Sidebar from './Sidebar'
 
 const Layout = () => {
   return (
-    <div className="layout-container">
-       <Topbar />
-      <div id='sidebar-outlet-container'>
-        <Sidebar/>
+    <div id="layout-container">
+      <Sidebar/>
+      <div id='page-outer-container'>
+        <Topbar />
         <Outlet />
       </div>
     </div>

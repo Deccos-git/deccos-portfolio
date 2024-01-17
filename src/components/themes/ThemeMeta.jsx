@@ -2,9 +2,7 @@ import { useFirestoreGeneral } from "../../firebase/useFirestore"
 
 const ThemeMeta = ({themeId}) => {
 
-  console.log(themeId)
-
-    const themes = useFirestoreGeneral('themes', 'id', themeId ? themeId : '' )
+  const themes = useFirestoreGeneral('themes', 'id', themeId ? themeId : '' )
 
   return (
     <>

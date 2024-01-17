@@ -11,41 +11,15 @@ import Tooltip from "../common/Tooltip";
 const TopBar = () => {
   const [user] = useContext(Auth)
 
-  const [logo, setLogo] = useState('')
-
   const navigate = useNavigate()
 
   const id = Location()[3]
 
-  const compagnies = useFirestoreCompagny('compagnies') 
-
-  //Set compagny logo
-  useEffect(() => {
-    compagnies && compagnies.forEach(item => {
-      setLogo(item.logo)
-    })
-  },[compagnies])
-
   return (
       <div id='topbar-landing-container'>
-        <img id='topbar-logo' src={logo} alt="Logo" onClick={() => navigate(`/dashboard/home/${id}`)} />
-        <div className='icon-container'>
-          <NavLink to={`/dashboard/search/${id}`} activeClassName="selected">
-            <Tooltip content='Zoeken' width='80%' top='60px'>
-              <img src={SearchIcon} alt="search icon" />
-            </Tooltip>
-          </NavLink>
-          <NavLink to={`/guide/welcome/${id}`} activeClassName="selected">
-            <Tooltip content='Impact gids' width='80%' top='60px'>
-              <AutoFixHighOutlinedIcon />
-            </Tooltip>
-          </NavLink>
-        </div>
-        <div>
-          <div id='user-profile-container' onClick={() => navigate(`/profile/profile/${id}/${user.id}`) }>
-            <img src={user.photo} alt="profile picture" />
-            <p>{user.forName}</p>
-          </div>
+        <div id='user-profile-container' onClick={() => navigate(`/profile/profile/${id}/${user.id}`) }>
+          <img src={user.photo} alt="profile picture" />
+          <p>{user.forName}</p>
         </div>
       </div>
   )

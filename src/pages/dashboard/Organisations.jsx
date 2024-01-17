@@ -32,8 +32,6 @@ const Organisations = () => {
       }
     }
 
-    console.log(data[0])
-
   return (
     <div className='page-container'>
         <div className='page-top-container'>
