@@ -51,13 +51,13 @@ const ThemeBuilder = () => {
         }
       }
 
-    const themes = useFirestoreGeneral('themes', 'id', id)
-    const compagny = useFirestoreGeneral('compagnies', 'id', route)
-    const outputs = useFirestoreGeneral('outputs', 'compagny', route)   
-    const themesOutputs = useFirestoreGeneral('themeOutputs', 'themeId', id)
-    const themesEffects = useFirestoreGeneral('themeEffects', 'themeId', id)
-    const effects  = useFirestoreGeneral('effects', 'compagny', route)
-    const themeCompagnyPairs = useFirestoreGeneral('themeCompagnyPairs', 'themeId', id)
+    const themes = useFirestoreGeneral('themes', 'id', id ? id : '')
+    const compagny = useFirestoreGeneral('compagnies', 'id', route ? route : '')
+    const outputs = useFirestoreGeneral('outputs', 'compagny', route ? route : '')    
+    const themesOutputs = useFirestoreGeneral('themeOutputs', 'themeId', id ? id : '')
+    const themesEffects = useFirestoreGeneral('themeEffects', 'themeId', id ? id : '')
+    const effects  = useFirestoreGeneral('effects', 'compagny', route ? route : '')
+    const themeCompagnyPairs = useFirestoreGeneral('themeCompagnyPairs', 'themeId', id ? id : '')
     const allOrganisations = data[0]
 
     const text = () => {

@@ -25,8 +25,8 @@ body {
     margin-right: 60px;
 
     img{
-        width: 50px;
-        height: 50px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         cursor: pointer;
     }
@@ -259,7 +259,6 @@ table {
 
     td {
         margin-right: 10px;
-        padding: 10px;
         border: 1px solid lightgray;
         min-width: 300px;
         vertical-align: top;
@@ -270,10 +269,20 @@ table {
         }
     }
 
+    p{
+        margin-left: 10px;
+    }
+
     input, select, textarea {
         border: none;
         background: transparent;
         box-shadow: none;
+    }
+
+    textarea{
+        min-height: 150px;
+        width: 98%;
+        padding: 10px;
     }
 }
 

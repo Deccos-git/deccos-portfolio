@@ -1,8 +1,8 @@
 import { Routes, Route} from "react-router-dom";
 
 // Layout
-import Layout from '../components/dashboard/Layout'
-import LayoutProfile from "../components/profile/LayoutProfile";
+import Layout from '../components/layout/Layout'
+import LayoutProfile from '../components/layout/LayoutProfile'
 
 // Dashboard
 import Dashboard from "../pages/dashboard/Dashboard";
@@ -35,7 +35,6 @@ import EffectsSettings from "../pages/admin/EffectsSettings";
 import Projects from "../pages/admin/Projects";
 
 //Guide
-import LayoutGuide from "../components/guide/Layout";
 import GoalGuide from "../pages/guide/Goal";
 import Overview from "../pages/guide/Overview";
 import ActivitiesGuide from "../pages/guide/Activities";
@@ -89,7 +88,7 @@ const Navigation = () => {
           </Route>
 
           {/* Guide */}
-          <Route path={`/guide`} element={<LayoutGuide/>}>
+          <Route path={`/guide`} element={<Layout/>}>
             <Route exact path={`/guide/welcome/:id/`} element={<Overview/>}/>
             <Route exact path={`/guide/goal/:id/`} element={<GoalGuide/>}/>
             <Route exact path={`/guide/activities/:id/`} element={<ActivitiesGuide/>}/>

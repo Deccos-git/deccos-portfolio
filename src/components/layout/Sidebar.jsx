@@ -14,7 +14,6 @@ import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
 import { PortfolioMeta } from "../../state/PortfolioMeta";
-import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 
 const Sidebar = () => {
   const [auth] = useContext(Auth)
@@ -49,10 +48,10 @@ const Sidebar = () => {
             <DashboardRoundedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/home/${id}`} activeClassName="selected">Dashboard</NavLink>
           </div>
-          <div className='sidebar-link-container'>
+          {/* <div className='sidebar-link-container'>
             <AutoFixHighOutlinedIcon className='menu-icon'/>
             <NavLink to={`/guide/welcome/${id}`} activeClassName="selected">Impactgids</NavLink>
-          </div>
+          </div> */}
         </div>
 
         <div className="left-sidebar-seperator"></div>
@@ -70,12 +69,20 @@ const Sidebar = () => {
         <div className="sidebar-section">
           <h2>Theory of Change</h2>
           <div className='sidebar-link-container'>
-            <TrendingUpOutlinedIcon className='menu-icon'/>
-            <NavLink to={`/dashboard/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
+            <OutlinedFlagIcon className='menu-icon'/>
+            <NavLink to={`/dashboard/goal/${id}`} activeClassName="selected">Impactdoel</NavLink>
+          </div>
+          <div className='sidebar-link-container'>
+            <OutputOutlinedIcon className='menu-icon'/>
+            <NavLink to={`/dashboard/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
           </div>
           <div className='sidebar-link-container'>
             <CompareArrowsOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
+          </div>
+          <div className='sidebar-link-container'>
+            <TrendingUpOutlinedIcon className='menu-icon'/>
+            <NavLink to={`/dashboard/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
           </div>
         </div>
 
