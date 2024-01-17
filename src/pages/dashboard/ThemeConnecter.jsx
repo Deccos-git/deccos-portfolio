@@ -16,6 +16,7 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import { httpsCallable } from "firebase/functions";
 import OutputConnecter from '../../components/themeConnecter/OutputConnecter';
+import OutputMeta from '../../components/outputs/OutputMeta'
 
 const ThemeConnecter = () => {
 
@@ -23,6 +24,7 @@ const ThemeConnecter = () => {
   const [openModal, setOpenModal] = useState(false)
   const [selectedTheme, setSelectedTheme] = useState('')
   const [outputsToUpdate, setOutputsToUpdate] = useState([])
+  const [themesConnections, setThemesConnections] = useState([])
 
   const compagnyId = Location()[4]
   const portfolioId = Location()[3]
@@ -119,6 +121,51 @@ const ThemeConnecter = () => {
     
   }
 
+  // Get the theme connections
+  const getThemeConnections = () => {
+    const pairedOutputs = httpsCallable(functionsDeccos, 'getPairedOutputs');
+
+    const data = {
+      portfolioId: portfolioId,
+      compagnyId: compagnyId,
+    }
+
+    pairedOutputs({ data: data })
+    .then((result) => {
+      setThemesConnections(result.data)
+      console.log(result.data)
+    })
+    .catch((error) => {
+      // Handle errors
+      console.error(error);
+    });
+  }
+
+  useEffect(() => {
+    getThemeConnections()
+  }, [])
+
+  console.log(themesConnections)
+
+  const filteredThemeConnections = () => {
+
+    // Combine duplicate themeID's
+    const combinedArray = Object.values(themesConnections.reduce((acc, { ThemeID, ThemeOutputId}) => {
+      if (!acc[ThemeID]) {
+        acc[ThemeID] = { ThemeID, OutputIDs: [] };
+      }
+      acc[ThemeID].OutputIDs.push(ThemeOutputId);
+      return acc;
+    }, {}));
+    
+    return combinedArray
+
+  }
+
+
+  console.log(filteredThemeConnections())
+
+
   return (
     <div className='page-container'>
       <div className='page-top-container'>
@@ -139,13 +186,19 @@ const ThemeConnecter = () => {
               <th>OUTPUTS</th>
               <th>VERWIJDEREN</th>
           </tr>
-          {/* {themesConnections && themesConnections.map(item => (
-              <tr key={item.id} >
+          {filteredThemeConnections() && filteredThemeConnections().map(item => (
+              <tr key={item.ID} >
                 <td>
-                    <ThemeMeta themeId={item.themeId} />
+                    <ThemeMeta themeId={item.ThemeID} />
                 </td>
                 <td>
-                
+                    <ul>
+                      {item.OutputIDs.map(output => (
+                        <li>
+                          <OutputMeta output={output} />
+                        </li>
+                      ))}
+                    </ul>
                 </td>
                 <td>
                   <Tooltip content='Thema verwijderen' width='80%' left='30px' top='-5px'>
@@ -153,7 +206,7 @@ const ThemeConnecter = () => {
                   </Tooltip>
                 </td>
             </tr>
-          ))}  */}
+          ))} 
         </table>
       </div>
       <Modal

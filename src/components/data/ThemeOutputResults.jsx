@@ -12,6 +12,7 @@ import { dbDeccos } from "../../firebase/configDeccos";
 
 const ThemeOutputResults = (themeOutputId, themeId) => {
     const [data, setData] = useState(null);
+    const [total, setTotal] = useState(null);
 
     const getAllDates = async () => {
 

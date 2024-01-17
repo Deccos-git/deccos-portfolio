@@ -14,9 +14,8 @@ import {
 
 const OutputsTotal = ({themeId, themeOutputId, KPI}) => {
 
+    // Get the data
     const themeOutputResults = ThemeOutputResults(themeOutputId, themeId)
-
-    console.log(themeOutputResults)
     
     // Filter the companies from the data
     const companies = themeOutputResults ? Object.keys(themeOutputResults[0] ? themeOutputResults[0] : []).filter(item => item !== 'name') : []
