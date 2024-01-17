@@ -55,12 +55,14 @@ const Organisations = () => {
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
-                      <Tooltip content='Thema koppelen' top='-60px'>
-                        <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}/>
-                      </Tooltip>
+                    <div id='compagnies-them-table-cell-container'>
                       <div onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}>
                         <CompagnyTheme companyId={item.CompagnyID} portfolioId={id} />
                       </div>
+                      <Tooltip content='Thema koppelen' top='-60px'>
+                        <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}/>
+                      </Tooltip>
+                    </div>
                   </td>
                   <td>
                     <Tooltip content='Details bekijken' top='-60px'>
