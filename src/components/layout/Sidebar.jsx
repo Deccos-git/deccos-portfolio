@@ -37,7 +37,7 @@ const Sidebar = () => {
     <div id='sidebar-container'>
       <div className='sidebar-inner-container'>
         <div id='sidebar-logo-container'>
-          <img src={portfolioMeta && portfolioMeta[0].logo} alt="" />
+          <img src={portfolioMeta[0]?.logo ? portfolioMeta[0].logo : ''} alt="" />
         </div>
 
         <div className="left-sidebar-seperator"></div>

@@ -162,10 +162,6 @@ const ThemeConnecter = () => {
 
   }
 
-
-  console.log(filteredThemeConnections())
-
-
   return (
     <div className='page-container'>
       <div className='page-top-container'>
