@@ -5,7 +5,6 @@ import Location from '../../helpers/Location';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Tooltip from "../../components/common/Tooltip";
 import { Settings } from '../../state/Settings';
-import CompagnyTheme from "../../components/organisations/CompagnyTheme";
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
 import plusIcon from '../../assets/icons/plus-icon.png'
 
@@ -44,21 +43,18 @@ const Organisations = () => {
           <table>
             <tr>
                 <th>{compagnyProjectTable()}</th>
-                <th>THEMA</th>
+                <th>SYNCHRONISATIES</th>
                 <th>DETAILS</th>
             </tr>
-            {data[0] && data[0].map(item => (
+            {data && data[0]?.map(item => (
                 <tr key={item.ID} >
                   <td>
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
                     <div id='compagnies-them-table-cell-container'>
-                      <div onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}>
-                        <CompagnyTheme companyId={item.CompagnyID} portfolioId={id} />
-                      </div>
-                      <Tooltip content='Thema koppelen' top='-60px'>
-                        <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/themeconnecter/${id}/${item.CompagnyID}`)}/>
+                      <Tooltip content='Synchronisatie toevoegen' top='-60px'>
+                        <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/synchronisations/${id}/${item.CompagnyID}`)}/>
                       </Tooltip>
                     </div>
                   </td>

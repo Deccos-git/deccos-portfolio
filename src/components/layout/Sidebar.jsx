@@ -48,14 +48,10 @@ const Sidebar = () => {
             <DashboardRoundedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/home/${id}`} activeClassName="selected">Dashboard</NavLink>
           </div>
-          {/* <div className='sidebar-link-container'>
-            <AutoFixHighOutlinedIcon className='menu-icon'/>
-            <NavLink to={`/guide/welcome/${id}`} activeClassName="selected">Impactgids</NavLink>
-          </div> */}
         </div>
 
         <div className="left-sidebar-seperator"></div>
-        
+
         <div className="sidebar-section">
           <h2>Portfolio</h2>
           <div className='sidebar-link-container'>
@@ -86,15 +82,17 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className="left-sidebar-seperator"></div>
+        
 
-        <div className="sidebar-section">
+        {/* <div className="left-sidebar-seperator"></div> */}
+
+        {/* <div className="sidebar-section">
           <h2>Thema's</h2>
           <div className='sidebar-link-container'>
             <PhotoAlbumOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/themes/${id}`} activeClassName="selected">Thema's</NavLink>
           </div>
-        </div>
+        </div> */}
        
         {/* <div className='sidebar-link-container'>
           <GroupOutlinedIcon className='menu-icon'/>

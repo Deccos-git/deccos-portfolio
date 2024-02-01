@@ -18,6 +18,7 @@ import Activities from "../pages/dashboard/Activities";
 import Themes from "../pages/dashboard/Themes";
 import ThemeDetail from "../pages/dashboard/ThemeDetail";
 import ThemeConnecter from "../pages/dashboard/ThemeConnecter";
+import Synchronisations from "../pages/dashboard/Synchronisations";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -64,7 +65,7 @@ const Navigation = () => {
             <Route exact path={`/dashboard/themes/:id`} element={<Themes/>}/>
             <Route exact path={`/dashboard/themedetail/:id/:id`} element={<ThemeDetail/>}/>
             <Route exact path={`/dashboard/themeconnecter/:id/:id`} element={<ThemeConnecter/>}/>
-
+            <Route exact path={`/dashboard/synchronisations/:id/:id`} element={<Synchronisations/>}/>
           </Route>
 
           {/* Auth */}
