@@ -5,8 +5,6 @@ import ProblemIcon from '@mui/icons-material/ExtensionOutlined';
 import GoalIcon from '@mui/icons-material/FlagOutlined';
 import GroupIcon from '@mui/icons-material/Groups2Outlined';
 import ThemeMeta from "../../components/themes/ThemeMeta";
-import PairedOutputs from "../../components/themes/PairedOutputs";
-import PairedEffects from "../../components/themes/PairedEffects";
 
 const Organisation = () => {
 
@@ -15,7 +13,6 @@ const Organisation = () => {
     const compagnies = useFirestoreGeneralDeccos('CompagnyMeta', 'CompagnyID', compagnyId ? compagnyId : '')
     const centralProblem = useFirestoreGeneralDeccos('CentralProblem', 'CompagnyID', compagnyId ? compagnyId : '')
     const goals = useFirestoreGeneralDeccos('Goals', 'CompagnyID', compagnyId ? compagnyId : '')
-    const themeCompagnyPairs = useFirestoreGeneral('themeCompagnyPairs', 'compagnyId', compagnyId ? compagnyId : '')
 
   return (
     <div className='page-container'>
@@ -47,28 +44,7 @@ const Organisation = () => {
                         <p>{item.Title}</p>
                     ))}
                 </div>
-                <div className="report-section-container">
-                    <div className="report-section-title-container">
-                        <GroupIcon/>
-                        <h2>Thema's</h2>
-                    </div>
-                    <div className="report-package-container">
-                        <div className='table-container'>
-                            <table>
-                                <tr>
-                                    <th>THEMA</th>
-                                </tr>
-                                {themeCompagnyPairs && themeCompagnyPairs.map(item => (
-                                    <tr key={item.id} >
-                                        <td>
-                                            <ThemeMeta item={item} />
-                                        </td>
-                                    </tr>
-                                ))}
-                            </table>
-                        </div>
-                    </div>
-                </div>
+              
             </div>
         </div>
     </div>

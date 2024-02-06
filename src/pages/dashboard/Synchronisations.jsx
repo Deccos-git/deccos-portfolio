@@ -1,14 +1,17 @@
 import SyncOutlinedIcon from '@mui/icons-material/SyncOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { useNavigate } from "react-router-dom";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useContext, useEffect, useState } from "react";
 import Location from '../../helpers/Location';
 import { useFirestoreGeneral, useFirestoreGeneralTwo } from '../../firebase/useFirestore';
 import Tooltip from "../../components/common/Tooltip";
 import Modal from 'react-modal';
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase/config"
 import { v4 as uuid } from 'uuid';
+import OutputMeta from '../../components/outputs/OutputMeta';
+import { functionsDeccos } from "../../firebase/configDeccos";
+import { httpsCallable } from "firebase/functions";
 
 const Synchronisations = () => {
 
@@ -33,21 +36,108 @@ const Synchronisations = () => {
     };
 
     // Firestore
-    const synchronisations = useFirestoreGeneralTwo('Synchronisations', 'compagnyId', compagnyId, 'portfolioId', portfolioId)
+    const synchronisations = useFirestoreGeneralTwo('synchronisations', 'compagnyId', compagnyId, 'portfolioId', portfolioId)
     const outputs = useFirestoreGeneral('outputs', 'compagny', portfolioId)
 
-    console.log(outputs)
+    // Get compagny name from API 
+    useEffect(() => {
+      const getCompagnyName = async () => {
+
+        const projectMeta = httpsCallable(functionsDeccos, 'projectMeta');
+
+        projectMeta({ data: compagnyId })
+        .then((result) => {
+          console.log(result.data)
+          setCompagnyName(result.data.CommunityName)
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error(error);
+          alert(`Er is iets mis gegaan, neem contact op met Deccos`)
+        });
+      }
+
+      getCompagnyName()
+  }, [compagnyId])
+  
+    useEffect(() => {
+        const getCompagnyName = async () => {
+
+          const projectMeta = httpsCallable(functionsDeccos, 'projectMeta');
+
+          projectMeta({ data: compagnyId })
+          .then((result) => {
+            console.log(result.data)
+            setCompagnyName(result.data.CommunityName)
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error(error);
+            alert(`Er is iets mis gegaan, neem contact op met Deccos`)
+          });
+        }
+
+        getCompagnyName()
+    }, [compagnyId])
+
+    // Add sync to portfolio database
+  const addSyncToPortfolio = async (item, id) => {
+
+      await setDoc(doc(db, "synchronisations", uuid()), {
+        portfolioId: portfolioId,
+        compagnyId: compagnyId,
+        createdAt: serverTimestamp(),
+        id: id,
+        position: synchronisations.length + 1,
+        syncItem: item,
+        type: 'output',
+        status: 'requested'
+    });
+  }
+
+    // Add sync to project database
+    const addSyncToProject = async (item, id) => {
+
+    const createSync = httpsCallable(functionsDeccos, 'createSync');
+
+    const data = {
+      compagnyId: compagnyId,
+      portfolioId: portfolioId,
+      syncItem: item,
+      type: 'output',
+      status: 'requested',
+      id: id
+    }
+
+    createSync({ data: data })
+      .then((result) => {
+        if(result.data === 'Synchronisation created') {
+          console.log('Synchronisation created')
+          // If the function returns a success update the project database
+          addSyncToPortfolio(item, id)
+        } else {
+          alert(`Er is iets mis gegaan, neem contact op met Deccos`)
+        }
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error(error);
+        alert(`Er is iets mis gegaan, neem contact op met Deccos`)
+      });
+  }
 
     // Functions
-    const addSynchronisation = async () => {
+    const addSynchronisation = () => {
 
-        await setDoc(doc(db, "synchronisations", uuid()), {
-            portfolio: portfolioId,
-            compagnyId: compagnyId,
-            createdAt: serverTimestamp(),
-            id: uuid(),
-            position: synchronisations.length + 1
-        });
+        selectedOptions.map(async item => {
+
+          const id = uuid()
+
+          await addSyncToProject(item, id)
+
+        })
+
+        setModalOpen(false)
     }
 
     const outputHandler = (event) => {
@@ -61,6 +151,37 @@ const Synchronisations = () => {
         }
     };
 
+    const status = (statusCode) => {
+      switch (statusCode) {
+        case 'requested':
+          return { text: 'Aangevraagd', color: '#FFA500' }; // Orange
+        case 'accepted':
+          return { text: 'Geaccepteerd', color: '#008000' }; // Green
+        case 'declined':
+          return { text: 'Geweigerd', color: '#FF0000' }; // Red
+        default:
+          return { text: 'Onbekende status', color: '#000000' }; // Black
+      }
+    }
+
+    const itemType = (type) => {
+      switch (type) {
+        case 'output':
+          return 'Output';
+        case 'effect':
+          return 'Effect';
+        default:
+          return 'Onbekend';
+      }
+    }
+
+    const deleteSync = async (e) => {
+
+      const docid = e.target.dataset.docid
+
+      await deleteDoc(doc(db, "synchronisations", docid))
+
+    }
 
 
   return (
@@ -69,7 +190,7 @@ const Synchronisations = () => {
       <div className='page-header-title-container'>
         <SyncOutlinedIcon/>
         <h1>Synchronisaties</h1>
-        <p>{compagnyId}</p>
+        <p>{compagnyName}</p>
       </div>
     </div>
     <div className='table-container'>
@@ -81,19 +202,24 @@ const Synchronisations = () => {
       <table>
         <tr>
             <th>SYNCHRONISATIE</th>
+            <th>TYPE</th>
             <th>STATUS</th>
             <th>VERWIJDEREN</th>
         </tr>
         {synchronisations && synchronisations.map(item => (
             <tr key={item.Id} >
               <td>
-                  <p></p>  
+                  <OutputMeta output={item.syncItem} />
               </td>
               <td>
-               
+                  <p>{itemType(item.type)}</p>
               </td>
               <td>
-        
+                  
+                  <p style={{color: status(item.status).color}}>{status(item.status).text}</p>
+              </td>
+              <td>
+                  <DeleteOutlineOutlinedIcon className="delete-icon" data-docid={item.docid} onClick={deleteSync}/>
               </td>
           </tr>
         ))} 
@@ -115,7 +241,7 @@ const Synchronisations = () => {
             <p><b>Selecteer outputs</b></p>
             <div id='modal-input-container'>
             {outputs && outputs.map(item => (
-                <div key={item.id}>
+                <div key={item.id} className='input-checkbox-container'>
                 <input
                     type="checkbox"
                     id={item.id}

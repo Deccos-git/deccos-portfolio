@@ -7,14 +7,18 @@ import Tooltip from "../../components/common/Tooltip";
 import { Settings } from '../../state/Settings';
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
 import plusIcon from '../../assets/icons/plus-icon.png'
+import SynchronisationCount from '../../components/synchronisations/SynchronisationCount';
 
 const Organisations = () => {
+  // Context
   const data = useContext(Data)
   const [settings] = useContext(Settings)
 
+  // Hooks
     const navigate = useNavigate()
     const id = Location()[3]
 
+    // Functions
     const compagnyProject = () => {
       if(settings[0]?.compagnyProject === 'project'){
         return 'Projecten'
@@ -53,6 +57,7 @@ const Organisations = () => {
                   </td>
                   <td>
                     <div id='compagnies-them-table-cell-container'>
+                      <SynchronisationCount compagnyId={item.CompagnyID} />
                       <Tooltip content='Synchronisatie toevoegen' top='-60px'>
                         <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/synchronisations/${id}/${item.CompagnyID}`)}/>
                       </Tooltip>
