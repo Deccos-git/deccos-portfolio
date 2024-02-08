@@ -18,27 +18,18 @@ const Outputs = () => {
   const id = Location()[3]
 
   // Firestore
-  const outputs = useFirestoreGeneral('outputs', 'activityId', activityId)
-  const activities = useFirestoreGeneral('activities', 'compagny', id)
+  const outputs = useFirestoreGeneral('outputs', 'compagny', id)
 
-  // Set the first activity as default
-  useEffect(() => {
-      activities.length > 0 ? setActivityId(activities[0].id) : setActivityId(null)
-  },[activities])
+  // Update output title
+  const outputHandler = async (e) => {
+    const docid = e.target.dataset.docid
 
-  const selectActivity = (e) => {
-    setActivityId(e.target.dataset.id)
-  }
-  
-  
-    const outputHandler = async (e) => {
-      const docid = e.target.dataset.docid
-
-      await updateDoc(doc(db, "outputs", docid), {
-          title: e.target.value,
-        })
+    await updateDoc(doc(db, "outputs", docid), {
+        title: e.target.value,
+      })
   }
 
+  // Add new output
   const addOutput = async () => {
 
       await setDoc(doc(db, "outputs", uuid()), {
@@ -51,6 +42,7 @@ const Outputs = () => {
       });
   }
 
+  // Delete output
   const deleteOutput = async (e) => {
       const docid = e.target.dataset.docid
 
@@ -66,21 +58,6 @@ const Outputs = () => {
           </div>
         </div>
           <div className='table-container'>
-          <p><b>Selecteer een activiteit</b></p>
-            <div className='select-activity-container'>
-              <div className="select-activity-inner-container">
-                {activities && activities.map(item => (
-                    <div 
-                    className="select-activity-item-container" 
-                    key={item.ID} 
-                    style={{backgroundColor: activityId === item.id ? '#f4f4f4' : 'white'}}
-                    data-id={item.id} onClick={selectActivity}
-                    >
-                      <p data-id={item.id} onClick={selectActivity}>{item.title}</p>
-                    </div>
-                ))}
-              </div>
-            </div>
             <div className="add-icon-container">
                 <Tooltip content='Output toevoegen' width='80%' left='30px' top='-5px'>
                     <AddCircleOutlineOutlinedIcon className="add-icon" onClick={addOutput} />

@@ -56,7 +56,7 @@ const Organisations = () => {
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
-                    <div id='compagnies-them-table-cell-container'>
+                    <div id='compagnies-them-table-cell-container' onClick={() => navigate(`/dashboard/synchronisations/${id}/${item.CompagnyID}`)}>
                       <SynchronisationCount compagnyId={item.CompagnyID} />
                       <Tooltip content='Synchronisatie toevoegen' top='-60px'>
                         <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/synchronisations/${id}/${item.CompagnyID}`)}/>

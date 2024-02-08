@@ -5,25 +5,34 @@ import Location from '../../helpers/Location';
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import { Settings } from '../../state/Settings';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
-import OutputMeta from '../../components/outputs/OutputMeta'
-import OutputsTotal from '../../components/visualisations/OutputsTotal';
+import DashboardOutputResults from '../../components/dashboard/DashboardOutputResults';
 
 const Dashboard = () => {
+  // Context
   const data = useContext(Data)
   const [settings] = useContext(Settings)
 
+  // State
   const [period, setPeriod] = useState('all')
-  const [themeId, setThemeId] = useState('')
+  const [outputId, setOutputId] = useState('')
 
+  // Hooks
   const client = Location()[3]
   const options = {year: 'numeric'};
   const compagnies = data[0]
 
+  // Firestore
   const effects  = useFirestoreGeneral('effects', 'compagny', client)
-  const activities = useFirestoreGeneral('activities', 'compagny', client)
-  const themes = useFirestoreGeneral('themes', 'compagny', client)
-  const themeOutputs = useFirestoreGeneral('themeOutputs', 'themeId', themeId)
+  const outputs = useFirestoreGeneral('outputs', 'compagny', client)
 
+  // Set outputId as default
+  useEffect(() => {
+    if(outputs.length > 0){
+      setOutputId(outputs[0].id)
+    }
+  }, [outputs])
+
+  // Change compagny/project based on settings
   const compagnyProject = () => {
     if(settings[0]?.compagnyProject === 'project'){
       return 'Projecten'
@@ -32,11 +41,7 @@ const Dashboard = () => {
     }
   }
 
-   // Set the first theme as default
-   useEffect(() => {
-      themes.length > 0 ? setThemeId(themes[0].id) : setThemeId(null)
-  },[themes])
-
+  // Select period function
   const selectedPeriod = (period, datatype) => {
 
     const array = []
@@ -55,7 +60,7 @@ const Dashboard = () => {
     return array.length
   }
 
-
+  // Period handler
   const periodHandler = (e) => {
       const value = e.target.options[e.target.selectedIndex].value
 
@@ -85,24 +90,17 @@ const Dashboard = () => {
               </div>
           </div>
           <div className='key-metrics-container'>
+              <h1>{outputs.length}</h1>
+              <div className='key-matrics-growth-container'>
+              <p>{outputs.length === 1 ? `Output` : `Outputs`}</p>
+                {/* <p className='dashboard-growth-indicator'>+ {selectedPeriod(period, 0)}</p> */}
+              </div>
+          </div>
+          <div className='key-metrics-container'>
             <h1>{effects.length}</h1>
             <div className='key-matrics-growth-container'>
                 <p>{effects.length === 1 ? `Effect` : `Effecten`}</p>
                 {/* <p className='dashboard-growth-indicator'>+ {selectedPeriod(period, 1)}</p> */}
-              </div>
-          </div>
-          <div className='key-metrics-container'>
-            <h1>{activities.length}</h1>
-            <div className='key-matrics-growth-container'>
-                <p>{activities.length === 1 ? `Activiteit` : `Activiteiten`}</p>
-                {/* <p className='dashboard-growth-indicator'>+ {selectedPeriod(period, 2)}</p> */}
-              </div>
-          </div>
-          <div className='key-metrics-container'>
-            <h1>{themes.length}</h1>
-            <div className='key-matrics-growth-container'>
-                <p>{themes.length === 1 ? `Thema` : `Thema's`}</p>
-                {/* <p className='dashboard-growth-indicator'>+ {selectedPeriod(period, 3)}</p> */}
               </div>
           </div>
         </section>
@@ -110,29 +108,24 @@ const Dashboard = () => {
         <section id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
             <PhotoAlbumOutlinedIcon/>
-            <h2>Thema's</h2>
+            <h2>Outputs</h2>
           </div>
           <div className='select-activity-container'>
               <div className="select-activity-inner-container">
-                {themes && themes.map(item => (
+                {outputs && outputs.map(item => (
                     <div 
                     className="select-activity-item-container" 
-                    key={item.ID} 
-                    style={{backgroundColor: themeId === item.id ? '#f4f4f4' : 'white'}}
-                    data-id={item.id} onClick={() => setThemeId(item.id)}
+                    key={item.id} 
+                    style={{backgroundColor: outputId === item.id ? '#f4f4f4' : 'white'}}
+                    data-id={item.id} onClick={() => setOutputId(item.id)}
                     >
-                      <p data-id={item.id} onClick={() => setThemeId(item.id)}>{item.title}</p>
+                      <p data-id={item.id} onClick={() => setOutputId(item.id)}>{item.title}</p>
                     </div>
                 ))}
               </div>
           </div>
           <div>
-            {themeOutputs && themeOutputs.map(item => (
-              <div key={item.id}>
-                <OutputMeta output={item.outputId} />
-                <OutputsTotal themeOutputId={item.outputId} KPI={item.goal} themeId={themeId}/>
-              </div>
-            ))}
+            <DashboardOutputResults outputId={outputId} />
           </div>
         </section>
 

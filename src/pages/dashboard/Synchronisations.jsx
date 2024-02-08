@@ -1,7 +1,7 @@
 import SyncOutlinedIcon from '@mui/icons-material/SyncOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import Location from '../../helpers/Location';
 import { useFirestoreGeneral, useFirestoreGeneralTwo } from '../../firebase/useFirestore';
 import Tooltip from "../../components/common/Tooltip";
@@ -12,6 +12,8 @@ import { v4 as uuid } from 'uuid';
 import OutputMeta from '../../components/outputs/OutputMeta';
 import { functionsDeccos } from "../../firebase/configDeccos";
 import { httpsCallable } from "firebase/functions";
+import ProjectOutputMeta from '../../components/synchronisations/ProjectOutputMeta';
+import ProjectMeta from '../../components/synchronisations/ProjectMeta';
 
 const Synchronisations = () => {
 
@@ -38,47 +40,6 @@ const Synchronisations = () => {
     // Firestore
     const synchronisations = useFirestoreGeneralTwo('synchronisations', 'compagnyId', compagnyId, 'portfolioId', portfolioId)
     const outputs = useFirestoreGeneral('outputs', 'compagny', portfolioId)
-
-    // Get compagny name from API 
-    useEffect(() => {
-      const getCompagnyName = async () => {
-
-        const projectMeta = httpsCallable(functionsDeccos, 'projectMeta');
-
-        projectMeta({ data: compagnyId })
-        .then((result) => {
-          console.log(result.data)
-          setCompagnyName(result.data.CommunityName)
-        })
-        .catch((error) => {
-          // Handle errors
-          console.error(error);
-          alert(`Er is iets mis gegaan, neem contact op met Deccos`)
-        });
-      }
-
-      getCompagnyName()
-  }, [compagnyId])
-  
-    useEffect(() => {
-        const getCompagnyName = async () => {
-
-          const projectMeta = httpsCallable(functionsDeccos, 'projectMeta');
-
-          projectMeta({ data: compagnyId })
-          .then((result) => {
-            console.log(result.data)
-            setCompagnyName(result.data.CommunityName)
-          })
-          .catch((error) => {
-            // Handle errors
-            console.error(error);
-            alert(`Er is iets mis gegaan, neem contact op met Deccos`)
-          });
-        }
-
-        getCompagnyName()
-    }, [compagnyId])
 
     // Add sync to portfolio database
   const addSyncToPortfolio = async (item, id) => {
@@ -159,6 +120,23 @@ const Synchronisations = () => {
           return { text: 'Geaccepteerd', color: '#008000' }; // Green
         case 'declined':
           return { text: 'Geweigerd', color: '#FF0000' }; // Red
+        case 'deleted':
+          return { text: 'Verwijderd', color: '#FF0000' }; // Black
+        default:
+          return { text: 'Onbekende status', color: '#000000' }; // Black
+      }
+    }
+
+    const syncStatus = (statusCode) => {
+      switch (statusCode) {
+        case 'requested':
+          return { text: 'Inactief', color: '#FFA500' }; // Orange
+        case 'accepted':
+          return { text: 'Actief', color: '#008000' }; // Green
+        case 'declined':
+          return { text: 'Inactief', color: '#FF0000' }; // Red
+        case 'deleted':
+          return { text: 'Inactief', color: '#FF0000' }; // Black
         default:
           return { text: 'Onbekende status', color: '#000000' }; // Black
       }
@@ -190,7 +168,7 @@ const Synchronisations = () => {
       <div className='page-header-title-container'>
         <SyncOutlinedIcon/>
         <h1>Synchronisaties</h1>
-        <p>{compagnyName}</p>
+        <p><ProjectMeta projectId={compagnyId}/></p>
       </div>
     </div>
     <div className='table-container'>
@@ -204,6 +182,8 @@ const Synchronisations = () => {
             <th>SYNCHRONISATIE</th>
             <th>TYPE</th>
             <th>STATUS</th>
+            <th>GEKOPPELDE OUTPUT</th>
+            <th>SYNCHRONISATIE</th>
             <th>VERWIJDEREN</th>
         </tr>
         {synchronisations && synchronisations.map(item => (
@@ -215,8 +195,13 @@ const Synchronisations = () => {
                   <p>{itemType(item.type)}</p>
               </td>
               <td>
-                  
                   <p style={{color: status(item.status).color}}>{status(item.status).text}</p>
+              </td>
+              <td>
+                  <ProjectOutputMeta projectOutputId={item.projectOutput}/>
+              </td>
+              <td>
+                <p>{syncStatus(item.status).text}</p>
               </td>
               <td>
                   <DeleteOutlineOutlinedIcon className="delete-icon" data-docid={item.docid} onClick={deleteSync}/>

@@ -30,9 +30,6 @@ const Sidebar = () => {
     }
   }
 
-  console.log(portfolioMeta)
-
-
   return (
     <div id='sidebar-container'>
       <div className='sidebar-inner-container'>

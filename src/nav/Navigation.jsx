@@ -15,9 +15,6 @@ import TheoryOfChange from "../pages/dashboard/TheoryOfChange";
 import Goal from "../pages/dashboard/Goal";
 import Outputs from "../pages/dashboard/Outputs";
 import Activities from "../pages/dashboard/Activities";
-import Themes from "../pages/dashboard/Themes";
-import ThemeDetail from "../pages/dashboard/ThemeDetail";
-import ThemeConnecter from "../pages/dashboard/ThemeConnecter";
 import Synchronisations from "../pages/dashboard/Synchronisations";
 
 // Auth
@@ -34,15 +31,6 @@ import Userroles from "../pages/admin/Userroles";
 import NewClient from "../pages/admin/Newclient";
 import EffectsSettings from "../pages/admin/EffectsSettings";
 import Projects from "../pages/admin/Projects";
-
-//Guide
-import GoalGuide from "../pages/guide/Goal";
-import Overview from "../pages/guide/Overview";
-import ActivitiesGuide from "../pages/guide/Activities";
-import OutputsGuide from "../pages/guide/Outputs";
-import EffectsGuide from "../pages/guide/Effects";
-import ThemesGuide from "../pages/guide/Themes";
-import ThemeBuilder from "../pages/guide/ThemeBuilder";
 
 const Navigation = () => {
 
@@ -62,9 +50,6 @@ const Navigation = () => {
             <Route exact path={`/dashboard/goal/:id`} element={<Goal/>}/>
             <Route exact path={`/dashboard/outputs/:id`} element={<Outputs/>}/>
             <Route exact path={`/dashboard/activities/:id`} element={<Activities/>}/>
-            <Route exact path={`/dashboard/themes/:id`} element={<Themes/>}/>
-            <Route exact path={`/dashboard/themedetail/:id/:id`} element={<ThemeDetail/>}/>
-            <Route exact path={`/dashboard/themeconnecter/:id/:id`} element={<ThemeConnecter/>}/>
             <Route exact path={`/dashboard/synchronisations/:id/:id`} element={<Synchronisations/>}/>
           </Route>
 
@@ -88,16 +73,6 @@ const Navigation = () => {
             <Route exact path={`/profile/projects/:id`} element={<Projects/>}/>
           </Route>
 
-          {/* Guide */}
-          <Route path={`/guide`} element={<Layout/>}>
-            <Route exact path={`/guide/welcome/:id/`} element={<Overview/>}/>
-            <Route exact path={`/guide/goal/:id/`} element={<GoalGuide/>}/>
-            <Route exact path={`/guide/activities/:id/`} element={<ActivitiesGuide/>}/>
-            <Route exact path={`/guide/outputs/:id/`} element={<OutputsGuide/>}/>
-            <Route exact path={`/guide/effects/:id/`} element={<EffectsGuide/>}/>
-            <Route exact path={`/guide/themes/:id/`} element={<ThemesGuide/>}/>
-            <Route exact path={`/guide/themebuilder/:id/:id/:id`} element={<ThemeBuilder/>}/>
-          </Route>
       </Routes>
     )
   }

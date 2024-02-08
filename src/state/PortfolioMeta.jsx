@@ -31,7 +31,7 @@ export const PortfolioMetaProvider = (props) => {
 
         userQuery()
 
-    },[])
+    },[client])
 
     return(
         <PortfolioMeta.Provider value={[data]}>

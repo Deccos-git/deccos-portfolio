@@ -4,7 +4,6 @@ import Location from "../../helpers/Location";
 import ProblemIcon from '@mui/icons-material/ExtensionOutlined';
 import GoalIcon from '@mui/icons-material/FlagOutlined';
 import GroupIcon from '@mui/icons-material/Groups2Outlined';
-import ThemeMeta from "../../components/themes/ThemeMeta";
 
 const Organisation = () => {
 
