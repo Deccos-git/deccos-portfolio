@@ -1,50 +1,67 @@
 import { useEffect } from 'react'
-import { useFirestoreGeneralTwo } from '../../firebase/useFirestore'
-import OutputData from '../synchronisations/OutputData'
 import { useState } from 'react'
 import OutputsGraph from '../outputs/OutputsGraph'
 import ProjectMeta from '../synchronisations/ProjectMeta'
+import { functionsDeccos } from "../../firebase/configDeccos";
+import { httpsCallable } from "firebase/functions";
 
 const DashboardOutputResults = ({outputId}) => {
     // State
     const [data, setData] = useState([])
 
-    //Hooks
-    const projectOutputData = OutputData()
-
-    // Firestore
-    const syncs = useFirestoreGeneralTwo('synchronisations', 'status', 'accepted', 'syncItem', outputId)
-
-    // Get projectOutput from syncs
+    // Get projectOutputData
     useEffect(() => {
 
         const array = []
 
-        syncs && syncs.map(sync => {
-            const projectOutput = sync.projectOutput
+        const getOutputData = async (projectId, outputId) => {
+            const sendOutputData = httpsCallable(functionsDeccos, 'sendOutputData');
+            const dataToSend = {
+              compagnyId: projectId,
+              outputId: outputId
+            };
 
-            projectOutputData && projectOutputData.map(item => {
-                if(item.OutputID === projectOutput){
-                    const timestamp = new Date(item.Timestamp._seconds * 1000);
-                    const month = timestamp.getMonth() + 1
-                    const year = timestamp.getFullYear()
-                    const object = {
-                        Maand: `${month}-${year}`,
-                        Resultaat: item.Result,
-                        ProjectID: [item.CompagnyID],
-                        ResultID: item.ID
-                    }
+            console.log(dataToSend)
+          
+            try {
+              const result = await sendOutputData({ data: dataToSend });
+              console.log(result.data)
+              array.push(result.data)
+            } catch (error) {
+              console.error(error);
+            }
+          };
 
-                    array.push(object)
-                }
-            })
-        })
+            // projectOutputData && projectOutputData.map(item => {
+            //     // Compare projectOutput with projectOutputData
+            //     if(item.OutputID === projectOutput){
 
-        const dataArraySortedByMonth = combineItemsByMonth(array)
+            //         // Get values from projectOutputData
+            //         const timestamp = new Date(item.Timestamp._seconds * 1000);
+            //         const month = timestamp.getMonth() + 1
+            //         const year = timestamp.getFullYear()
 
-        setData(dataArraySortedByMonth)
+            //         // Create object
+            //         const object = {
+            //             Maand: `${month}-${year}`,
+            //             Resultaat: item.Result,
+            //             ProjectID: [item.CompagnyID],
+            //             ResultID: item.ID
+            //         }
 
-    }, [syncs, outputId, projectOutputData])
+            //         // Push object to array
+            //         array.push(object)
+            //     }
+            // })
+
+            getOutputData()
+        console.log(array)
+
+        // const dataArraySortedByMonth = combineItemsByMonth(array)
+
+        // setData(dataArraySortedByMonth)
+
+    }, [outputId])
 
     // Combine items by month, add up the results and combine the projectIDs
     const combineItemsByMonth= (items) => {
@@ -53,7 +70,7 @@ const DashboardOutputResults = ({outputId}) => {
         items.forEach(item => {
             if (combined[item.Maand]) {
             combined[item.Maand].Resultaat += item.Resultaat;
-            combined[item.Maand].ProjectID = [...combined[item.Maand].ProjectID, ...item.ProjectID];
+            // combined[item.Maand].ProjectID = [...combined[item.Maand].ProjectID, ...item.ProjectID];
             } else {
             combined[item.Maand] = { ...item };
             }

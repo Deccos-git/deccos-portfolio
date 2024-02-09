@@ -13,6 +13,7 @@ const Organisation = () => {
     const [projectLogo, setProjectLogo] = useState('')
     const [societalProblem, setSocietalProblem] = useState('')
     const [targetgroups, setTargetgroups] = useState([])
+    const [activities, setActivities] = useState([])
     const [goal, setGoal] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -48,6 +49,7 @@ const Organisation = () => {
             setSocietalProblem(result.data.problem)
             setTargetgroups(result.data.targetgroup)
             setGoal(result.data.goal)
+            setActivities(result.data.activities)
             setLoading(false)
         })
         .catch((error) => {
@@ -61,8 +63,7 @@ const Organisation = () => {
     useEffect(() => {
         projectName()
         projectTheoryOfChange()
-    }
-    , [])
+    }, [])
 
   return (
     <div className='page-container'>
@@ -93,7 +94,16 @@ const Organisation = () => {
                         <h2>Maatschappelijk doel</h2>
                     </div>
                     <p>{goal}</p>
-                    
+
+                    <div className="report-section-title-container">
+                        <GoalIcon/>
+                        <h2>Activiteiten</h2>
+                    </div>
+                    <ul>
+                        {activities && activities.map((activity, index) => (
+                            <li key={index}>{activity}</li>
+                        ))}
+                    </ul>
                 </div>
               
             </div>

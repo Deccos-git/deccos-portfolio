@@ -27,7 +27,6 @@ const OutputData = () => {
         return result.data; // Return the data directly
       } catch (error) {
         console.error(error);
-        alert(`Er is iets mis gegaan, neem contact op met Deccos`);
         return null; // Return null or an appropriate value in case of an error
       }
     };
