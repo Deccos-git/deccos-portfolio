@@ -57,6 +57,33 @@ const useFirestoreGeneralTwo = (coll, field, id, fieldTwo, idTwo) => {
 
 }
 
+const useFirestoreGeneralTwoOrderBy = (coll, field, id, fieldTwo, idTwo, fieldThree, order) => {
+    const [docs, setDocs] = useState([])
+
+    const col = collection(db, coll);
+    const q = query(col, where(field, '==', id), where(fieldTwo, '==', idTwo), orderBy(fieldThree, order))
+
+    useEffect(() => {
+
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+
+            const docArray = [];
+
+            querySnapshot.forEach((doc) => {
+                docArray.push({...doc.data(), docid: doc.id});
+            });  
+
+            setDocs(docArray)
+    
+        })
+        return () => unsubscribe()
+
+    },[coll, field, id, fieldTwo, idTwo, fieldThree, order])
+
+    return docs
+
+}
+
 
 const useFirestoreArrayContains = (coll, field, id) => {
     const [docs, setDocs] = useState([])
@@ -175,6 +202,7 @@ const useFirestoreImpactManager = (id) => {
 export { 
     useFirestoreGeneral,
     useFirestoreGeneralTwo,
+    useFirestoreGeneralTwoOrderBy,
     useFirestoreArrayContains,
     useFirestoreId,
     useFirestoreCompagny,

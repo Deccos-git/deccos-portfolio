@@ -13,6 +13,8 @@ import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
 import LandscapeOutlinedIcon from '@mui/icons-material/LandscapeOutlined';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
+import PodcastsOutlinedIcon from '@mui/icons-material/PodcastsOutlined';
+import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 import { PortfolioMeta } from "../../state/PortfolioMeta";
 
 const Sidebar = () => {
@@ -60,7 +62,7 @@ const Sidebar = () => {
         <div className="left-sidebar-seperator"></div>
 
         <div className="sidebar-section">
-          <h2>Theory of Change</h2>
+          <h2>Impactstrategie</h2>
           <div className='sidebar-link-container'>
             <OutlinedFlagIcon className='menu-icon'/>
             <NavLink to={`/dashboard/goal/${id}`} activeClassName="selected">Impactdoel</NavLink>
@@ -70,11 +72,11 @@ const Sidebar = () => {
             <NavLink to={`/dashboard/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
           </div>
           <div className='sidebar-link-container'>
-            <CompareArrowsOutlinedIcon className='menu-icon'/>
+            <PodcastsOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
           </div>
           <div className='sidebar-link-container'>
-            <TrendingUpOutlinedIcon className='menu-icon'/>
+            <ChangeCircleOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
           </div>
         </div>

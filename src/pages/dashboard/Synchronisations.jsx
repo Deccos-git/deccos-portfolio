@@ -3,10 +3,10 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useState } from "react";
 import Location from '../../helpers/Location';
-import { useFirestoreGeneral, useFirestoreGeneralTwo } from '../../firebase/useFirestore';
+import { useFirestoreGeneral, useFirestoreGeneralTwoOrderBy } from '../../firebase/useFirestore';
 import Tooltip from "../../components/common/Tooltip";
 import Modal from 'react-modal';
-import { doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/config"
 import { v4 as uuid } from 'uuid';
 import OutputMeta from '../../components/outputs/OutputMeta';
@@ -14,13 +14,15 @@ import { functionsDeccos } from "../../firebase/configDeccos";
 import { httpsCallable } from "firebase/functions";
 import ProjectOutputMeta from '../../components/synchronisations/ProjectOutputMeta';
 import ProjectMeta from '../../components/synchronisations/ProjectMeta';
+import spinner from "../../assets/spinner-ripple.svg";
+import deleteIcon from "../../assets/icons/delete-icon.png";
 
 const Synchronisations = () => {
 
     // State
-    const [compagnyName, setCompagnyName] = useState('')
     const [openModal, setModalOpen] = useState(false)
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     // Hooks
     const portfolioId = Location()[3]
@@ -38,7 +40,7 @@ const Synchronisations = () => {
     };
 
     // Firestore
-    const synchronisations = useFirestoreGeneralTwo('synchronisations', 'compagnyId', compagnyId, 'portfolioId', portfolioId)
+    const synchronisations = useFirestoreGeneralTwoOrderBy('synchronisations', 'compagnyId', compagnyId, 'portfolioId', portfolioId, 'position', 'asc')
     const outputs = useFirestoreGeneral('outputs', 'compagny', portfolioId)
 
     // Add sync to portfolio database
@@ -53,39 +55,43 @@ const Synchronisations = () => {
         syncItem: item,
         type: 'output',
         status: 'requested'
-    });
+      })
+      
+      setLoading(false)
   }
 
     // Add sync to project database
     const addSyncToProject = async (item, id) => {
 
-    const createSync = httpsCallable(functionsDeccos, 'createSync');
+      setLoading(true)
 
-    const data = {
-      compagnyId: compagnyId,
-      portfolioId: portfolioId,
-      syncItem: item,
-      type: 'output',
-      status: 'requested',
-      id: id
-    }
+      const createSync = httpsCallable(functionsDeccos, 'createSync');
 
-    createSync({ data: data })
-      .then((result) => {
-        if(result.data === 'Synchronisation created') {
-          console.log('Synchronisation created')
-          // If the function returns a success update the project database
-          addSyncToPortfolio(item, id)
-        } else {
+      const data = {
+        compagnyId: compagnyId,
+        portfolioId: portfolioId,
+        syncItem: item,
+        type: 'output',
+        status: 'requested',
+        id: id,
+      }
+
+      createSync({ data: data })
+        .then((result) => {
+          if(result.data === 'Succes') {
+            console.log('Status updated in Deccos Project database')
+            // If the function returns a success update the project database
+            addSyncToPortfolio(item, id)
+          } else {
+            alert(`Er is iets mis gegaan, neem contact op met Deccos`)
+          }
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error(error);
           alert(`Er is iets mis gegaan, neem contact op met Deccos`)
-        }
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error(error);
-        alert(`Er is iets mis gegaan, neem contact op met Deccos`)
-      });
-  }
+        });
+    }
 
     // Functions
     const addSynchronisation = () => {
@@ -121,7 +127,7 @@ const Synchronisations = () => {
         case 'declined':
           return { text: 'Geweigerd', color: '#FF0000' }; // Red
         case 'deleted':
-          return { text: 'Verwijderd', color: '#FF0000' }; // Black
+          return { text: 'Verwijderd', color: '#000000' }; // Black
         default:
           return { text: 'Onbekende status', color: '#000000' }; // Black
       }
@@ -153,11 +159,49 @@ const Synchronisations = () => {
       }
     }
 
-    const deleteSync = async (e) => {
+    const updateDatabase = async (docid, status) => {
+
+      await updateDoc(doc(db, "synchronisations", docid),{
+        status: status
+      })
+
+    }
+
+    const updateProjectSyncStatus = async (docid, status, id) => {
+
+      const updateSyncStatus = httpsCallable(functionsDeccos, 'updateSyncStatus');
+
+      const data = {
+        status: status,
+        syncId: id
+      }
+
+      updateSyncStatus({ data: data })
+        .then((result) => {
+          if(result.data === 'Success') {
+            console.log('Synchronisation status updated')
+            // If the function returns a success update the database
+            updateDatabase(docid, status)
+          } else {
+            alert(`Er is iets mis gegaan: cloud function geeft foutmelding, neem contact op met Deccos`)
+          }
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error(error);
+          alert(`Er is iets mis gegaan, neem contact op met Deccos`)
+        });
+
+    }
+
+    const deleteSync = (e) => {
 
       const docid = e.target.dataset.docid
+      const id = e.target.dataset.id
 
-      await deleteDoc(doc(db, "synchronisations", docid))
+      console.log(docid, id)
+
+      updateProjectSyncStatus(docid, 'deleted', id)
 
     }
 
@@ -204,10 +248,11 @@ const Synchronisations = () => {
                 <p>{syncStatus(item.status).text}</p>
               </td>
               <td>
-                  <DeleteOutlineOutlinedIcon className="delete-icon" data-docid={item.docid} onClick={deleteSync}/>
+                <img src={deleteIcon} alt="" className="delete-icon" data-docid={item.docid} data-id={item.id} onClick={deleteSync}/>
               </td>
           </tr>
         ))} 
+        {loading ? <img src={spinner} alt="" /> : null}
       </table>
     </div>
     <Modal
