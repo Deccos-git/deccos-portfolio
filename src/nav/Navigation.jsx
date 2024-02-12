@@ -16,6 +16,7 @@ import Goal from "../pages/dashboard/Goal";
 import Outputs from "../pages/dashboard/Outputs";
 import Activities from "../pages/dashboard/Activities";
 import Synchronisations from "../pages/dashboard/Synchronisations";
+import OutputResultsDetail from "../pages/dashboard/OutputResultsDetail";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -51,6 +52,7 @@ const Navigation = () => {
             <Route exact path={`/dashboard/outputs/:id`} element={<Outputs/>}/>
             <Route exact path={`/dashboard/activities/:id`} element={<Activities/>}/>
             <Route exact path={`/dashboard/synchronisations/:id/:id`} element={<Synchronisations/>}/>
+            <Route exact path={`/dashboard/outputresultsdetail/:id/:id`} element={<OutputResultsDetail/>}/>
           </Route>
 
           {/* Auth */}

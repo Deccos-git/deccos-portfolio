@@ -1,125 +1,112 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import OutputsGraph from '../outputs/OutputsGraph'
 import ProjectMeta from '../synchronisations/ProjectMeta'
 import { functionsDeccos } from "../../firebase/configDeccos";
 import { httpsCallable } from "firebase/functions";
+import Location from "../../helpers/Location";
+import { useFirestoreGeneralThree } from "../../firebase/useFirestore";
+import { useNavigate } from "react-router-dom";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import Tooltip from "../../components/common/Tooltip";
 
 const DashboardOutputResults = ({outputId}) => {
     // State
     const [data, setData] = useState([])
 
-    // Get projectOutputData
+     // Hooks
+     const portfolioId = Location()[3]
+     const navigate = useNavigate()
+
+    // Firestore
+    const syncs = useFirestoreGeneralThree('synchronisations', 'portfolioId', portfolioId ? portfolioId : 'none', 'syncItem', outputId ? outputId : 'none', 'status', 'accepted')
+
+    const testData = [
+      {
+        Maand: '1-11-2024',
+        Total: 25,
+        CompagnyA: 5,
+        CompagnyB: 15,
+        CompagnyC: 5
+      }
+    ]
+
+    // Get the project results for the syncs
     useEffect(() => {
-
-        const array = []
-
-        const getOutputData = async (projectId, outputId) => {
+      if (syncs) {
+        const promises = syncs.map(sync => {
+          return (async () => {
             const sendOutputData = httpsCallable(functionsDeccos, 'sendOutputData');
             const dataToSend = {
-              compagnyId: projectId,
-              outputId: outputId
+              outputId: sync.projectOutput
             };
-
-            console.log(dataToSend)
-          
             try {
               const result = await sendOutputData({ data: dataToSend });
-              console.log(result.data)
-              array.push(result.data)
+
+              return result.data; // Return the data to be collected
             } catch (error) {
               console.error(error);
+              return null; // Return null or appropriate error handling
             }
-          };
+          })();
+        });
+    
+        Promise.all(promises).then(results => {
+          // Filter out null values if any error occurred
+          const filteredResults = results.filter(result => result !== null);
 
-            // projectOutputData && projectOutputData.map(item => {
-            //     // Compare projectOutput with projectOutputData
-            //     if(item.OutputID === projectOutput){
+          // Create an flattened array
+          const flattenedResults = filteredResults.flat()
+          const groupedByMonth = {};
 
-            //         // Get values from projectOutputData
-            //         const timestamp = new Date(item.Timestamp._seconds * 1000);
-            //         const month = timestamp.getMonth() + 1
-            //         const year = timestamp.getFullYear()
-
-            //         // Create object
-            //         const object = {
-            //             Maand: `${month}-${year}`,
-            //             Resultaat: item.Result,
-            //             ProjectID: [item.CompagnyID],
-            //             ResultID: item.ID
-            //         }
-
-            //         // Push object to array
-            //         array.push(object)
-            //     }
-            // })
-
-            getOutputData()
-        console.log(array)
-
-        // const dataArraySortedByMonth = combineItemsByMonth(array)
-
-        // setData(dataArraySortedByMonth)
-
-    }, [outputId])
-
-    // Combine items by month, add up the results and combine the projectIDs
-    const combineItemsByMonth= (items) => {
-        const combined = {};
-
-        items.forEach(item => {
-            if (combined[item.Maand]) {
-            combined[item.Maand].Resultaat += item.Resultaat;
-            // combined[item.Maand].ProjectID = [...combined[item.Maand].ProjectID, ...item.ProjectID];
-            } else {
-            combined[item.Maand] = { ...item };
+          flattenedResults.forEach(item => {
+            const { Maand, Resultaat, ProjectID } = item;
+            if (!groupedByMonth[Maand]) {
+              groupedByMonth[Maand] = { Maand, Total: 0 };
             }
-        });
+            groupedByMonth[Maand].Total += Resultaat;
+            // Gebruik ProjectID direct als sleutel voor het bedrijf
+            groupedByMonth[Maand][ProjectID] = (groupedByMonth[Maand][ProjectID] || 0) + Resultaat;
+          });
 
-        const combinedArray = Object.values(combined).map(item => {
-            item.ProjectID = [...new Set(item.ProjectID)];
-            return item;
-        });
+          // Sort date in ascending order
+          const array = Object.values(groupedByMonth).sort((a, b) => {
+            // Split the Maand value into parts
+            const partsA = a.Maand.split('-');
+            const partsB = b.Maand.split('-');
+          
+            // Parse year and month from parts
+            const yearA = parseInt(partsA[1], 10);
+            const monthA = parseInt(partsA[0], 10);
+            const yearB = parseInt(partsB[1], 10);
+            const monthB = parseInt(partsB[0], 10);
+          
+            // First compare by year
+            if (yearA !== yearB) {
+              return yearA - yearB;
+            }
+          
+            // If the year is the same, compare by month
+            return monthA - monthB;
+          });
+          console.log(array)
+          setData(array)
 
-        // Sort the combined array by Maand, considering full dates
-        combinedArray.sort((a, b) => {
-            const [monthA, yearA] = a.Maand.split('-').map(Number);
-            const [monthB, yearB] = b.Maand.split('-').map(Number);
-            const dateA = new Date(yearA, monthA - 1); // JavaScript months are 0-indexed
-            const dateB = new Date(yearB, monthB - 1);
-            return dateA - dateB;
         });
-
-        return combinedArray;
       }
-
-    console.log(data)
-
-    const CustomTooltip = ({ active, payload}) => {
-        if (active && payload && payload.length) {
-          return (
-            <div className="custom-tooltip">
-                <p><b>Datum</b></p>
-                <p>{payload[0]?.payload.Maand}</p>
-                <p><b>Resultaat</b></p>
-                <p>{payload[0]?.payload.Resultaat}</p>
-                <div>
-                    <p><b>Organisaties</b></p>
-                    <ul>
-                        {payload[0]?.payload.ProjectID.map((project, index) => {
-                            return <li key={index}><ProjectMeta projectId={project}/></li>
-                        })}
-                    </ul>
-                </div>
-            </div>
-          );
-        }
-      
-        return null;
-      };
+    }, [syncs]);
 
   return (
-    <OutputsGraph data={data} customTooltip={<CustomTooltip/>} />
+    <>
+    <OutputsGraph data={data}/>
+    <div className='sidebar-link-container' id='dashboard-graph-details-container'>
+      <Tooltip content='Details bekijken van output resultaten' top='40px'>
+          <SearchOutlinedIcon onClick={() => navigate(`/dashboard/outputresultsdetail/${portfolioId}/${outputId}`)}/>
+        </Tooltip>
+        <Tooltip content='Details bekijken van output resultaten' top='40px'>
+          <p id='dashboard-graph-details-text' onClick={() => navigate(`/dashboard/outputresultsdetail/${portfolioId}/${outputId}`)}>Details</p>
+      </Tooltip>
+    </div>
+    </>
   )
 }
 
