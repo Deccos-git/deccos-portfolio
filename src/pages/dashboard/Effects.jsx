@@ -52,7 +52,7 @@ const deleteEffect = async (e) => {
             <h1>Effecten</h1>
           </div>
         </div>
-         <div className='table-container'>
+         <div className='table-container section-container'>
           <div className="add-icon-container">
               <Tooltip content='Effect toevoegen' width='80%' left='30px' top='-5px'>
                   <AddCircleOutlineOutlinedIcon className="add-icon" onClick={addEffect} />

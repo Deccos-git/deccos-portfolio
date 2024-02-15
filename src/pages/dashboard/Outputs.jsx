@@ -57,7 +57,7 @@ const Outputs = () => {
             <h1>Outputs</h1>
           </div>
         </div>
-          <div className='table-container'>
+          <div className='table-container section-container'>
             <div className="add-icon-container">
                 <Tooltip content='Output toevoegen' width='80%' left='30px' top='-5px'>
                     <AddCircleOutlineOutlinedIcon className="add-icon" onClick={addOutput} />

@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react'
 import OutputsGraph from '../outputs/OutputsGraph'
-import ProjectMeta from '../synchronisations/ProjectMeta'
 import { functionsDeccos } from "../../firebase/configDeccos";
 import { httpsCallable } from "firebase/functions";
 import Location from "../../helpers/Location";
 import { useFirestoreGeneralThree } from "../../firebase/useFirestore";
-import { useNavigate } from "react-router-dom";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import Tooltip from "../../components/common/Tooltip";
 
 const DashboardOutputResults = ({outputId}) => {
     // State
@@ -15,20 +11,9 @@ const DashboardOutputResults = ({outputId}) => {
 
      // Hooks
      const portfolioId = Location()[3]
-     const navigate = useNavigate()
 
     // Firestore
     const syncs = useFirestoreGeneralThree('synchronisations', 'portfolioId', portfolioId ? portfolioId : 'none', 'syncItem', outputId ? outputId : 'none', 'status', 'accepted')
-
-    const testData = [
-      {
-        Maand: '1-11-2024',
-        Total: 25,
-        CompagnyA: 5,
-        CompagnyB: 15,
-        CompagnyC: 5
-      }
-    ]
 
     // Get the project results for the syncs
     useEffect(() => {
@@ -88,25 +73,24 @@ const DashboardOutputResults = ({outputId}) => {
             // If the year is the same, compare by month
             return monthA - monthB;
           });
-          console.log(array)
           setData(array)
 
         });
       }
     }, [syncs]);
 
+    // Collect all unique IDs form the data object
+  const uniqueIds = data.length > 0 && data.reduce((acc, item) => {
+    Object.keys(item).forEach(key => {
+      if (key !== 'Maand' && key !== 'Total' && !acc.includes(key)) {
+        acc.push(key);
+      }
+    });
+    return acc;
+  }, []);
+
   return (
-    <>
-    <OutputsGraph data={data}/>
-    <div className='sidebar-link-container' id='dashboard-graph-details-container'>
-      <Tooltip content='Details bekijken van output resultaten' top='40px'>
-          <SearchOutlinedIcon onClick={() => navigate(`/dashboard/outputresultsdetail/${portfolioId}/${outputId}`)}/>
-        </Tooltip>
-        <Tooltip content='Details bekijken van output resultaten' top='40px'>
-          <p id='dashboard-graph-details-text' onClick={() => navigate(`/dashboard/outputresultsdetail/${portfolioId}/${outputId}`)}>Details</p>
-      </Tooltip>
-    </div>
-    </>
+    <OutputsGraph data={data} uniqueIds={uniqueIds}/>
   )
 }
 

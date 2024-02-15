@@ -234,7 +234,7 @@ body {
 }
 
 .table-container{
-    width: 100%;
+    width: 95%;
     overflow-x: auto;
     margin: 20px 0px;
 }
@@ -412,6 +412,14 @@ table {
         width: 10px;
         box-shadow: none;
     }
+}
+
+.section-container{
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 20px;
+    border: 1px solid rgb(242, 242, 242);
 }
 
 

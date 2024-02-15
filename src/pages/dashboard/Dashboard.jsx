@@ -6,6 +6,12 @@ import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import { Settings } from '../../state/Settings';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 import DashboardOutputResults from '../../components/dashboard/DashboardOutputResults';
+import DashboardOutputResultsDetail from '../../components/dashboard/DashboardOutputResultsDetail';
+import ZoomInOutlinedIcon from '@mui/icons-material/ZoomInOutlined';
+import ZoomOutOutlinedIcon from '@mui/icons-material/ZoomOutOutlined';
+import Tooltip from "../../components/common/Tooltip";
+import PodcastsOutlinedIcon from '@mui/icons-material/PodcastsOutlined';
+import ConstructionOutlinedIcon from '@mui/icons-material/ConstructionOutlined';
 
 const Dashboard = () => {
   // Context
@@ -15,6 +21,7 @@ const Dashboard = () => {
   // State
   const [period, setPeriod] = useState('all')
   const [outputId, setOutputId] = useState('')
+  const [outputDetails, setOutputDetails] = useState(false)
 
   // Hooks
   const client = Location()[3]
@@ -67,6 +74,15 @@ const Dashboard = () => {
       setPeriod(value)
   }
 
+  console.log(outputDetails)
+
+  const detailContainerStyle = {
+    maxHeight: outputDetails ? '500px' : '0px',
+    overflow: 'hidden',
+    transition: 'max-height 2s ease-in-out',
+  };
+
+
   return (
     <div className='page-container'>
         {/* <div className='dashboard-period-selector-container'>
@@ -105,7 +121,7 @@ const Dashboard = () => {
           </div>
         </section>
 
-        <section id='dashboard-outputs-container'>
+        <section className='section-container' id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
             <PhotoAlbumOutlinedIcon/>
             <h2>Outputs</h2>
@@ -125,16 +141,35 @@ const Dashboard = () => {
               </div>
           </div>
           <div>
+            {!outputDetails &&
+              <div onClick={() => setOutputDetails(true)}>
+                <Tooltip content='Bekijk details' top='40px'>
+                  <ZoomInOutlinedIcon />
+                </Tooltip>
+              </div>
+            }
+            {outputDetails &&
+              <div onClick={() => setOutputDetails(false)}>
+                <Tooltip content='Verberd details' top='40px'>
+                  <ZoomOutOutlinedIcon />
+                </Tooltip>
+              </div>
+            }
             <DashboardOutputResults outputId={outputId} />
+            <div style={detailContainerStyle}>
+              <DashboardOutputResultsDetail outputId={outputId} />
+            </div>
           </div>
         </section>
 
-        {/* <section id='dashboard-outputs-container'>
+        <section className='section-container' id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
-            <LandscapeOutlinedIcon />
+            <PodcastsOutlinedIcon />
             <h2>Effecten</h2>
           </div>
-          <div className='select-activity-container'>
+          <ConstructionOutlinedIcon />
+          <p><b>Under construction</b></p>
+          {/* <div className='select-activity-container'>
               <div className="select-activity-inner-container">
                 {effects && effects.map(item => (
                     <div 
@@ -150,8 +185,8 @@ const Dashboard = () => {
           </div>
           <div>
             <DashboardPairedKpis kpiId={kpiId} />
-          </div>
-        </section> */}
+          </div> */}
+        </section>
 
     </div>
   )

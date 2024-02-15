@@ -43,7 +43,7 @@ const Organisations = () => {
             <h1>{compagnyProject()}</h1>
           </div>
         </div>
-        <div className='table-container'>
+        <div className='table-container section-container'>
           <table>
             <tr>
                 <th>{compagnyProjectTable()}</th>
@@ -52,7 +52,7 @@ const Organisations = () => {
             </tr>
             {data && data[0]?.map(item => (
                 <tr key={item.ID} >
-                  <td>
+                  <td onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`)}>
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>

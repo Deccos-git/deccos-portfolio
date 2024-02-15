@@ -1,28 +1,8 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
   import spinner from "../../assets/spinner-ripple.svg";
 
-const OutputsGraph = ({data, customTooltip}) => {
+const OutputsGraph = ({data, uniqueIds}) => {
   const loading = data.length === 0 ? true : false
-
-  // Collect all unique IDs
-  const uniqueIds = data.reduce((acc, item) => {
-    Object.keys(item).forEach(key => {
-      if (key !== 'Maand' && key !== 'Total' && !acc.includes(key)) {
-        acc.push(key);
-      }
-    });
-    return acc;
-  }, []);
-
-
-  const getRandomColor = () => {
-    // Generate a random RGB color
-    const r = Math.floor(Math.random() * 256); // Random between 0-255
-    const g = Math.floor(Math.random() * 256); // Random between 0-255
-    const b = Math.floor(Math.random() * 256); // Random between 0-255
-    return `rgb(${r},${g},${b})`; // Return RGB color string
-  }
-  
 
   return (
     <>
@@ -47,7 +27,7 @@ const OutputsGraph = ({data, customTooltip}) => {
             <YAxis />
             <Tooltip />
             <Area type="monotone" dataKey="Total" stroke="#f48183" fill="#f48183" />
-            {uniqueIds.map((id, index) => (
+            {uniqueIds && uniqueIds.map((id, index) => (
               <Area key={id} type="monotone" dataKey={id} stroke="#47acc3" stackId={id} fill="#47acc3" fillOpacity={0.3}/>
             ))}
           </AreaChart>

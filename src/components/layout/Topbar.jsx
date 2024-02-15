@@ -5,8 +5,6 @@ import SearchIcon from '../../assets/icons/search-icon.png'
 import { NavLink } from "react-router-dom"
 import Location from "../../helpers/Location";
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
-import { useFirestoreCompagny } from "../../firebase/useFirestore";
 import Tooltip from "../common/Tooltip";
 
 const TopBar = () => {
@@ -20,7 +18,7 @@ const TopBar = () => {
       <div id='topbar-landing-container'>
         <div className="topbar-icon-item-container">
           <Tooltip content={'Notificaties'} top='35px' >
-            <NotificationsNoneOutlinedIcon onClick={() => navigate(`/profile/notifications/${id}`)}/>
+            <NotificationsNoneOutlinedIcon onClick={() => navigate(`/dashboard/notifications/${id}`)}/>
           </Tooltip>
         </div>
         <div id='user-profile-container' onClick={() => navigate(`/profile/profile/${id}/${user.id}`) }>

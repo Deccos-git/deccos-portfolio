@@ -25,7 +25,7 @@ const Goal = () => {
                 <h1>Impactdoel</h1>
             </div>
           </div>
-           <div className='table-container'>
+           <div className='table-container section-container'>
             <table>
               <tr>
                   <th>MAATSCHAPPELIJK DOEL</th>
