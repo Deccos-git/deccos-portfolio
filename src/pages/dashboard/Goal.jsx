@@ -28,7 +28,7 @@ const Goal = () => {
            <div className='table-container section-container'>
             <table>
               <tr>
-                  <th>MAATSCHAPPELIJK DOEL</th>
+                  <th>IMPACTDOEL</th>
               </tr>
                 {goals && goals.map(item => (
                   <tr key={item.ID} >

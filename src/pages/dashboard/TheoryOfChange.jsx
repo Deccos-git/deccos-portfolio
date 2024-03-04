@@ -31,7 +31,7 @@ const TheoryOfChange = () => {
             <div className="toc-section-container">
               <div className="toc-section-title-container">
                 <OutlinedFlagIcon className="toc-section-icon"/>
-                <h2>Maatschappelijk doel</h2>
+                <h2>Impact doel</h2>
               </div>
               {goal && goal.map((goal) => (
                 <div key={goal.id} className="toc-card">
