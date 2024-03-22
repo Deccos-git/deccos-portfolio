@@ -43,6 +43,8 @@ const Synchronisations = () => {
     const synchronisations = useFirestoreGeneralTwoOrderBy('synchronisations', 'compagnyId', compagnyId, 'portfolioId', portfolioId, 'position', 'asc')
     const outputs = useFirestoreGeneral('outputs', 'compagny', portfolioId)
 
+    console.log(synchronisations)
+
     // Add sync to portfolio database
   const addSyncToPortfolio = async (item, id) => {
 
@@ -78,7 +80,7 @@ const Synchronisations = () => {
 
       createSync({ data: data })
         .then((result) => {
-          if(result.data === 'Succes') {
+          if(result.data === 'Synchronisation created') {
             console.log('Status updated in Deccos Project database')
             // If the function returns a success update the project database
             addSyncToPortfolio(item, id)

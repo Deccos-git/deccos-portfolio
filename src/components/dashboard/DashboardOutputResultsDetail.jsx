@@ -31,6 +31,8 @@ const DashboardOutputResultsDetail = ({outputId}) => {
               };
               try {
                 const result = await sendOutputDataProject({ data: dataToSend });
+
+                console.log(result.data)
   
                 return result.data; // Return the data to be collected
               } catch (error) {
@@ -98,6 +100,8 @@ const DashboardOutputResultsDetail = ({outputId}) => {
           });
         }
     }, [syncs])
+
+    console.log(dataArray)
 
   return (
     <>

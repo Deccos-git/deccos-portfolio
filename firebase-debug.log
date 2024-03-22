@@ -1,0 +1,133 @@
+[debug] [2024-03-22T12:13:58.751Z] ----------------------------------------------------------------------
+[debug] [2024-03-22T12:13:58.752Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start --only functions
+[debug] [2024-03-22T12:13:58.752Z] CLI Version:   13.5.2
+[debug] [2024-03-22T12:13:58.752Z] Platform:      darwin
+[debug] [2024-03-22T12:13:58.752Z] Node Version:  v18.13.0
+[debug] [2024-03-22T12:13:58.753Z] Time:          Fri Mar 22 2024 13:13:58 GMT+0100 (Central European Standard Time)
+[debug] [2024-03-22T12:13:58.753Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-22T12:13:58.807Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-22T12:13:58.807Z] > authorizing via signed-in user (deccos.nl@gmail.com)
+[info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
+[debug] [2024-03-22T12:13:58.917Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-03-22T12:13:58.917Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-03-22T12:13:58.920Z] [hub] writing locator at /var/folders/fs/276_v2vx243f_ytp1tyxj9qh0000gn/T/hub-finpact-c522a.json
+[debug] [2024-03-22T12:13:59.000Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-03-22T12:13:59.001Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-03-22T12:13:59.001Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, hosting, pubsub, storage\u001b[22m"}}
+[debug] [2024-03-22T12:13:59.003Z] defaultcredentials: writing to file /Users/gijs/.config/firebase/deccos_nl_gmail.com_application_default_credentials.json
+[debug] [2024-03-22T12:13:59.007Z] Setting GAC to /Users/gijs/.config/firebase/deccos_nl_gmail.com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/gijs/.config/firebase/deccos_nl_gmail.com_application_default_credentials.json"}}
+[debug] [2024-03-22T12:13:59.007Z] > refreshing access token with scopes: []
+[debug] [2024-03-22T12:13:59.008Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-03-22T12:13:59.008Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-22T12:13:59.125Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-03-22T12:13:59.125Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-22T12:13:59.145Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/finpact-c522a/adminSdkConfig [none]
+[debug] [2024-03-22T12:14:00.011Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/finpact-c522a/adminSdkConfig 200
+[debug] [2024-03-22T12:14:00.012Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/finpact-c522a/adminSdkConfig {"projectId":"finpact-c522a","storageBucket":"finpact-c522a.appspot.com","locationId":"europe-west"}
+[debug] [2024-03-22T12:14:00.037Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-03-22T12:14:00.037Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-03-22T12:14:00.037Z] Starting Emulator UI with command {"binary":"node","args":["/Users/gijs/.cache/firebase/emulators/ui-v1.11.8/server/server.mjs"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/gijs/.cache/firebase/emulators/ui-v1.11.8/server/server.mjs\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-03-22T12:14:00.126Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2024-03-22T12:14:00.126Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] i  functions: Watching "/Users/gijs/Documents/dev/finpact/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/Users/gijs/Documents/dev/finpact/functions\" for Cloud Functions..."}}
+[debug] [2024-03-22T12:14:00.304Z] Validating nodejs source
+[warn] ⚠  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2024-03-22T12:14:00.842Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-03-22T12:14:00.842Z] Building nodejs source
+[debug] [2024-03-22T12:14:00.842Z] Failed to find version of module node: reached end of search path /Users/gijs/Documents/dev/finpact/functions/node_modules
+[info] ✔  functions: Using node@18 from host. 
+[debug] [2024-03-22T12:14:00.843Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-03-22T12:14:00.848Z] Found firebase-functions binary at '/Users/gijs/Documents/dev/finpact/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8528
+
+[debug] [2024-03-22T12:14:01.180Z] Got response from /__/functions.yaml {"endpoints":{"portfolioMeta":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"portfolioMeta"},"portfolioOutput":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"portfolioOutput"},"updateSyncStatus":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"updateSyncStatus"},"updateProjectOutput":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"updateProjectOutput"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] shutdown requested via /__/quitquitquit
+
+[info] ✔  functions: Loaded functions definitions from source: portfolioMeta, portfolioOutput, updateSyncStatus, updateProjectOutput. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: portfolioMeta, portfolioOutput, updateSyncStatus, updateProjectOutput."}}
+[info] ✔  functions[us-central1-portfolioMeta]: http function initialized (http://127.0.0.1:5001/finpact-c522a/us-central1/portfolioMeta). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/finpact-c522a/us-central1/portfolioMeta)."}}
+[info] ✔  functions[us-central1-portfolioOutput]: http function initialized (http://127.0.0.1:5001/finpact-c522a/us-central1/portfolioOutput). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/finpact-c522a/us-central1/portfolioOutput)."}}
+[info] ✔  functions[us-central1-updateSyncStatus]: http function initialized (http://127.0.0.1:5001/finpact-c522a/us-central1/updateSyncStatus). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/finpact-c522a/us-central1/updateSyncStatus)."}}
+[info] ✔  functions[us-central1-updateProjectOutput]: http function initialized (http://127.0.0.1:5001/finpact-c522a/us-central1/updateProjectOutput). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/finpact-c522a/us-central1/updateProjectOutput)."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2024-03-22T14:22:29.532Z] File /Users/gijs/Documents/dev/finpact/functions/package.json changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /Users/gijs/Documents/dev/finpact/functions/package.json changed, reloading triggers"}}
+[debug] [2024-03-22T14:22:29.627Z] File /Users/gijs/Documents/dev/finpact/functions/package-lock.json changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /Users/gijs/Documents/dev/finpact/functions/package-lock.json changed, reloading triggers"}}
+[debug] [2024-03-22T14:22:30.632Z] Validating nodejs source
+[warn] ⚠  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2024-03-22T14:22:31.018Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.8.1",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-03-22T14:22:31.019Z] Building nodejs source
+[debug] [2024-03-22T14:22:31.019Z] Failed to find version of module node: reached end of search path /Users/gijs/Documents/dev/finpact/functions/node_modules
+[info] ✔  functions: Using node@18 from host. 
+[debug] [2024-03-22T14:22:31.021Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-03-22T14:22:31.024Z] Found firebase-functions binary at '/Users/gijs/Documents/dev/finpact/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8852
+
+[debug] [2024-03-22T14:22:31.560Z] Got response from /__/functions.yaml {"endpoints":{"portfolioMeta":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"portfolioMeta"},"portfolioOutput":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"portfolioOutput"},"updateSyncStatus":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"updateSyncStatus"},"updateProjectOutput":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"updateProjectOutput"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] ✔  functions: Loaded functions definitions from source: portfolioMeta, portfolioOutput, updateSyncStatus, updateProjectOutput. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: portfolioMeta, portfolioOutput, updateSyncStatus, updateProjectOutput."}}
