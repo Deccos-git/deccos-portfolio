@@ -101,16 +101,14 @@ const DashboardOutputResultsDetail = ({outputId}) => {
         }
     }, [syncs])
 
-    console.log(dataArray)
-
   return (
     <>
       {dataArray.length > 0 && dataArray.map((data, index) => (
-        <div>
+        <div className="dashboard-output-details-item-container">
           <div className='sidebar-link-container' onClick={() => navigate(`/dashboard/organisation/${portfolioId}/${data[0].ProjectID}`)}>
             <BusinessOutlinedIcon className='menu-icon'/>
             <Tooltip content='Bekijk projectpagina' top='40px'>
-              <p id='dashboard-output-detail-compagny-text'><b>{data[0].Project}</b></p>
+              <p id='dashboard-output-detail-compagny-text'><b>{data[0]?.Project}</b></p>
             </Tooltip>
           </div>
           <OutputsGraph data={data} uniqueIds={null}/>      

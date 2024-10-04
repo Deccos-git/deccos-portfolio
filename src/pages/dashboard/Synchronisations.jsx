@@ -16,6 +16,7 @@ import ProjectOutputMeta from '../../components/synchronisations/ProjectOutputMe
 import ProjectMeta from '../../components/synchronisations/ProjectMeta';
 import spinner from "../../assets/spinner-ripple.svg";
 import deleteIcon from "../../assets/icons/delete-icon.png";
+import EffectMeta from '../../components/effects/EffectMeta';
 
 const Synchronisations = () => {
 
@@ -23,6 +24,8 @@ const Synchronisations = () => {
     const [openModal, setModalOpen] = useState(false)
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [loading, setLoading] = useState(false)
+    const [syncType, setSyncType] = useState('output')
+    const [openEffectsModal, setEffectsModalOpen] = useState(false)
 
     // Hooks
     const portfolioId = Location()[3]
@@ -42,8 +45,7 @@ const Synchronisations = () => {
     // Firestore
     const synchronisations = useFirestoreGeneralTwoOrderBy('synchronisations', 'compagnyId', compagnyId, 'portfolioId', portfolioId, 'position', 'asc')
     const outputs = useFirestoreGeneral('outputs', 'compagny', portfolioId)
-
-    console.log(synchronisations)
+    const effects = useFirestoreGeneral('effects', 'compagny', portfolioId)
 
     // Add sync to portfolio database
   const addSyncToPortfolio = async (item, id) => {
@@ -55,11 +57,12 @@ const Synchronisations = () => {
         id: id,
         position: synchronisations.length + 1,
         syncItem: item,
-        type: 'output',
+        type: syncType,
         status: 'requested'
       })
       
       setLoading(false)
+      setModalOpen(false)
   }
 
     // Add sync to project database
@@ -67,13 +70,15 @@ const Synchronisations = () => {
 
       setLoading(true)
 
+      console.log(syncType)
+
       const createSync = httpsCallable(functionsDeccos, 'createSync');
 
       const data = {
         compagnyId: compagnyId,
         portfolioId: portfolioId,
         syncItem: item,
-        type: 'output',
+        type: syncType,
         status: 'requested',
         id: id,
       }
@@ -207,6 +212,16 @@ const Synchronisations = () => {
 
     }
 
+    const openoutputsModal = () => {
+      setSyncType('output')
+      setModalOpen(true)
+    }
+
+    const openModalEffects = () => {
+      setSyncType('effect')
+      setEffectsModalOpen(true)
+    }
+
 
   return (
     <div className='page-container'>
@@ -218,24 +233,29 @@ const Synchronisations = () => {
       </div>
     </div>
     <div className='table-container'>
-        <div className="add-icon-container">
-            <Tooltip content='Synchronisatie toevoegen' width='80%' left='30px' top='-5px'>
-                <AddCircleOutlineOutlinedIcon className="add-icon" onClick={() => setModalOpen(true)} />
-            </Tooltip>
+        <div className="add-icon-container add-icon-button-container">
+            <div className='add-item-button'>
+              <AddCircleOutlineOutlinedIcon className="add-icon" onClick={openoutputsModal} />
+              <p>Voeg outputs toe</p>
+            </div>
+            <div className='add-item-button'>
+              <AddCircleOutlineOutlinedIcon className="add-icon" onClick={openModalEffects} />
+              <p>Voeg effecten toe</p>
+            </div>
         </div>
       <table>
         <tr>
             <th>SYNCHRONISATIE</th>
             <th>TYPE</th>
             <th>STATUS</th>
-            <th>GEKOPPELDE OUTPUT</th>
+            <th>KOPPELING</th>
             <th>SYNCHRONISATIE</th>
             <th>VERWIJDEREN</th>
         </tr>
         {synchronisations && synchronisations.map(item => (
             <tr key={item.Id} >
               <td>
-                  <OutputMeta output={item.syncItem} />
+                  {item.type === 'output' ? <OutputMeta output={item.syncItem} /> : <EffectMeta effect={item.syncItem} />}
               </td>
               <td>
                   <p>{itemType(item.type)}</p>
@@ -285,10 +305,47 @@ const Synchronisations = () => {
                 <label htmlFor={item.id}>{item.title}</label>
                 </div>
             ))}
-           
           </div>
           <div id='modal-button-container'>
             <button id='modal-cancel-button' onClick={() => setModalOpen(false)}>Annuleren</button>
+            <button onClick={addSynchronisation}>Opslaan</button>
+          </div>
+
+         </div>
+        </div>
+        </div>
+    </Modal>
+    <Modal
+      isOpen={openEffectsModal}
+      onRequestClose={openEffectsModal}
+      style={modalStyles}
+      contentLabel="Create synchronisation"
+      >
+        <div id='modal-container'>
+          <div id='modal-title-container'>
+            <SyncOutlinedIcon/>
+            <h1>Creer synchronisatie</h1>
+          </div>
+         <div>
+          <div>
+          <p><b>Selecteer effecten</b></p>
+            <div id='modal-input-container'>
+            {effects && effects.map(item => (
+                <div key={item.id} className='input-checkbox-container'>
+                <input
+                    type="checkbox"
+                    id={item.id}
+                    name="outputOptions"
+                    value={item.id}
+                    checked={selectedOptions.includes(item.id)}
+                    onChange={outputHandler}
+                />
+                <label htmlFor={item.id}>{item.title}</label>
+                </div>
+            ))}
+          </div>
+          <div id='modal-button-container'>
+            <button id='modal-cancel-button' onClick={() => setEffectsModalOpen(false)}>Annuleren</button>
             <button onClick={addSynchronisation}>Opslaan</button>
           </div>
 

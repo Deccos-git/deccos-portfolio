@@ -382,7 +382,7 @@ table {
     justify-content: end;
     background-color: #f4f4f4;
     padding: 20px;
-    margin: 50px -20px -20px -20px;
+    margin: 50px 0px 20px -20px;
 
     button{
         border-radius: 5px;
@@ -422,4 +422,35 @@ table {
     border: 1px solid rgb(242, 242, 242);
 }
 
+.modal-container{
+    overflow: scroll;
+}
+
+.add-item-button{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(244, 244, 244);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    cursor: pointer;
+
+    svg{
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
+    }
+
+    img{
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+}
+
+.add-icon-button-container{
+    display: flex;
+    margin-bottom: 10px;
+}
 

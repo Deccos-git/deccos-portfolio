@@ -74,8 +74,6 @@ const Dashboard = () => {
       setPeriod(value)
   }
 
-  console.log(outputDetails)
-
   const detailContainerStyle = {
     maxHeight: outputDetails ? '500px' : '0px',
     overflow: 'hidden',
@@ -156,7 +154,7 @@ const Dashboard = () => {
               </div>
             }
             <DashboardOutputResults outputId={outputId} />
-            <div style={detailContainerStyle}>
+            <div style={detailContainerStyle} id='dashboard-outputs-detail-container'>
               <DashboardOutputResultsDetail outputId={outputId} />
             </div>
           </div>

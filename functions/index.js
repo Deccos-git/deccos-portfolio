@@ -4,8 +4,10 @@ const pkg = require('firebase-admin');
 const serviceAccount = require("./serviceAccountKey.json");
 const metaPortfolio = require('./synchronisations/metaPortfolio')
 const outputPortfolio = require('./synchronisations/outputPortfolio')
+const effectPortfolio = require('./synchronisations/effectPortfolio')
 const syncStatusUpdate = require('./synchronisations/syncStatusUpdate')
 const projectOutputUpdate = require('./synchronisations/projectOutputUpdate')
+const projectEffectUpdate = require('./synchronisations/projectEffectUpdate')
 const cors = require('cors')({
   origin: [
     'https://www.deccos.nl',
@@ -47,6 +49,15 @@ exports.portfolioOutput = functions.https.onCall( async (data, context) => {
 
 })
 
+// Portfolio effect
+exports.portfolioEffect = functions.https.onCall( async (data, context) => {
+
+  const effect = await effectPortfolio(data, firestore)
+
+  return effect
+
+})
+
 // Update sync status
 exports.updateSyncStatus = functions.https.onCall( async (data, context) => {
 
@@ -62,6 +73,15 @@ exports.updateProjectOutput = functions.https.onCall( async (data, context) => {
   const updateOutput = projectOutputUpdate(data, firestore)
 
   return updateOutput
+
+})
+
+// Update project effect in sync
+exports.updateProjectEffect = functions.https.onCall( async (data, context) => {
+
+  const updateEffect = projectEffectUpdate(data, firestore)
+
+  return updateEffect
 
 })
 

@@ -46,7 +46,7 @@ const NewClient = () => {
         })
 
         await setDoc(doc(db, "settings", uuid()), {
-            compagnyID: id,
+            compagnyId: id,
             id: uuid(),
             compagnyProject: 'project'
         })

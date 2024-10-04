@@ -91,3 +91,14 @@
     color: #616161;
     font-size: 15px;
 }
+
+#dashboard-outputs-detail-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.dashboard-output-details-item-container{
+    width: 50%;
+}

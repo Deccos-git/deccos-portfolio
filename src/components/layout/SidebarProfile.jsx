@@ -64,7 +64,7 @@ const SidebarProfile = () => {
 
       <div className="left-sidebar-seperator"></div>
 
-      <div className='sidebar-inner-container' style={{display: admin ? 'block' : 'none'}}>
+      <div className='sidebar-inner-container' >
         <h2>Admin</h2>
         <div className='sidebar-link-container'>
           <PlusIcon className='menu-icon'/>

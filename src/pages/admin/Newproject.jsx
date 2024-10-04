@@ -11,59 +11,61 @@ import { useEffect } from 'react';
 import { httpsCallable } from "firebase/functions";
 
 const Newproject = () => {
+  // Context
     const [user] = useContext(Auth)
 
+    // State
     const [logo, setLogo] = useState('')
     const [projectName, setProjectName] = useState("")
     const [impactManager, setImpactManager] = useState('')
-    const [projectUser, setProjectUser] = useState('')
 
+    // Hooks
     const navigate = useNavigate()
     const client = Location()[3]
 
-    const getProjectsUser = async () => {
 
-      const q = query(collection(db, "Users"), where("Email", "==", user.email));
-
-      const querySnapshot = await getDocs(q);
-        const array = []
-
-        querySnapshot.docs.map(async (doc) => {
-          const object = {
-            id: doc.data().ID,
-            userName: doc.data().UserName,
-            email: doc.data().Email,
-            photo: doc.data().Photo,
-            docid: doc.id,
-          }
-          array.push(object)
-        })
-
-        setProjectUser(array[0])
-    }
-
-    useEffect(() => {
-
-      getProjectsUser()
-
-    }, [user])
-
+    // Get the logo
     const logoHandler = (e) => {
         saveFile(e, setLogo)
     }
 
+    // Get the project name
     const projectNameHandler = (e) => {
         const name = e.target.value 
         setProjectName(name)
 
     }
 
+    // Get the impact manager
     const impactManagerHandler = (e) => {
         const value = e.target.options[e.target.selectedIndex].value 
 
         setImpactManager(value)
     }
 
+    // Helper function to save user as team member
+    const saveUserAsTeamMember = async (id) => {
+
+      const createProjectAccount = httpsCallable(functionsDeccos, 'saveUserAsTeamMember');
+
+      const data = {
+        email: user.email,
+        compagnyId: id
+      }
+
+      createProjectAccount({ data: data })
+        .then((result) => {
+          console.log(result)
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error(error);
+          alert(`Er is iets mis gegaan, neem contact op met Deccos`)
+        });
+
+    }
+
+    // Save the project
     const saveProject = async (e) => {
 
       const id = uuid()
@@ -78,14 +80,16 @@ const Newproject = () => {
         Parent: client,
         Subscription: 'paid',
         CompagnyId: id,
-        Auth: projectUser
+        Auth: user.id
       }
 
 
       createProjectAccount({ data: data })
         .then((result) => {
-          // Handle the result of the Cloud Function
-          console.log(result.data);
+          // Save user as team member
+          saveUserAsTeamMember(id)
+        })
+        .then(() => {
           navigate(`/dashboard/organisation/${client}/${id}`)
         })
         .catch((error) => {
