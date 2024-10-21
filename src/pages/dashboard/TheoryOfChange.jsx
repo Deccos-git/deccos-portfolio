@@ -14,8 +14,7 @@ const TheoryOfChange = () => {
   const goal = useFirestoreGeneral('goals', 'compagny', client)
   const activities = useFirestoreGeneral('activities', 'compagny', client)
   const outputs = useFirestoreGeneral('outputs', 'compagny', client)
-  const effectsShort = useFirestoreGeneralTwo('effects', 'compagny', client, 'term', 'Kort')
-  const effectsLong = useFirestoreGeneralTwo('effects', 'compagny', client, 'term', 'Lang')
+  const effects = useFirestoreGeneral('effects', 'compagny', client)
 
   return (
     <div className='page-container'>
@@ -48,27 +47,10 @@ const TheoryOfChange = () => {
             <div className="toc-section-container">
               <div className="toc-section-title-container">
                 <CompareArrowsOutlinedIcon className="toc-section-icon"/>
-                <h2>Lange-termijn effecten</h2>
+                <h2>Effecten</h2>
               </div>
               
-              {effectsLong && effectsLong.map((effect) => (
-                <div key={effect.id} className="toc-card">
-                  <p>{effect.title}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="toc-arrow-up-container">
-              <NorthOutlinedIcon/>
-            </div>
-
-            <div className="toc-section-container">
-              <div className="toc-section-title-container">
-                <CompareArrowsOutlinedIcon className="toc-section-icon"/>
-                <h2>Korte-termijn effecten</h2>
-              </div>
-              
-              {effectsShort && effectsShort.map((effect) => (
+              {effects&& effects.map((effect) => (
                 <div key={effect.id} className="toc-card">
                   <p>{effect.title}</p>
                 </div>
@@ -87,22 +69,6 @@ const TheoryOfChange = () => {
               {outputs && outputs.map((output) => (
                 <div key={output.id} className="toc-card">
                   <p>{output.title}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="toc-arrow-up-container">
-              <NorthOutlinedIcon/>
-            </div>
-
-            <div className="toc-section-container">
-              <div className="toc-section-title-container">
-                <DirectionsWalkOutlinedIcon className="toc-section-icon"/>
-                <h2>Activiteiten</h2>
-              </div>
-              {activities && activities.map((activity) => (
-                <div key={activity.id} className="toc-card">
-                  <p>{activity.title}</p>
                 </div>
               ))}
             </div>

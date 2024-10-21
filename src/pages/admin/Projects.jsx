@@ -14,13 +14,6 @@ import { useContext } from "react";
 const Projects = () => {
     const data = useContext(Data)
   
-//   const members = useFirestoreArrayContains('users', 'portfolio', client)
-//   const users = useFirestoreGeneral('users', 'email', email)
-//   const organisatons = useFirestoreGeneral('compagnies', 'id', client)
-
-console.log(data[0])
-
-
   return (
     <div className='page-container'>
         <div className='page-top-container'>
@@ -38,7 +31,7 @@ console.log(data[0])
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
-                    <a href={`https://impactdashboard.deccos.nl/${item.CompagnyID}/documentation`} target="_blank">Bekijk</a>
+                    <a href={`https://impactdashboard.deccos.nl/${item.CompagnyID}`} target="_blank">Bekijk</a>
                   </td>
               </tr>
             ))} 

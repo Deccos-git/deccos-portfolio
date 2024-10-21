@@ -18,15 +18,6 @@ const Organisations = () => {
     const navigate = useNavigate()
     const id = Location()[3]
 
-    // Functions
-    const compagnyProject = () => {
-      if(settings[0]?.compagnyProject === 'project'){
-        return 'Projecten'
-      } else {
-        return 'Organisaties'
-      }
-    }
-
     const compagnyProjectTable = () => {
       if(settings[0]?.compagnyProject === 'project'){
         return 'PROJECT'
@@ -40,7 +31,7 @@ const Organisations = () => {
         <div className='page-top-container'>
           <div className='page-header-title-container'>
             <CorporateFareRoundedIcon/>
-            <h1>{compagnyProject()}</h1>
+            <h1>Portfolio</h1>
           </div>
         </div>
         <div className='table-container section-container'>

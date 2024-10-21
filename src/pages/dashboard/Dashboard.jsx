@@ -22,6 +22,7 @@ const Dashboard = () => {
   const [period, setPeriod] = useState('all')
   const [outputId, setOutputId] = useState('')
   const [outputDetails, setOutputDetails] = useState(false)
+  const [effectId, setEffectId] = useState('')
 
   // Hooks
   const client = Location()[3]
@@ -121,7 +122,6 @@ const Dashboard = () => {
 
         <section className='section-container' id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
-            <PhotoAlbumOutlinedIcon/>
             <h2>Outputs</h2>
           </div>
           <div className='select-activity-container'>
@@ -162,12 +162,11 @@ const Dashboard = () => {
 
         <section className='section-container' id='dashboard-outputs-container'>
           <div className='dashboard-section-title-container'>
-            <PodcastsOutlinedIcon />
             <h2>Effecten</h2>
           </div>
-          <ConstructionOutlinedIcon />
-          <p><b>Under construction</b></p>
-          {/* <div className='select-activity-container'>
+          {/* <ConstructionOutlinedIcon /> */}
+          {/* <p><b>Under construction</b></p> */}
+          <div className='select-activity-container'>
               <div className="select-activity-inner-container">
                 {effects && effects.map(item => (
                     <div 
@@ -182,8 +181,8 @@ const Dashboard = () => {
               </div>
           </div>
           <div>
-            <DashboardPairedKpis kpiId={kpiId} />
-          </div> */}
+            {/* <DashboardPairedKpis kpiId={kpiId} /> */}
+          </div>
         </section>
 
     </div>

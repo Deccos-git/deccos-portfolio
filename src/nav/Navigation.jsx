@@ -18,6 +18,7 @@ import Activities from "../pages/dashboard/Activities";
 import Synchronisations from "../pages/dashboard/Synchronisations";
 import OutputResultsDetail from "../pages/dashboard/OutputResultsDetail";
 import Notifications from "../pages/dashboard/Notifications";
+import SelectMSIEffects from "../pages/dashboard/SelectMSIEffects";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -55,6 +56,7 @@ const Navigation = () => {
             <Route exact path={`/dashboard/synchronisations/:id/:id`} element={<Synchronisations/>}/>
             <Route exact path={`/dashboard/outputresultsdetail/:id/:id`} element={<OutputResultsDetail/>}/>
             <Route exact path={`/dashboard/notifications/:id`} element={<Notifications/>}/>
+            <Route exact path={`/dashboard/selectmsieffects/:id`} element={<SelectMSIEffects/>}/>
           </Route>
 
           {/* Auth */}

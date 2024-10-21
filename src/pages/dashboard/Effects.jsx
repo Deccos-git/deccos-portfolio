@@ -11,6 +11,10 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import Modal from 'react-modal';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import MeetstandaardIcon from '../../assets/meetstandaard-icon.png';
+import MeetstandaardLogo from '../../assets/logo-meetstandaard-alt.png';
+import SelectEffects from '../../components/meetstandaard/SelectEffects';
+import Api from '../../components/meetstandaard/Api';
 
 const Effects = () => {
   // State
@@ -24,11 +28,14 @@ const Effects = () => {
   const [reachEndLabel, setReachEndLabel] = useState('')
   const [multipleOption, setMultipleOption] = useState('')
   const [multipleOptions, setMultipleOptions] = useState([])
+  const [MSIModalOpen, setMSIModalOpen] = useState(false)
+  const [selectedEffects, setSelectedEffects] = useState([])
 
   // Hooks
   const client = Location()[3]
   const id = Location()[3]
   const navigate = useNavigate()
+  const api = Api()
   Modal.setAppElement('#root');
   const modalStyles = {
       content: {
@@ -101,6 +108,30 @@ const deleteOptionHandler = async (e) => {
     setMultipleOptions(newOptions)
 }
 
+// Save selected effects from MSI
+const saveSelectedEffects = async () => {
+    // Loop through the selected effects
+    selectedEffects.map(async (effect) => {
+        // Check if the effect already exists
+        const existingEffect = effects.find(item => item.title === effect.effect)
+        if (!existingEffect) {
+            // If the effect does not exist, add it to the database
+            await setDoc(doc(db, "effects", uuid()), {
+                compagny: id,
+                title: effect.effect,
+                createdAt: serverTimestamp(),
+                id: uuid(),
+                position: effects.length + 1,
+                questions: effect.questions
+            });
+        }
+    })
+
+    // Close the modal
+    setMSIModalOpen(false)
+    setSelectedEffects([])
+}
+
   return (
     <div className='page-container'>
         <div className='page-top-container'>
@@ -111,7 +142,10 @@ const deleteOptionHandler = async (e) => {
         </div>
          <div className='table-container section-container'>
           <div className="add-icon-container">
-              <Tooltip content='Effect toevoegen' width='80%' left='30px' top='-5px'>
+              <Tooltip content='Gestandaardiseerd effect toevoegen' width='30px' left='30px' top='-5px'>
+                  <img src={MeetstandaardIcon} className="add-icon" onClick={() => navigate(`/dashboard/selectmsieffects/${id}`)} />
+              </Tooltip>
+              <Tooltip content='Effect toevoegen' width='30px' left='30px' top='-5px'>
                   <AddCircleOutlineOutlinedIcon className="add-icon" onClick={() => setModalOpen(true)} />
               </Tooltip>
           </div>
@@ -140,6 +174,36 @@ const deleteOptionHandler = async (e) => {
               ))}
           </table>
         </div>
+        <Modal
+        isOpen={MSIModalOpen}
+        onRequestClose={MSIModalOpen}
+        style={modalStyles}
+        contentLabel="MSI effecten selecteren"
+        >
+            <div>
+                <div className="page-header">
+                    <img src={MeetstandaardLogo} alt="" />
+                    <h1>Meetstandaard Social Impact</h1>
+                </div>
+                <div>
+                    {api
+                    
+                    ? 
+                    
+                        api.map((category, index) => (
+                            <SelectEffects category={category} index={index} setSelectedEffects={setSelectedEffects} />
+                        ))
+                
+                    :
+                        <img src={MeetstandaardIcon} alt="" />
+                    }
+                </div> 
+                <div id='modal-button-container'>
+                    <button id='modal-cancel-button'onClick={() => setModalOpen(false)}>Annuleren</button>
+                    <button id='modal-save-button'  onClick={saveSelectedEffects}>Opslaan</button>
+                </div>
+            </div>
+        </Modal>
         <Modal
         isOpen={openModal}
         onRequestClose={openModal}

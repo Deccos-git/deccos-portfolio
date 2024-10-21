@@ -26,7 +26,7 @@ const Newproject = () => {
 
     // Get the logo
     const logoHandler = (e) => {
-        saveFile(e, setLogo)
+        saveFile(e.target.files, setLogo)
     }
 
     // Get the project name

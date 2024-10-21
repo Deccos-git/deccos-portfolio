@@ -16,21 +16,17 @@ import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
 import PodcastsOutlinedIcon from '@mui/icons-material/PodcastsOutlined';
 import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 import { PortfolioMeta } from "../../state/PortfolioMeta";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  // Context
   const [auth] = useContext(Auth)
   const [settings] = useContext(Settings)
   const [portfolioMeta] = useContext(PortfolioMeta)
 
+  // Hooks
   const id = Location()[3]
-
-  const compagnyProject = () => {
-    if(settings[0]?.compagnyProject === 'project'){
-      return 'Projecten'
-    } else {
-      return 'Organisaties'
-    }
-  }
+  const navigate = useNavigate()
 
   return (
     <div id='sidebar-container'>
@@ -39,68 +35,40 @@ const Sidebar = () => {
           <img src={portfolioMeta[0]?.logo ? portfolioMeta[0].logo : ''} alt="" />
         </div>
 
-        <div className="left-sidebar-seperator"></div>
-
         <div className="sidebar-section">
-          <h2>Dashboard</h2>
-          <div className='sidebar-link-container'>
+          
+          <div className='sidebar-link-container' onClick={() => navigate(`/dashboard/home/${id}`)}>
             <DashboardRoundedIcon className='menu-icon'/>
-            <NavLink to={`/dashboard/home/${id}`} activeClassName="selected">Dashboard</NavLink>
+            <h2>Dashboard</h2>
           </div>
         </div>
 
-        <div className="left-sidebar-seperator"></div>
-
         <div className="sidebar-section">
-          <h2>Portfolio</h2>
-          <div className='sidebar-link-container'>
+          <div className='sidebar-link-container' onClick={() => navigate(`/dashboard/organisations/${id}`)}>
             <CorporateFareRoundedIcon className='menu-icon'/>
-            <NavLink to={`/dashboard/organisations/${id}`} activeClassName="selected">{compagnyProject()}</NavLink>
+            <h2>Portfolio</h2>
           </div>
         </div>
 
-        <div className="left-sidebar-seperator"></div>
-
         <div className="sidebar-section">
-          <h2>Impactstrategie</h2>
           <div className='sidebar-link-container'>
-            <OutlinedFlagIcon className='menu-icon'/>
+            <ChangeCircleOutlinedIcon className='menu-icon'/>
+            <h2>Impactstrategie</h2>
+          </div>
+          <div className='sidebar-link-container'>
             <NavLink to={`/dashboard/goal/${id}`} activeClassName="selected">Impactdoel</NavLink>
           </div>
           <div className='sidebar-link-container'>
-            <OutputOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
           </div>
           <div className='sidebar-link-container'>
-            <PodcastsOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
           </div>
           <div className='sidebar-link-container'>
-            <ChangeCircleOutlinedIcon className='menu-icon'/>
             <NavLink to={`/dashboard/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
           </div>
         </div>
 
-        
-
-        {/* <div className="left-sidebar-seperator"></div> */}
-
-        {/* <div className="sidebar-section">
-          <h2>Thema's</h2>
-          <div className='sidebar-link-container'>
-            <PhotoAlbumOutlinedIcon className='menu-icon'/>
-            <NavLink to={`/dashboard/themes/${id}`} activeClassName="selected">Thema's</NavLink>
-          </div>
-        </div> */}
-       
-        {/* <div className='sidebar-link-container'>
-          <GroupOutlinedIcon className='menu-icon'/>
-          <NavLink to={`/dashboard/targetgroups/${id}`} activeClassName="selected">Doelgroepen</NavLink>
-        </div> */}
-        {/* <div className='sidebar-link-container'>
-          <img src={mkbaIcon} alt="activity icon" />
-          <NavLink to={`/dashboard/mkbas/${id}`} activeClassName="selected">MKBA</NavLink>
-        </div> */}
       </div>
 
     </div>
