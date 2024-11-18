@@ -277,6 +277,8 @@ const Synchronisations = () => {
         {loading ? <img src={spinner} alt="" /> : null}
       </table>
     </div>
+
+    {/* Modal to sync outputs */}
     <Modal
       isOpen={openModal}
       onRequestClose={openModal}
@@ -315,6 +317,8 @@ const Synchronisations = () => {
         </div>
         </div>
     </Modal>
+
+    {/* Modal to sync effects */}
     <Modal
       isOpen={openEffectsModal}
       onRequestClose={openEffectsModal}

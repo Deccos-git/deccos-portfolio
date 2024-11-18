@@ -1,7 +1,5 @@
 const effectPortfolio = async (data, firestore) => {
 
-    console.log(data)
-
     let portfolioEffect = ''
 
     try {

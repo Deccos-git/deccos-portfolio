@@ -3,7 +3,7 @@ import Location from '../../helpers/Location'
 import Tooltip from "../../components/common/Tooltip";
 import PodcastsOutlinedIcon from '@mui/icons-material/PodcastsOutlined';
 import { doc, setDoc, updateDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import IndicatorCount from '../../components/effects/IndicatorCount';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { db } from "../../firebase/config"
 import { v4 as uuid } from 'uuid';
@@ -19,15 +19,6 @@ import Api from '../../components/meetstandaard/Api';
 const Effects = () => {
   // State
   const [openModal, setModalOpen] = useState(false)
-  const [title, setTitle] = useState('')
-  const [question, setQuestion] = useState('')
-  const [questionType, setQuestionType] = useState('')
-  const [reachStart, setReachStart] = useState('')
-  const [reachStartLabel, setReachStartLabel] = useState('')
-  const [reachEnd, setReachEnd] = useState('')
-  const [reachEndLabel, setReachEndLabel] = useState('')
-  const [multipleOption, setMultipleOption] = useState('')
-  const [multipleOptions, setMultipleOptions] = useState([])
   const [MSIModalOpen, setMSIModalOpen] = useState(false)
   const [selectedEffects, setSelectedEffects] = useState([])
 
@@ -50,6 +41,7 @@ const Effects = () => {
   
   // Firestore
   const effects  = useFirestoreGeneral('effects', 'compagny', client)
+    const indicators  = useFirestoreGeneral('indicators', 'compagny', client)
 
   // Functions
   const effectHandler = async (e) => {
@@ -64,28 +56,13 @@ const addEffect = async () => {
 
     await setDoc(doc(db, "effects", uuid()), {
         compagny: id,
-        title: title,
+        title: '',
         createdAt: serverTimestamp(),
         id: uuid(),
         position: effects.length + 1,
-        question: question,
-        questionType: questionType,
-        reachStart: reachStart,
-        reachStartLabel: reachStartLabel,
-        reachEnd: reachEnd,
-        reachEndLabel: reachEndLabel,
-        multipleOptions: multipleOptions
     });
 
     setModalOpen(false)
-    setTitle('')
-    setQuestion('')
-    setQuestionType('')
-    setReachStart('')
-    setReachStartLabel('')
-    setReachEnd('')
-    setReachEndLabel('')
-    setMultipleOption('')
 }
 
 const deleteEffect = async (e) => {
@@ -93,19 +70,6 @@ const deleteEffect = async (e) => {
 
     await deleteDoc(doc(db, "effects", docid))
 
-}
-
-const multipleHandler = async () => {
-
-    setMultipleOptions([...multipleOptions, multipleOption])
-    setMultipleOption('')
-}
-
-const deleteOptionHandler = async (e) => {
-    const option = e.target.dataset.option
-
-    const newOptions = multipleOptions.filter(item => item !== option)
-    setMultipleOptions(newOptions)
 }
 
 // Save selected effects from MSI
@@ -123,6 +87,20 @@ const saveSelectedEffects = async () => {
                 id: uuid(),
                 position: effects.length + 1,
                 questions: effect.questions
+            });
+
+            await setDoc(doc(db, "indicators", uuid()), {
+                compagny: id,
+                questionType: 'scale',
+                reachStart: 0,
+                reachStartLabel: 'Helemaal niet',
+                reachEnd: 100,
+                reachEndLabel: 'Helemaal wel',
+                createdAt: serverTimestamp(),
+                id: uuid(),
+                position: indicators.length + 1,
+                effect: effect.effect,
+                msiId: effect.id
             });
         }
     })
@@ -146,13 +124,13 @@ const saveSelectedEffects = async () => {
                   <img src={MeetstandaardIcon} className="add-icon" onClick={() => navigate(`/dashboard/selectmsieffects/${id}`)} />
               </Tooltip>
               <Tooltip content='Effect toevoegen' width='30px' left='30px' top='-5px'>
-                  <AddCircleOutlineOutlinedIcon className="add-icon" onClick={() => setModalOpen(true)} />
+                  <AddCircleOutlineOutlinedIcon className="add-icon" onClick={addEffect} />
               </Tooltip>
           </div>
           <table>
             <tr>
                 <th>EFFECT</th>
-                <th>DETAILS</th>
+                <th>INDICATOREN</th>
                 <th>VERWIJDEREN</th>
             </tr>
               {effects && effects.map(item => (
@@ -161,9 +139,10 @@ const saveSelectedEffects = async () => {
                       <input type="text" defaultValue={item.title} data-docid={item.docid} onChange={effectHandler} placeholder="Noteer hier je effect" />
                   </td>
                   <td>
-                      <Tooltip content='Details bekijken' width='80%' left='30px' top='-5px'>
-                          <SearchOutlinedIcon className="table-icon" onClick={() => navigate(`/dashboard/effectDetail/${id}/${item.id}`)}/>
+                      <Tooltip content='Indicatoren toevoegen' width='80%' left='30px' top='-5px'>
+                          <AddCircleOutlineOutlinedIcon className="add-icon" onClick={() => navigate(`/dashboard/addindicators/${id}/${item.id}`)} />
                       </Tooltip>
+                      <IndicatorCount id={item.id} />
                   </td>
                   <td>
                       <Tooltip content='Effect verwijderen' width='80%' left='30px' top='-5px'>
@@ -204,93 +183,6 @@ const saveSelectedEffects = async () => {
                 </div>
             </div>
         </Modal>
-        <Modal
-        isOpen={openModal}
-        onRequestClose={openModal}
-        style={modalStyles}
-        contentLabel="Create effect"
-        >
-          <div id='modal-container'>
-            <div id='modal-title-container'>
-              <PodcastsOutlinedIcon/>
-              <h1>Voeg nieuw effect toe</h1>
-            </div>
-            <div>
-              <div>
-                <h3>Titel</h3>
-                <input type="text" placeholder="Noteer hier je effect" onChange={(e) => setTitle(e.target.value)} />
-                <h3>Vraag</h3>
-                <input type="text" placeholder="Noteer hier je vraag" onChange={(e) => setQuestion(e.target.value)} />
-                <h3>Type vraag</h3>
-                <select name="" id="" onChange={(e) => setQuestionType(e.target.options[e.target.selectedIndex].value)}>
-                  <option value="">-- Selecteer een type vraag --</option>
-                  <option value="open">Open vraag</option>
-                  <option value="scale">Schaalvraag</option>
-                  <option value="multiple-one">Meerkeuze vraag (één optie)</option>
-                  <option value="multiple-multiple">Meerkeuze vraag (meerdere opties)</option>
-                </select>
-                {questionType === 'scale' && 
-                  <div>
-                    <h3>Schaalvraag details</h3>
-                    <div>
-                      <p>Selecteer onderwaarde</p>
-                      <select name="" id="" onChange={(e) => setReachStart(e.target.options[e.target.selectedIndex].value)}>
-                        <option value="">-- Selecteer een onderwaarde --</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                      </select>
-                      <input type="text" placeholder='Voeg label toe (optioneel)' onChange={(e) => setReachStartLabel(e.target.value)}/>
-                    </div>
-                    <div>
-                      <p>t/m</p>
-                    </div>
-                    <div>
-                      <p>Selecteer bovenwaarde</p>
-                      <select name="" id="" onChange={(e) => setReachEnd(e.target.options[e.target.selectedIndex].value)}>
-                        <option value="">-- Selecteer een bovenwaarde --</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                      </select>
-                      <input type="text" placeholder='Voeg label toe (optioneel)' onChange={(e) => setReachEndLabel(e.target.value)}/>
-                    </div>
-                    
-                  </div>
-                }
-                {(questionType === 'multiple-one' || questionType === 'multiple-multiple') &&
-                  <div>
-                    <h3>Meerkeuze vraag details</h3>
-                    <div>
-                      <p>Voeg optie toe</p>
-                      <p>Of voeg 'Overige' toe</p>
-                      <input type="text" placeholder="Noteer hier je optie" onChange={(e) => setMultipleOption(e.target.value)} />
-                      <button onClick={multipleHandler}>Voeg toe</button>
-                    </div>
-                    <div>
-                      <ul>
-                        {multipleOptions && multipleOptions.map(option => (
-                          <div key={option}>
-                            <li >{option}</li>
-                            <button data-option={option} onClick={deleteOptionHandler}>Verwijder</button>
-                          </div>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                }
-              </div>
-              <div id='modal-button-container'>
-                <button id='modal-cancel-button' onClick={() => setModalOpen(false)}>Annuleren</button>
-                <button onClick={addEffect}>Opslaan</button>
-              </div>
-            </div>
-          </div>
-      </Modal>
     </div>
   )
 }

@@ -19,6 +19,7 @@ import Synchronisations from "../pages/dashboard/Synchronisations";
 import OutputResultsDetail from "../pages/dashboard/OutputResultsDetail";
 import Notifications from "../pages/dashboard/Notifications";
 import SelectMSIEffects from "../pages/dashboard/SelectMSIEffects";
+import AddIndicators from "../pages/dashboard/AddIndicators";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -57,6 +58,7 @@ const Navigation = () => {
             <Route exact path={`/dashboard/outputresultsdetail/:id/:id`} element={<OutputResultsDetail/>}/>
             <Route exact path={`/dashboard/notifications/:id`} element={<Notifications/>}/>
             <Route exact path={`/dashboard/selectmsieffects/:id`} element={<SelectMSIEffects/>}/>
+            <Route exact path={`/dashboard/addindicators/:id/:id`} element={<AddIndicators/>}/>
           </Route>
 
           {/* Auth */}

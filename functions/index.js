@@ -8,6 +8,7 @@ const effectPortfolio = require('./synchronisations/effectPortfolio')
 const syncStatusUpdate = require('./synchronisations/syncStatusUpdate')
 const projectOutputUpdate = require('./synchronisations/projectOutputUpdate')
 const projectEffectUpdate = require('./synchronisations/projectEffectUpdate')
+const effectPortfolioIndicators = require('./synchronisations/effectPortfolioIndicators')
 const cors = require('cors')({
   origin: [
     'https://www.deccos.nl',
@@ -55,6 +56,15 @@ exports.portfolioEffect = functions.https.onCall( async (data, context) => {
   const effect = await effectPortfolio(data, firestore)
 
   return effect
+
+})
+
+// Portfolio effect indicators
+exports.portfolioEffectIndicators = functions.https.onCall( async (data, context) => {
+
+  const indicators = await effectPortfolioIndicators(data, firestore)
+
+  return indicators
 
 })
 
