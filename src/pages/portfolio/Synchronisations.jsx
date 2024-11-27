@@ -29,7 +29,7 @@ const Synchronisations = () => {
 
     // Hooks
     const portfolioId = Location()[3]
-    const compagnyId = Location()[4]
+    const companyId = Location()[4]
     Modal.setAppElement('#root');
     const modalStyles = {
         content: {
@@ -43,16 +43,16 @@ const Synchronisations = () => {
     };
 
     // Firestore
-    const synchronisations = useFirestoreGeneralTwoOrderBy('synchronisations', 'compagnyId', compagnyId, 'portfolioId', portfolioId, 'position', 'asc')
-    const outputs = useFirestoreGeneral('outputs', 'compagny', portfolioId)
-    const effects = useFirestoreGeneral('effects', 'compagny', portfolioId)
+    const synchronisations = useFirestoreGeneralTwoOrderBy('synchronisations', 'companyId', companyId, 'portfolioId', portfolioId, 'position', 'asc')
+    const outputs = useFirestoreGeneral('outputs', 'companyId', portfolioId)
+    const effects = useFirestoreGeneral('effects', 'companyId', portfolioId)
 
     // Add sync to portfolio database
   const addSyncToPortfolio = async (item, id) => {
 
       await setDoc(doc(db, "synchronisations", uuid()), {
         portfolioId: portfolioId,
-        compagnyId: compagnyId,
+        companyId: companyId,
         createdAt: serverTimestamp(),
         id: id,
         position: synchronisations.length + 1,
@@ -70,12 +70,10 @@ const Synchronisations = () => {
 
       setLoading(true)
 
-      console.log(syncType)
-
       const createSync = httpsCallable(functionsDeccos, 'createSync');
 
       const data = {
-        compagnyId: compagnyId,
+        companyId: companyId,
         portfolioId: portfolioId,
         syncItem: item,
         type: syncType,
@@ -100,7 +98,7 @@ const Synchronisations = () => {
         });
     }
 
-    // Functions
+    // OnClick function to add synchronisation to project and portfolio
     const addSynchronisation = () => {
 
         selectedOptions.map(async item => {
@@ -229,7 +227,7 @@ const Synchronisations = () => {
       <div className='page-header-title-container'>
         <SyncOutlinedIcon/>
         <h1>Synchronisaties</h1>
-        <p><ProjectMeta projectId={compagnyId}/></p>
+        <p><ProjectMeta projectId={companyId}/></p>
       </div>
     </div>
     <div className='table-container'>

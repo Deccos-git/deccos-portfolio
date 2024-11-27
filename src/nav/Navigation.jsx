@@ -73,7 +73,7 @@ const Navigation = () => {
           <Route path={`/portfolio`} element={<Layout/>} >
             <Route exact path={`/portfolio/organisations/:id`} element={<Organisations/>}/>
             <Route exact path={`/portfolio/organisation/:id/:id`} element={<Organisation/>}/>
-            <Route exact path={`/portfolio/synchronisations/:id`} element={<Synchronisations/>}/>
+            <Route exact path={`/portfolio/synchronisations/:id/:id`} element={<Synchronisations/>}/>
           </Route>
 
           {/* Auth */}

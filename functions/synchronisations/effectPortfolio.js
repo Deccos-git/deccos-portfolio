@@ -2,10 +2,12 @@ const effectPortfolio = async (data, firestore) => {
 
     let portfolioEffect = ''
 
+    console.log('effectPortfolio data:', data)
+
     try {
         // Create sync document
         await firestore.collection("effects")
-        .where('compagny', '==', data.data.portfolioID)
+        .where('companyId', '==', data.data.portfolioID)
         .where('id', '==', data.data.EffectID)
         .get()
         .then((querySnapshot) => {

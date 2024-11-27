@@ -6,7 +6,7 @@ const IndicatorCount = ({id}) => {
     const indicators  = useFirestoreGeneral('indicators', 'effectId', id)
 
   return (
-    <p>{indicators.length}</p>
+    <p id='effects-table-indicator-counter'>{indicators.length}</p>
   )
 }
 

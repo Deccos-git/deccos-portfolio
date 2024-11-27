@@ -7,7 +7,7 @@ const outputPortfolio = async (data, firestore) => {
     try {
         // Create sync document
         await firestore.collection("outputs")
-        .where('compagny', '==', data.data.portfolioID)
+        .where('companyId', '==', data.data.portfolioID)
         .where('id', '==', data.data.outputID)
         .get()
         .then((querySnapshot) => {

@@ -27,8 +27,8 @@ const Dashboard = () => {
   const compagnies = data[0]
 
   // Firestore
-  const effects  = useFirestoreGeneral('effects', 'compagny', client)
-  const outputs = useFirestoreGeneral('outputs', 'compagny', client)
+  const effects  = useFirestoreGeneral('effects', 'company', client ? client : '')
+  const outputs = useFirestoreGeneral('outputs', 'company', client ? client : '')
 
   // Set outputId as default
   useEffect(() => {

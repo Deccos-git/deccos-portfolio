@@ -4,3 +4,21 @@
     border-radius: 5px;
     padding: 20px;
 }
+
+#add-indicator-table-container{
+    display: flex;
+}
+
+#effects-table-indicator-counter{
+    margin-top: -1px;
+    padding: 2px;
+    background-color: #63cadc;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    color: white;
+    margin-left: -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

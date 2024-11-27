@@ -83,14 +83,17 @@ const toggleAddOptions = () => {
                       <input type="text" defaultValue={item.title} data-docid={item.docid} onChange={effectHandler} placeholder="Noteer hier je effect" />
                   </td>
                   <td>
-                      <Tooltip content='Indicatoren toevoegen' width='80%' left='30px' top='-5px'>
-                          <AddCircleOutlineOutlinedIcon className="add-icon" onClick={() => navigate(`/impactstrategy/addindicators/${id}/${item.id}`)} />
-                      </Tooltip>
-                      <IndicatorCount id={item.id} />
+                    <div id='add-indicator-table-container'>
+                        <Tooltip content='Indicatoren toevoegen' width='20px' left='30px' top='-5px'>
+                            <AddCircleOutlineOutlinedIcon className="table-icon" onClick={() => navigate(`/impactstrategy/addindicators/${id}/${item.id}`)} />
+                        </Tooltip>
+                        <IndicatorCount id={item.id} />
+                    </div>
+                      
                   </td>
                   <td>
                       <Tooltip content='Effect verwijderen' width='80%' left='30px' top='-5px'>
-                          <DeleteOutlineOutlinedIcon className="delete-icon" data-docid={item.docid} onClick={deleteEffect} />
+                          <DeleteOutlineOutlinedIcon className="table-icon" data-docid={item.docid} onClick={deleteEffect} />
                       </Tooltip>
                   </td>
                 </tr>
