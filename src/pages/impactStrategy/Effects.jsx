@@ -40,7 +40,7 @@ const Effects = () => {
   };
   
   // Firestore
-  const effects  = useFirestoreGeneral('effects', 'compagny', client)
+  const effects  = useFirestoreGeneral('effects', 'companyId', client)
     const indicators  = useFirestoreGeneral('indicators', 'compagny', client)
 
   // Functions
@@ -55,7 +55,7 @@ const Effects = () => {
 const addEffect = async () => {
 
     await setDoc(doc(db, "effects", uuid()), {
-        compagny: id,
+        company: id,
         title: '',
         createdAt: serverTimestamp(),
         id: uuid(),
@@ -90,7 +90,7 @@ const saveSelectedEffects = async () => {
             });
 
             await setDoc(doc(db, "indicators", uuid()), {
-                compagny: id,
+                compagnyId: id,
                 questionType: 'scale',
                 reachStart: 0,
                 reachStartLabel: 'Helemaal niet',

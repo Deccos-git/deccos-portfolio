@@ -18,7 +18,7 @@ const Outputs = () => {
   const id = Location()[3]
 
   // Firestore
-  const outputs = useFirestoreGeneral('outputs', 'compagny', id)
+  const outputs = useFirestoreGeneral('outputs', 'companyId', id)
 
   // Update output title
   const outputHandler = async (e) => {
@@ -33,7 +33,7 @@ const Outputs = () => {
   const addOutput = async () => {
 
       await setDoc(doc(db, "outputs", uuid()), {
-          compagny: id,
+          companyId: id,
           title: '',
           activityId: activityId,
           createdAt: serverTimestamp(),

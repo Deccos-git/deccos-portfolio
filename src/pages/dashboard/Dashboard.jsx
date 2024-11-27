@@ -4,14 +4,13 @@ import { useContext, useState, useEffect } from "react";
 import Location from '../../helpers/Location';
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import { Settings } from '../../state/Settings';
-import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
 import DashboardOutputResults from '../../components/dashboard/DashboardOutputResults';
 import DashboardOutputResultsDetail from '../../components/dashboard/DashboardOutputResultsDetail';
 import ZoomInOutlinedIcon from '@mui/icons-material/ZoomInOutlined';
 import ZoomOutOutlinedIcon from '@mui/icons-material/ZoomOutOutlined';
 import Tooltip from "../../components/common/Tooltip";
-import PodcastsOutlinedIcon from '@mui/icons-material/PodcastsOutlined';
-import ConstructionOutlinedIcon from '@mui/icons-material/ConstructionOutlined';
+import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { db } from "../../firebase/config"
 
 const Dashboard = () => {
   // Context

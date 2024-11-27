@@ -6,20 +6,25 @@ import LayoutProfile from '../components/layout/LayoutProfile'
 
 // Dashboard
 import Dashboard from "../pages/dashboard/Dashboard";
-import Organisations from "../pages/dashboard/Organisations";
-import Organisation from "../pages/dashboard/Organisation";
-import Search from "../pages/dashboard/Search";
-import Effects from "../pages/dashboard/Effects";
-import EffectDetail from "../pages/dashboard/EffectDetail";
-import TheoryOfChange from "../pages/dashboard/TheoryOfChange";
-import Goal from "../pages/dashboard/Goal";
-import Outputs from "../pages/dashboard/Outputs";
-import Activities from "../pages/dashboard/Activities";
-import Synchronisations from "../pages/dashboard/Synchronisations";
-import OutputResultsDetail from "../pages/dashboard/OutputResultsDetail";
-import Notifications from "../pages/dashboard/Notifications";
-import SelectMSIEffects from "../pages/dashboard/SelectMSIEffects";
-import AddIndicators from "../pages/dashboard/AddIndicators";
+import Notifications from "../pages/dashboard/Notifications"
+
+// Portfolio
+import Organisations from "../pages/portfolio/Organisations";
+import Organisation from "../pages/portfolio/Organisation";
+import Synchronisations from "../pages/portfolio/Synchronisations";
+
+// Impact strategy
+import SocietalProblem from "../pages/impactStrategy/SocietalProblem";
+import Targetgroups from "../pages/impactStrategy/Targetgroups";
+import Activities from "../pages/impactStrategy/Activities";
+import Effects from "../pages/impactStrategy/Effects";
+import EffectDetail from "../pages/impactStrategy/EffectDetail";
+import TheoryOfChange from "../pages/impactStrategy/TheoryOfChange";
+import Goal from "../pages/impactStrategy/Goal";
+import Outputs from "../pages/impactStrategy/Outputs";
+import SelectMSIEffects from "../pages/impactStrategy/SelectMSIEffects";
+import AddIndicators from "../pages/impactStrategy/AddIndicators";
+import OutputResultsDetail from "../pages/impactStrategy/OutputResultsDetail";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -44,21 +49,31 @@ const Navigation = () => {
         {/* Dashboard */}
           <Route path={`/dashboard`} element={<Layout/>} >
             <Route exact path={`/dashboard/home/:id`} element={<Dashboard/>}/>
-            <Route exact path={`/dashboard/organisations/:id`} element={<Organisations/>}/>
-            <Route exact path={`/dashboard/organisation/:id/:id`} element={<Organisation/>}/>
-            <Route exact path={`/dashboard/search/:id`} element={<Search/>}/>
             <Route exact path={`/dashboard/settings/:id/:id`} element={<Settings/>}/>
-            <Route exact path={`/dashboard/effects/:id`} element={<Effects/>}/>
-            <Route exact path={`/dashboard/effectdetail/:id/:id`} element={<EffectDetail/>}/>
-            <Route exact path={`/dashboard/theoryofchange/:id`} element={<TheoryOfChange/>}/>
-            <Route exact path={`/dashboard/goal/:id`} element={<Goal/>}/>
-            <Route exact path={`/dashboard/outputs/:id`} element={<Outputs/>}/>
-            <Route exact path={`/dashboard/activities/:id`} element={<Activities/>}/>
-            <Route exact path={`/dashboard/synchronisations/:id/:id`} element={<Synchronisations/>}/>
-            <Route exact path={`/dashboard/outputresultsdetail/:id/:id`} element={<OutputResultsDetail/>}/>
             <Route exact path={`/dashboard/notifications/:id`} element={<Notifications/>}/>
-            <Route exact path={`/dashboard/selectmsieffects/:id`} element={<SelectMSIEffects/>}/>
-            <Route exact path={`/dashboard/addindicators/:id/:id`} element={<AddIndicators/>}/>
+          </Route>
+
+          {/* Impact strategy */}
+          <Route path={`/impactstrategy`} element={<Layout/>} >
+            <Route exact path={`/impactstrategy/societalproblem/:id`} element={<SocietalProblem/>}/>
+            <Route exact path={`/impactstrategy/targetgroups/:id`} element={<Targetgroups/>}/>
+            <Route exact path={`/impactstrategy/activities/:id`} element={<Activities/>}/>
+            <Route exact path={`/impactstrategy/effects/:id`} element={<Effects/>}/>
+            <Route exact path={`/impactstrategy/effectdetail/:id/:id`} element={<EffectDetail/>}/>
+            <Route exact path={`/impactstrategy/theoryofchange/:id`} element={<TheoryOfChange/>}/>
+            <Route exact path={`/impactstrategy/goal/:id`} element={<Goal/>}/>
+            <Route exact path={`/impactstrategy/outputs/:id`} element={<Outputs/>}/>
+            <Route exact path={`/impactstrategy/activities/:id`} element={<Activities/>}/>
+            <Route exact path={`/impactstrategy/selectmsieffects/:id`} element={<SelectMSIEffects/>}/>
+            <Route exact path={`/impactstrategy/addindicators/:id/:id`} element={<AddIndicators/>}/>
+            <Route exact path={`/impactstrategy/outputresultsdetail/:id/:id`} element={<OutputResultsDetail/>}/>
+          </Route>
+
+          {/* Portfolio */}
+          <Route path={`/portfolio`} element={<Layout/>} >
+            <Route exact path={`/portfolio/organisations/:id`} element={<Organisations/>}/>
+            <Route exact path={`/portfolio/organisation/:id/:id`} element={<Organisation/>}/>
+            <Route exact path={`/portfolio/synchronisations/:id`} element={<Synchronisations/>}/>
           </Route>
 
           {/* Auth */}

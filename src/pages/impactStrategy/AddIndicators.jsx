@@ -32,7 +32,7 @@ const AddIndicators = () => {
     const client = Location()[3]
 
     // Firestore
-    const indicators  = useFirestoreGeneral('indicators', 'compagny', client)
+    const indicators  = useFirestoreGeneral('indicators', 'companyId', client)
 
     // Handle multiple options
     const multipleHandler = async () => {
@@ -70,7 +70,7 @@ const AddIndicators = () => {
     // Save indicator
     const saveIndicator = async () => {
         await setDoc(doc(db, "indicators", uuid()), {
-            compagny: client,
+            companyId: client,
             question: question,
             questionType: questionType,
             type: questionType,

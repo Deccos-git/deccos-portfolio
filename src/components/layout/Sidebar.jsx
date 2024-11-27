@@ -44,7 +44,7 @@ const Sidebar = () => {
         </div>
 
         <div className="sidebar-section">
-          <div className='sidebar-link-container' onClick={() => navigate(`/dashboard/organisations/${id}`)}>
+          <div className='sidebar-link-container' onClick={() => navigate(`/portfolio/organisations/${id}`)}>
             <CorporateFareRoundedIcon className='menu-icon'/>
             <h2>Portfolio</h2>
           </div>
@@ -56,16 +56,25 @@ const Sidebar = () => {
             <h2>Impactstrategie</h2>
           </div>
           <div className='sidebar-link-container'>
-            <NavLink to={`/dashboard/goal/${id}`} activeClassName="selected">Impactdoel</NavLink>
+            <NavLink to={`/impactstrategy/societalproblem/${id}`} activeClassName="selected">Maatschappelijk probleem</NavLink>
           </div>
           <div className='sidebar-link-container'>
-            <NavLink to={`/dashboard/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
+            <NavLink to={`/impactstrategy/targetgroups/${id}`} activeClassName="selected">Doelgroepen</NavLink>
           </div>
           <div className='sidebar-link-container'>
-            <NavLink to={`/dashboard/effects/${id}`} activeClassName="selected">Effecten</NavLink>
+            <NavLink to={`/impactstrategy/goal/${id}`} activeClassName="selected">Impactdoel</NavLink>
           </div>
           <div className='sidebar-link-container'>
-            <NavLink to={`/dashboard/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
+            <NavLink to={`/impactstrategy/activities/${id}`} activeClassName="selected">Activiteiten</NavLink>
+          </div>
+          <div className='sidebar-link-container'>
+            <NavLink to={`/impactstrategy/outputs/${id}`} activeClassName="selected">Outputs</NavLink>
+          </div>
+          <div className='sidebar-link-container'>
+            <NavLink to={`/impactstrategy/effects/${id}`} activeClassName="selected">Effecten</NavLink>
+          </div>
+          <div className='sidebar-link-container'>
+            <NavLink to={`/impactstrategy/theoryofchange/${id}`} activeClassName="selected">Theory of Change</NavLink>
           </div>
         </div>
 

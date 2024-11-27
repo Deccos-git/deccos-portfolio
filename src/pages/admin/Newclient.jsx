@@ -35,9 +35,27 @@ const NewClient = () => {
             id: id,
             timestamp: serverTimestamp(),
         })
-        
+
+        await setDoc(doc(db, "settings", uuid()), {
+            companyId: id,
+            id: uuid(),
+            compagnyProject: 'project'
+        })
+
+        await setDoc(doc(db, "goals", uuid()), {
+            companyId: id,
+            id: uuid(),
+            title: ''
+        })
+
+        await setDoc(doc(db, "societalProblem", uuid()), {
+            companyId: id,
+            id: uuid(),
+            title: ''
+        })
+
         await setDoc(doc(db, "admins", uuid()), {
-            compagnyID: id,
+            companyID: id,
             id: uuid(),
             email: 'info@deccos.nl',
             photo: 'https://firebasestorage.googleapis.com/v0/b/deccos-app.appspot.com/o/ProfilePhotos%2Ffoto-gijs350.jpg?alt=media&token=0e8e886f-2384-4f4c-b5de-a14fa7376135',
@@ -45,23 +63,11 @@ const NewClient = () => {
             name: 'Gijs van Beusekom'
         })
 
-        await setDoc(doc(db, "settings", uuid()), {
-            compagnyId: id,
-            id: uuid(),
-            compagnyProject: 'project'
-        })
-
-        await setDoc(doc(db, "goals", uuid()), {
-            compagnyID: id,
-            id: uuid(),
-            title: ''
-        })
-
         await updateDoc(doc(dbDeccos, "Users", 'RdnXtfMWx2TwvjggSb34JWVgpkG3'),{     
             Finpact: arrayUnion(id)
         })
                    
-        navigate(`/dashboard/wall/${id}`)
+        navigate(`/dashboard/home/${id}`)
                    
     }
 

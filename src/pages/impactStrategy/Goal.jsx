@@ -7,7 +7,7 @@ import { doc, updateDoc} from "firebase/firestore";
 const Goal = () => {
     const client = Location()[3]
   
-    const goals  = useFirestoreGeneral('goals', 'compagny', client)
+    const goals  = useFirestoreGeneral('goals', 'companyId', client)
 
     const goalHandler = async (e) => {
         const docid = e.target.dataset.docid

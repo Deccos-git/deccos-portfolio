@@ -43,20 +43,20 @@ const Organisations = () => {
             </tr>
             {data && data[0]?.map(item => (
                 <tr key={item.ID} >
-                  <td onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`)}>
+                  <td onClick={() => navigate(`/portfolio/organisation/${id}/${item.CompagnyID}`)}>
                       <p>{item.CommunityName}</p>  
                   </td>
                   <td>
-                    <div id='compagnies-them-table-cell-container' onClick={() => navigate(`/dashboard/synchronisations/${id}/${item.CompagnyID}`)}>
+                    <div id='compagnies-them-table-cell-container' onClick={() => navigate(`/portfolio/synchronisations/${id}/${item.CompagnyID}`)}>
                       <SynchronisationCount compagnyId={item.CompagnyID} />
                       <Tooltip content='Synchronisatie toevoegen' top='-60px'>
-                        <img src={plusIcon} alt="" onClick={() => navigate(`/dashboard/synchronisations/${id}/${item.CompagnyID}`)}/>
+                        <img src={plusIcon} alt=""/>
                       </Tooltip>
                     </div>
                   </td>
                   <td>
                     <Tooltip content='Details bekijken' top='-60px'>
-                      <SearchOutlinedIcon className="table-icon" onClick={() => navigate(`/dashboard/organisation/${id}/${item.CompagnyID}`)}/>
+                      <SearchOutlinedIcon className="table-icon" onClick={() => navigate(`/portfolio/organisation/${id}/${item.CompagnyID}`)}/>
                     </Tooltip>
                   </td>
               </tr>

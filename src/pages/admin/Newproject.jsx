@@ -90,7 +90,7 @@ const Newproject = () => {
           saveUserAsTeamMember(id)
         })
         .then(() => {
-          navigate(`/dashboard/organisation/${client}/${id}`)
+          navigate(`/portfolio/organisation/${client}/${id}`)
         })
         .catch((error) => {
           // Handle errors
