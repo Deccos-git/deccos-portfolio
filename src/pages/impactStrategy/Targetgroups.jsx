@@ -1,11 +1,11 @@
 import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import Location from '../../helpers/Location'
 import Tooltip from "../../components/common/Tooltip";
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { doc, setDoc, updateDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
 import { db } from "../../firebase/config"
 import { v4 as uuid } from 'uuid';
+import AddItemRow from '../../components/common/AddItemRow';
 
 const Targetgroups = () => {
 
@@ -28,7 +28,7 @@ const Targetgroups = () => {
       const addTargetgroup = async () => {
   
         await setDoc(doc(db, "targetgroups", uuid()), {
-          compagyId: client,
+          companyId: client,
           title: '',
           createdAt: serverTimestamp(),
           id: uuid(),
@@ -49,11 +49,6 @@ const Targetgroups = () => {
           <h1>Doelgroepen</h1>
           </div>
            <div className='table-container'>
-            <div className="add-icon-container">
-                <Tooltip content='Output toevoegen' width='80%' left='30px' top='-5px'>
-                    <AddCircleOutlineOutlinedIcon className="add-icon" onClick={addTargetgroup} />
-                </Tooltip>
-            </div>
             <table>
               <tr>
                   <th>DOELGROEP</th>
@@ -62,7 +57,7 @@ const Targetgroups = () => {
                 {targetgroups && targetgroups.map(item => (
                   <tr key={item.ID} >
                     <td>
-                      <input type="text" placeholder='Schrijf hier de activiteit' defaultValue={item.title} data-docid={item.docid} onChange={titleHandler}/>
+                      <input type="text" placeholder='Schrijf hier de doelgroep' defaultValue={item.title} data-docid={item.docid} onChange={titleHandler}/>
                     </td>
                     <td>
                       <Tooltip content='Doelgroep verwijderen' top='-60px'>
@@ -72,6 +67,7 @@ const Targetgroups = () => {
                   </tr>
                 ))}
             </table>
+            <AddItemRow content='Doelgroep toevoegen' onClick={addTargetgroup} />
           </div>
       </div>
   )

@@ -6,6 +6,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { doc, setDoc, updateDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
 import { db } from "../../firebase/config"
 import { v4 as uuid } from 'uuid';
+import AddItemRow from '../../components/common/AddItemRow';
 
 const Activities = () => {
 
@@ -50,11 +51,6 @@ const Activities = () => {
           <h1>Activiteiten</h1>
           </div>
            <div className='table-container'>
-            <div className="add-icon-container">
-                <Tooltip content='Output toevoegen' width='80%' left='30px' top='-5px'>
-                    <AddCircleOutlineOutlinedIcon className="add-icon" onClick={addActivity} />
-                </Tooltip>
-            </div>
             <table>
               <tr>
                   <th>ACTIVITEIT</th>
@@ -73,6 +69,7 @@ const Activities = () => {
                   </tr>
                 ))}
             </table>
+            <AddItemRow content='Activiteit toevoegen' onClick={addActivity} />
           </div>
       </div>
     )

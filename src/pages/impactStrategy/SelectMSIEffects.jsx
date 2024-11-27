@@ -9,6 +9,7 @@ import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from '../../firebase/config';
 import { v4 as uuid } from 'uuid';
+import spinner from "../../assets/spinner-ripple.svg";
 
 const SelectMSIEffects = () => {
     // State
@@ -20,7 +21,8 @@ const SelectMSIEffects = () => {
     const id = Location()[3]
 
     // Firestore
-    const effects = useFirestoreGeneral('effects', 'compagny', id)
+    const effects = useFirestoreGeneral('effects', 'companyId', id ? id : '')
+    const indicators = useFirestoreGeneral('indicators', 'companyId', id ? id : '')
 
     // Save selected effects from MSI
     const saveSelectedEffects = async () => {
@@ -30,18 +32,41 @@ const SelectMSIEffects = () => {
             const existingEffect = selectedEffects.find(item => item.title === effect.effect)
             if (!existingEffect) {
                 // If the effect does not exist, add it to the database
+                const effectId = uuid()
+
                 await setDoc(doc(db, "effects", uuid()), {
-                    compagny: id,
+                    companyId: id,
                     title: effect.effect,
                     createdAt: serverTimestamp(),
-                    id: uuid(),
+                    id: effectId,
                     position: effects.length + 1,
-                    questions: effect.questions
+                    questions: effect.questions,
+                    type: 'msi'
+                });
+
+                // Add the indicators
+                effect.questions.map(async (question) => {
+                    await setDoc(doc(db, "indicators", uuid()), {
+                        companyId: id,
+                        question: question.name,
+                        MSIId: question.id,
+                        questionType: 'scale',
+                        type: 'scale',
+                        reachStart: 1,
+                        reachStartLabel: '',
+                        reachEnd: 5,
+                        reachEndLabel: '',
+                        multipleOptions: [],
+                        createdAt: serverTimestamp(),
+                        id: uuid(),
+                        position: indicators.length + 1,
+                        effectId: effectId
+                    });
                 });
             }
         })
 
-        navigate(`/dashboard/effects/${id}`)
+        navigate(`/impactstrategy/effects/${id}`)
     }
 
   return (
@@ -61,7 +86,7 @@ const SelectMSIEffects = () => {
                 ))
         
             :
-                <img src={MeetstandaardIcon} alt="" />
+                <img src={spinner} alt="" />
             }
         </div>
         <div>

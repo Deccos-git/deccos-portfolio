@@ -1,20 +1,12 @@
-import { useFirestoreGeneral } from '../../firebase/useFirestore'
+import { useFirestoreGeneralTwo } from '../../firebase/useFirestore'
 import Location from '../../helpers/Location'
 import Tooltip from "../../components/common/Tooltip";
-import PodcastsOutlinedIcon from '@mui/icons-material/PodcastsOutlined';
 import { doc, setDoc, updateDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { db } from "../../firebase/config"
 import { v4 as uuid } from 'uuid';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import Modal from 'react-modal';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import MeetstandaardIcon from '../../assets/meetstandaard-icon.png';
-import MeetstandaardLogo from '../../assets/logo-meetstandaard-alt.png';
-import SelectEffects from '../../components/meetstandaard/SelectEffects';
-import Api from '../../components/meetstandaard/Api';
+import AddItemRow from '../../components/common/AddItemRow';
 
 const AddIndicators = () => {
     // State
@@ -27,12 +19,14 @@ const AddIndicators = () => {
     const [reachEndLabel, setReachEndLabel] = useState('')
     const [multipleOption, setMultipleOption] = useState('')
     const [multipleOptions, setMultipleOptions] = useState([])
+    const [showAddNewItemOptions, setShowAddNewItemOptions] = useState(false)
 
     // Hooks
     const client = Location()[3]
+    const effectId = Location()[4]
 
     // Firestore
-    const indicators  = useFirestoreGeneral('indicators', 'companyId', client)
+    const indicators  = useFirestoreGeneralTwo('indicators', 'companyId', client ? client : '', 'effectId', effectId ? effectId : '')
 
     // Handle multiple options
     const multipleHandler = async () => {
@@ -82,6 +76,7 @@ const AddIndicators = () => {
             createdAt: serverTimestamp(),
             id: uuid(),
             position: indicators.length + 1,
+            effectId: effectId
         });
 
         setTitle('')
@@ -92,6 +87,12 @@ const AddIndicators = () => {
         setReachEnd('')
         setReachEndLabel('')
         setMultipleOptions([])
+        setShowAddNewItemOptions(false)
+    }
+
+    // Add new item options container
+    const addNewItemOptions = () => {
+        setShowAddNewItemOptions(!showAddNewItemOptions)
     }
 
 
@@ -125,8 +126,9 @@ const AddIndicators = () => {
                     </tr>
                 ))}
             </table>
+            <AddItemRow content='Indicator toevoegen' onClick={addNewItemOptions} />
         </div>
-         <div className='table-container section-container'>
+         <div className='add-new-indicator-container' style={{display: showAddNewItemOptions ? 'block' : 'none'}}>
             <h3>Vraag</h3>
             <input type="text" placeholder="Noteer hier je vraag" onChange={(e) => setQuestion(e.target.value)} />
             <h3>Type vraag</h3>

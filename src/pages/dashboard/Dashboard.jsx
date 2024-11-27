@@ -9,8 +9,6 @@ import DashboardOutputResultsDetail from '../../components/dashboard/DashboardOu
 import ZoomInOutlinedIcon from '@mui/icons-material/ZoomInOutlined';
 import ZoomOutOutlinedIcon from '@mui/icons-material/ZoomOutOutlined';
 import Tooltip from "../../components/common/Tooltip";
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
-import { db } from "../../firebase/config"
 
 const Dashboard = () => {
   // Context

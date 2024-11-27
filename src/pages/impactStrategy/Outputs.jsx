@@ -3,11 +3,12 @@ import Location from '../../helpers/Location'
 import Tooltip from "../../components/common/Tooltip";
 import { db } from "../../firebase/config"
 import { doc, setDoc, updateDoc, serverTimestamp, deleteDoc } from "firebase/firestore"; 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { v4 as uuid } from 'uuid';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import OutputOutlinedIcon from '@mui/icons-material/OutputOutlined';
+import AddItemRow from '../../components/common/AddItemRow';
 
 const Outputs = () => {
 
@@ -58,11 +59,6 @@ const Outputs = () => {
           </div>
         </div>
           <div className='table-container section-container'>
-            <div className="add-icon-container">
-                <Tooltip content='Output toevoegen' width='80%' left='30px' top='-5px'>
-                    <AddCircleOutlineOutlinedIcon className="add-icon" onClick={addOutput} />
-                </Tooltip>
-            </div>
           <table>
             <tr>
                 <th>OUTPUT</th>
@@ -81,6 +77,7 @@ const Outputs = () => {
                 </tr>
               ))}
           </table>
+          <AddItemRow content='Output toevoegen' onClick={addOutput} />
         </div>
     </div>
   )
