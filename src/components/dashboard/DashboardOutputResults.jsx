@@ -3,7 +3,7 @@ import OutputsGraph from '../outputs/OutputsGraph'
 import { functionsDeccos } from "../../firebase/configDeccos";
 import { httpsCallable } from "firebase/functions";
 import Location from "../../helpers/Location";
-import { useFirestoreGeneralThree } from "../../firebase/useFirestore";
+import { useFirestoreGeneralFour } from "../../firebase/useFirestore";
 
 const DashboardOutputResults = ({outputId}) => {
     // State
@@ -13,7 +13,12 @@ const DashboardOutputResults = ({outputId}) => {
      const portfolioId = Location()[3]
 
     // Firestore
-    const syncs = useFirestoreGeneralThree('synchronisations', 'portfolioId', portfolioId ? portfolioId : 'none', 'syncItem', outputId ? outputId : 'none', 'status', 'accepted')
+    const syncs = useFirestoreGeneralFour(
+      'synchronisations', 'portfolioId', 
+      portfolioId ? portfolioId : 'none', 
+      'syncItem', outputId ? outputId : 'none', 
+      'status', 'accepted',
+      'type', 'output')
 
     // Get the project results for the syncs
     useEffect(() => {

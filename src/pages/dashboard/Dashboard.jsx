@@ -6,6 +6,7 @@ import { useFirestoreGeneral } from '../../firebase/useFirestore'
 import { Settings } from '../../state/Settings';
 import DashboardOutputResults from '../../components/dashboard/DashboardOutputResults';
 import DashboardOutputResultsDetail from '../../components/dashboard/DashboardOutputResultsDetail';
+import DashboardEffectResults from '../../components/dashboard/DashboardEffectResults';
 import ZoomInOutlinedIcon from '@mui/icons-material/ZoomInOutlined';
 import ZoomOutOutlinedIcon from '@mui/icons-material/ZoomOutOutlined';
 import Tooltip from "../../components/common/Tooltip";
@@ -27,15 +28,18 @@ const Dashboard = () => {
   const compagnies = data[0]
 
   // Firestore
-  const effects  = useFirestoreGeneral('effects', 'company', client ? client : '')
-  const outputs = useFirestoreGeneral('outputs', 'company', client ? client : '')
+  const effects  = useFirestoreGeneral('effects', 'companyId', client ? client : '')
+  const outputs = useFirestoreGeneral('outputs', 'companyId', client ? client : '')
 
-  // Set outputId as default
+  // Set outputId and effectId as default
   useEffect(() => {
     if(outputs.length > 0){
       setOutputId(outputs[0].id)
     }
-  }, [outputs])
+    if(effects.length > 0){
+      setEffectId(effects[0].id)
+    }
+  }, [outputs, effects])
 
   // Change compagny/project based on settings
   const compagnyProject = () => {
@@ -161,8 +165,6 @@ const Dashboard = () => {
           <div className='dashboard-section-title-container'>
             <h2>Effecten</h2>
           </div>
-          {/* <ConstructionOutlinedIcon /> */}
-          {/* <p><b>Under construction</b></p> */}
           <div className='select-activity-container'>
               <div className="select-activity-inner-container">
                 {effects && effects.map(item => (
@@ -178,7 +180,7 @@ const Dashboard = () => {
               </div>
           </div>
           <div>
-            {/* <DashboardPairedKpis kpiId={kpiId} /> */}
+            <DashboardEffectResults effectId={effectId} />
           </div>
         </section>
 

@@ -1,8 +1,8 @@
-import { useFirestoreId } from '../../firebase/useFirestore'
+import { useFirestoreGeneral } from '../../firebase/useFirestore'
 
 const EffectMeta = ({effect}) => {
 
-    const effects = useFirestoreId('effects', effect)
+    const effects = useFirestoreGeneral('effects', 'id', effect)
 
   return (
     <>

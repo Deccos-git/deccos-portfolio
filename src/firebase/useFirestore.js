@@ -84,6 +84,33 @@ const useFirestoreGeneralThree = (coll, field, id, fieldTwo, idTwo, fieldThree, 
 
 }
 
+const useFirestoreGeneralFour = (coll, field, id, fieldTwo, idTwo, fieldThree, idThree, fieldFour, idFour) => {
+    const [docs, setDocs] = useState([])
+
+    const col = collection(db, coll);
+    const q = query(col, where(field, '==', id), where(fieldTwo, '==', idTwo), where(fieldThree, '==', idThree), where(fieldFour, '==', idFour))
+
+    useEffect(() => {
+
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+
+            const docArray = [];
+
+            querySnapshot.forEach((doc) => {
+                docArray.push({...doc.data(), docid: doc.id});
+            });  
+
+            setDocs(docArray)
+    
+        })
+        return () => unsubscribe()
+
+    },[coll, field, id, fieldTwo, idTwo, fieldThree, idThree, fieldFour, idFour])
+
+    return docs
+
+}
+
 const useFirestoreGeneralTwoOrderBy = (coll, field, id, fieldTwo, idTwo, fieldThree, order) => {
     const [docs, setDocs] = useState([])
 
@@ -230,6 +257,7 @@ export {
     useFirestoreGeneral,
     useFirestoreGeneralTwo,
     useFirestoreGeneralThree,
+    useFirestoreGeneralFour,
     useFirestoreGeneralTwoOrderBy,
     useFirestoreArrayContains,
     useFirestoreId,
