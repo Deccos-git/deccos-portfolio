@@ -47,6 +47,8 @@ const Synchronisations = () => {
     const outputs = useFirestoreGeneral('outputs', 'companyId', portfolioId)
     const effects = useFirestoreGeneral('effects', 'companyId', portfolioId)
 
+    console.log(synchronisations)
+
     // Add sync to portfolio database
   const addSyncToPortfolio = async (item, id) => {
 

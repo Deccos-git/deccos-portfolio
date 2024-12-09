@@ -8,6 +8,7 @@ import { useFirestoreGeneralFour } from "../../firebase/useFirestore";
 const DashboardEffectResults = ({effectId}) => {
 // State
 const [data, setData] = useState([])
+const [loading, setLoading] = useState(true)
 
 // Hooks
 const portfolioId = Location()[3]
@@ -23,14 +24,21 @@ const syncs = useFirestoreGeneralFour(
  // Get the project results for the syncs
  useEffect(() => {
     if (syncs) {
+
+      setLoading(true)
+
+      console.log(syncs)
+
       const promises = syncs.map(sync => {
         return (async () => {
           const sendEffectData = httpsCallable(functionsDeccos, 'sendEffectData');
           const dataToSend = {
-            effectId: sync.projectEffect
+            effectId: sync.projectEffect,
           };
           try {
             const result = await sendEffectData({ data: dataToSend });
+
+            setLoading(false)
 
             return result.data; // Return the data to be collected
           } catch (error) {
@@ -49,7 +57,9 @@ const syncs = useFirestoreGeneralFour(
   }, [syncs]);
 
   return (
-    <div>DashboardEffectResults</div>
+    <div>
+      {loading && <div>Loading...</div>}
+    </div>
   )
 }
 

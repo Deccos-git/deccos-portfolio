@@ -39,7 +39,10 @@ const NewClient = () => {
         await setDoc(doc(db, "settings", uuid()), {
             companyId: id,
             id: uuid(),
-            compagnyProject: 'project'
+            compagnyProject: 'project',
+            primaryColor: '#f48183',
+            secondaryColor: '#216d7f',
+            tertiaryColor: '#47acc3',
         })
 
         await setDoc(doc(db, "goals", uuid()), {

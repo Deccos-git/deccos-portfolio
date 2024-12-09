@@ -34,8 +34,6 @@ const Projects = () => {
       });
   };
 
-  console.log(tableData);
-
   // Helper function to structure the table items
   const tableItems = (data) => {
     return (
