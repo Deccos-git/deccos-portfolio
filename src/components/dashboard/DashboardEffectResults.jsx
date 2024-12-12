@@ -49,8 +49,7 @@ const syncs = useFirestoreGeneralFour(
       });
   
       Promise.all(promises).then(results => {
-       
-        console.log(results)
+        setData(results)
 
       });
     }
@@ -59,6 +58,16 @@ const syncs = useFirestoreGeneralFour(
   return (
     <div>
       {loading && <div>Loading...</div>}
+      <div>
+        {data && data.map((effect, index) => (
+          <div key={index}>
+            {console.log(effect)}
+            {/* <h3>{effect.projectName}</h3>
+            <h4>{effect.title}</h4>
+            <OutputsGraph indicators={effect.indicators} /> */}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

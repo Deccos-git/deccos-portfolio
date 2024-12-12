@@ -10,6 +10,7 @@ import DashboardEffectResults from '../../components/dashboard/DashboardEffectRe
 import ZoomInOutlinedIcon from '@mui/icons-material/ZoomInOutlined';
 import ZoomOutOutlinedIcon from '@mui/icons-material/ZoomOutOutlined';
 import Tooltip from "../../components/common/Tooltip";
+import DashboardEffectIndicators from '../../components/dashboard/DashboardEffectIndicators';
 
 const Dashboard = () => {
   // Context
@@ -180,7 +181,7 @@ const Dashboard = () => {
               </div>
           </div>
           <div>
-            <DashboardEffectResults effectId={effectId} />
+            <DashboardEffectIndicators effectId={effectId} />
           </div>
         </section>
 

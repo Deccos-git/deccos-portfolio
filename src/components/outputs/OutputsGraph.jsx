@@ -22,7 +22,6 @@ const OutputsGraph = ({data, uniqueIds}) => {
               bottom: 0
             }}
               >
-            <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="Maand" />
             <YAxis />
             <Tooltip />

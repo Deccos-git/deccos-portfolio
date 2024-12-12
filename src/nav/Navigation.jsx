@@ -25,6 +25,7 @@ import Outputs from "../pages/impactStrategy/Outputs";
 import SelectMSIEffects from "../pages/impactStrategy/SelectMSIEffects";
 import AddIndicators from "../pages/impactStrategy/AddIndicators";
 import OutputResultsDetail from "../pages/impactStrategy/OutputResultsDetail";
+import IndicatorDetails from "../pages/impactStrategy/IndicatorDetails";
 
 // Auth
 import Profile from "../pages/auth/Profile";
@@ -67,6 +68,7 @@ const Navigation = () => {
             <Route exact path={`/impactstrategy/selectmsieffects/:id`} element={<SelectMSIEffects/>}/>
             <Route exact path={`/impactstrategy/addindicators/:id/:id`} element={<AddIndicators/>}/>
             <Route exact path={`/impactstrategy/outputresultsdetail/:id/:id`} element={<OutputResultsDetail/>}/>
+            <Route exact path={`/impactstrategy/indicatordetails/:id/:id/:id`} element={<IndicatorDetails/>}/>
           </Route>
 
           {/* Portfolio */}
